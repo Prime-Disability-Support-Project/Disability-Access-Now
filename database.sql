@@ -4,12 +4,11 @@
 -- Otherwise you will have errors!
 CREATE TABLE "user" (
     "id" SERIAL PRIMARY KEY,
-    "username" VARCHAR (80) UNIQUE NOT NULL,
+    "name" VARCHAR (80) UNIQUE NOT NULL,
     "password" VARCHAR (1000) NOT NULL,
     "email" VARCHAR(1000) NOT NULL,
     "role" INTEGER DEFAULT 1,
     "approved" BOOLEAN DEFAULT FALSE
-
 );
 
 
