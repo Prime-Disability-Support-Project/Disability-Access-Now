@@ -5,5 +5,48 @@
 CREATE TABLE "user" (
     "id" SERIAL PRIMARY KEY,
     "username" VARCHAR (80) UNIQUE NOT NULL,
-    "password" VARCHAR (1000) NOT NULL
+    "password" VARCHAR (1000) NOT NULL,
+    "email" VARCHAR(1000) NOT NULL,
+    "role" INTEGER DEFAULT 1,
+    "approved" BOOLEAN DEFAULT FALSE
+
+);
+
+
+CREATE TABLE "questions" (
+    "id" SERIAL PRIMARY KEY,                -- Unique identifier, auto-incremented
+    "question" VARCHAR(1000),                     
+    "answer" VARCHAR(1000),                         
+    "answered" BOOLEAN DEFAULT FALSE,       -- Whether the question has been answered (defaults to false)
+    "unread" BOOLEAN DEFAULT TRUE,          -- Whether the question has been read (defaults to true)
+    "associated_article_url" VARCHAR(255),  -- Optional field for a URL to an associated article
+    "question_date" DATE,                   -- The date when the question was posted
+    "flagged" BOOLEAN DEFAULT FALSE,        -- Whether the question has been flagged (defaults to false)
+    "user_id" INTEGER REFERENCES "user"(id)  -- Foreign key to the 'user' table
+);
+
+CREATE TABLE "saved" (
+    "id" SERIAL PRIMARY KEY,               -- auto-incrementing primary key
+    "article_title" VARCHAR(500) NOT NULL,  -- title of the article, max length 500
+    "article_url" VARCHAR(1000) NOT NULL,            -- URL of the article 
+    "user_id" INTEGER REFERENCES "user" (id) -- foreign key referencing the user table
+);
+
+CREATE TABLE "articles" (
+    "id" SERIAL PRIMARY KEY,               -- auto-incrementing primary key
+    "title" VARCHAR(255) NOT NULL,          -- title of the article, max length 255
+    "subtitle" VARCHAR(255),                -- subtitle of the article, max length 255
+    "body" TEXT,                            -- body/content of the article (TEXT for flexibility)
+    "article_url" VARCHAR(1000) NOT NULL             -- URL of the article
+);
+
+CREATE TABLE "files" (
+    "id" SERIAL PRIMARY KEY,               -- auto-incrementing primary key
+    "filename" VARCHAR(255) NOT NULL        -- filename of the file, max length 255
+);
+
+CREATE TABLE "articles_files" (
+    "id" SERIAL PRIMARY KEY,               -- auto-incrementing primary key
+    "article_id" INTEGER REFERENCES "articles"("id"),  -- foreign key referencing articles.id
+    "file_id" INTEGER REFERENCES "files"("id")         -- foreign key referencing files.id
 );
