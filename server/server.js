@@ -9,7 +9,6 @@ const passport = require('./strategies/user.strategy');
 
 // Route Includes
 const userRouter = require('./routes/user.router');
-const answersRouter = require('./routes/answers.router');  // importing ans routes 
 const questionsRouter = require('./routes/questions.router'); // importing questions routes 
 const articlesRouter = require('./routes/articles.router');  // importing article routes
 
@@ -27,7 +26,6 @@ app.use(passport.session());
 
 // Routes
 app.use('/api/user', userRouter); //user routes 
-app.use('/api/answers', answersRouter) // answers 
 app.use('/api/questions', questionsRouter) // questions 
 app.use('/api/articles', articlesRouter)  // articles 
 
