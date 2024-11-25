@@ -142,6 +142,8 @@ router.post("/new-question-with-article", async (req, res) => {
   }
 });
 
+// TODO: Change to a toggle for an unread button
+
 // Update unread to false when a user views the answers
 router.put("/user-unread", (req, res) => {
   // unread = false
