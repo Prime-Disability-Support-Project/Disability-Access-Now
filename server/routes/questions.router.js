@@ -142,6 +142,8 @@ router.post("/new-question-with-article", async (req, res) => {
   }
 });
 
+// TODO: Change to a toggle for an unread button
+
 // Update unread to false when a user views the answers
 router.put("/user-unread", (req, res) => {
   // unread = false
@@ -254,6 +256,29 @@ router.put("/admin-answer", (req, res) => {
     })
     .catch((error) => {
       console.log("Error with updating admin-answer", error);
+      res.sendStatus(500);
+    });
+});
+
+
+// Allows users to delete questions
+router.delete("/:id", (req, res) => {
+  const questionId = req.params.id;
+
+  // TODO: const userId = req.user.id;
+  // set value for testing purposes
+  const userId = 2;
+
+  pool
+    .query(`DELETE FROM "questions" WHERE id = $1 AND user_id= $2`, [
+      questionId,
+      userId,
+    ])
+    .then((result) => {
+      res.status(200).send("Question successfully deleted");
+    })
+    .catch((error) => {
+      console.log("Error deleting:", error);
       res.sendStatus(500);
     });
 });

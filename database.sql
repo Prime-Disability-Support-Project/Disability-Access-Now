@@ -14,8 +14,8 @@ CREATE TABLE "user" (
 
 CREATE TABLE "questions" (
     "id" SERIAL PRIMARY KEY,                -- Unique identifier, auto-incremented
-    "question" VARCHAR(1000),                     
-    "answer" VARCHAR(1000),                         
+    "question" VARCHAR(1000),               -- user question input      
+    "answer" VARCHAR(1000),                 -- admin answer input        
     "answered" BOOLEAN DEFAULT FALSE,       -- Whether the question has been answered (defaults to false)
     "unread" BOOLEAN DEFAULT TRUE,          -- Whether the question has been read (defaults to true)
     "associated_article_url" VARCHAR(255),  -- Optional field for a URL to an associated article
@@ -24,10 +24,15 @@ CREATE TABLE "questions" (
     "user_id" INTEGER REFERENCES "user"(id)  -- Foreign key to the 'user' table
 );
 
-CREATE TABLE "saved" (
+CREATE TABLE "savedFile" (
     "id" SERIAL PRIMARY KEY,               -- auto-incrementing primary key
-    "article_title" VARCHAR(500) NOT NULL,  -- title of the article, max length 500
-    "article_url" VARCHAR(1000) NOT NULL,            -- URL of the article 
+    "file_id" INT REFERENCES "files" (id) NOT NULL, -- foreign key referencing the files table
+    "user_id" INTEGER REFERENCES "user" (id) -- foreign key referencing the user table
+);
+
+CREATE TABLE "savedArticle" (
+    "id" SERIAL PRIMARY KEY,               -- auto-incrementing primary key
+    "article_id" INT REFERENCES "articles" (id) NOT NULL, -- foreign key referencing the articles table
     "user_id" INTEGER REFERENCES "user" (id) -- foreign key referencing the user table
 );
 
@@ -49,3 +54,7 @@ CREATE TABLE "articles_files" (
     "article_id" INTEGER REFERENCES "articles"("id"),  -- foreign key referencing articles.id
     "file_id" INTEGER REFERENCES "files"("id")         -- foreign key referencing files.id
 );
+
+-- * adds a column data to the files table, BYTEA is used for BLOB (binary large object) Storage
+-- learn more about BYTEA at https://shorturl.at/OANxy
+ALTER TABLE "files" ADD COLUMN data BYTEA;
