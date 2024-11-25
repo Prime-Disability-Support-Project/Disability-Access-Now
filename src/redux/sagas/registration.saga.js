@@ -11,7 +11,9 @@ function* registerUser(action) {
     yield axios.post('/api/user/register', action.payload);
 
     // automatically log a user in after registration
-    yield put({ type: 'LOGIN', payload: action.payload });
+    // just send the email and password
+    let data = {email: action.payload.email, password: action.payload.password}
+    yield put({ type: 'LOGIN', payload: data });
 
     // set to 'login' mode so they see the login screen
     // after registration or after they log out

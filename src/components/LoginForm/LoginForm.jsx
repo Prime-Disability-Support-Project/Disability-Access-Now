@@ -19,6 +19,7 @@ function LoginForm() {
           password: password,
         },
       });
+      console.log('email and password', email, password)
     } else {
       dispatch({ type: 'LOGIN_INPUT_ERROR' });
     }
@@ -39,7 +40,7 @@ function LoginForm() {
             type="text"
             name="email"
             required
-            value={username}
+            value={email}
             onChange={(event) => setEmail(event.target.value)}
           />
         </label>

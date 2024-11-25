@@ -18,7 +18,7 @@
                 ],
                 "body": {
                     "mode": "raw",
-                    "raw": "{\n    \"username\":\"new-user\",\n    \"password\":\"1234\"\n}"
+                    "raw": "{\n    \"email\":\"new-user\",\n    \"password\":\"1234\"\n}"
                 },
                 "url": "http://localhost:5001/api/user/register",
                 "description": "Registration"
@@ -37,7 +37,7 @@
                 ],
                 "body": {
                     "mode": "raw",
-                    "raw": "{\n    \"username\":\"new-user\",\n    \"password\":\"1234\"\n}"
+                    "raw": "{\n    \"email\":\"new-user\",\n    \"password\":\"1234\"\n}"
                 },
                 "url": "http://localhost:5001/api/user/login",
                 "description": "Login"
