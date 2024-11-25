@@ -1,24 +1,48 @@
 .nav {
-  /* flex box layout */
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  margin: 0 0 30px;
   background-color: #00acb0;
-  overflow: hidden;
+  padding:50px 20px
 }
-
 .nav a {
   text-decoration: none;
+  color: #f2f2f2;
+}
+.nav-title {
+  font-size: 20px;
+  font-weight: 700;
 }
 
-.nav-title {
-  font-size: 24px;
-  font-weight: 700;
+.nav-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.search-form {
+  display: flex;
+  align-items: center;
+  margin-right: 16px;
+}
+
+.search-input {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  margin-right: 8px;
+}
+
+.search-button {
+  background-color: #67bebe;
   color: #f2f2f2;
-  padding-left: 10px;
-  margin: 0;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 .navLink {
@@ -26,16 +50,58 @@
   color: #f2f2f2;
   background-color: #00acb0;
   text-align: center;
-  padding: 24px 10px;
-  text-decoration: none;
-  font-size: 15px;
+  padding: 12px 18px;
+  outline: 0;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
 
-  /* these last two make the logout button in
-  the nav bar look like another link */
   border: none;
   cursor: pointer;
   outline: 0;
 }
+
+  .navLink:hover {
+    background-color: #008183;
+  }
+
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+
+  .dropbtn {
+    background-color: #00acb0;
+    color: #f2f2f2;
+    padding: 12px 16px;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #008183;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+
+  .dropdown-content a {
+    color: #f2f2f2;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+
+  .dropdown-content a:hover {
+    background-color: #006265;
+  }
+
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
 
 .navLink:hover {
   background-color: #008183;
