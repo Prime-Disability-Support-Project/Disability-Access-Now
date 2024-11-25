@@ -3,10 +3,167 @@ const pool = require('../modules/pool');
 const router = express.Router();
 
 
+// GET All Article Titles and URLs
+router.get("/articles", (req, res) => {
+  const queryText = `SELECT "title", "subtitle", "body", "article_url" FROM articles`;
+
+  pool
+    .query(queryText)
+    .then((results) => {
+      res.send(results.rows);
+    })
+    .catch((error) => {
+      console.log("Error fetching all articles:", error);
+      res.sendStatus(500);
+    });
+});
+
+// GET Specific Article 
+router.get("/articles/:articleId", (req, res) => {
+  const { articleId } = req.params;
+  const queryText = `SELECT * FROM articles WHERE id = $1`;
+  const params = [articleId];
+
+  pool
+    .query(queryText, params)
+    .then((results) => {
+      if (results.rows.length === 0) {
+        res.status(404).send("Article Not Found");
+      } else {
+        res.send(results.rows[0]);
+      }
+    })
+    .catch((error) => {
+      console.log("Error fetching article by ID:", error);
+      res.sendStatus(500);
+    });
+});
+
+// POST New Article (Also Update Junction Table if Files are Provided)
+// router.post("/articles", (req, res) => {
+//   const { title, subtitle, body, article_url } = req.body;
+//   const queryText = `
+//                                   INSERT INTO articles ("title", "subtitle", "body", "article_url") 
+//                                   VALUES ($1, $2, $3, $4) 
+//                                   RETURNING id;
+//                                                 `;
+//   const params = [title, subtitle, body, article_url];
 
 
+//   pool
+//     .query(queryText, params)
+//     .then((result) => {
+//       const articleId = result.rows[0].id;
+
+//       // If there are files, insert into the junction table
+//       if (fileIds && fileIds.length > 0) {
+//         const fileQueries = fileIds.map((fileId) => {
+//           const insertFileQuery = `INSERT INTO articles_files (article_id, file_id) VALUES ($1, $2)`;
+//           const insertFileParams = [articleId, fileId];
+//           return pool.query(insertFileQuery, insertFileParams);
+//         });
+
+//         // Wait for all file insertions to finish before sending the response
+//         Promise.all(fileQueries)
+//           .then(() => {
+//             res.status(201).json({ articleId });
+//           })
+//           .catch((error) => {
+//             console.log("Error associating files with article:", error);
+//             res.sendStatus(500);
+//           });
+//       } else {
+//         res.status(201).json({ articleId });
+//       }
+//     })
+//     .catch((error) => {
+//       console.log("Error inserting new article:", error);
+//       res.sendStatus(500);
+//     });
+// });
+
+// PUT Update an Article
+router.put("/articles/:articleId", (req, res) => {
+  const { articleId } = req.params;
+  const { title, subtitle, body, article_url } = req.body;
+  const queryText = `UPDATE articles SET "title" = $1, "subtitle" = $2, "body" = $3, "article_url" = $4 WHERE id = $5`;
+  const params = [title, subtitle, body, article_url, articleId];
+
+  pool
+    .query(queryText, params)
+    .then((result) => {
+      if (result.rowCount === 0) {
+        res.status(404).send("Article Not Found");
+      } else {
+        res.status(200).send("Article updated");
+      }
+    })
+    .catch((error) => {
+      console.log("Error updating article:", error);
+      res.sendStatus(500);
+    });
+});
 
 
+// post files 
+router.post('/files', (req, res) => {
+  const { filename } = req.body;
+
+  
+  const queryText = 'INSERT INTO files ("filename") VALUES ($1)';
+
+  pool
+    .query(queryText, [filename])
+    .then((results) => {
+
+      res.status(201).send(results.rows[0]);
+    })
+    .catch((error) => {
+      console.error('Error inserting file:', error);
+      res.status(500).send('Database query failed');
+    });
+});
+
+// GET method to fetch all files
+router.get('/files', (req, res) => {
+  const queryText = 'SELECT * FROM files';
+
+  pool
+    .query(queryText)
+    .then((results) => {
+
+      res.status(200).send(results.rows);
+    })
+    .catch((error) => {
+      console.error('Error fetching files:', error);
+      res.status(500).send('Database query failed');
+    });
+});
+
+
+// DELETE an Article
+router.delete("/articles/:articleId", (req, res) => {
+  const { articleId } = req.params;
+
+  // First, delete the file associations
+  pool
+    .query(`DELETE FROM articles_files WHERE article_id = $1`, [articleId])
+    .then(() => {
+      // Then delete the article itself
+      return pool.query(`DELETE FROM articles WHERE id = $1`, [articleId]);
+    })
+    .then((result) => {
+      if (result.rowCount === 0) {
+        res.status(404).send("Article Not Found");
+      } else {
+        res.status(200).send("Article deleted");
+      }
+    })
+    .catch((error) => {
+      console.log("Error deleting article:", error);
+      res.sendStatus(500);
+    });
+});
 
 
 
