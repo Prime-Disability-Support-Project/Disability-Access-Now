@@ -51,7 +51,7 @@ router.get('/download/:id', async (req, res) => {
     
         const result = await client.query(sqlText, [id]);
         if(result.rows.length > 0){
-            const {filename, data} = result.rows[0];
+            const { filename, data } = result.rows[0];
             // if there is a file sent, set Headers, headers are used
             // to communicate with API client and server
             res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
