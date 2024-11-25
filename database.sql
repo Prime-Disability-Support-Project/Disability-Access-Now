@@ -49,3 +49,7 @@ CREATE TABLE "articles_files" (
     "article_id" INTEGER REFERENCES "articles"("id"),  -- foreign key referencing articles.id
     "file_id" INTEGER REFERENCES "files"("id")         -- foreign key referencing files.id
 );
+
+-- * adds a column data to the files table, BYTEA is used for BLOB (binary large object) Storage
+-- learn more about BYTEA at https://shorturl.at/OANxy
+ALTER TABLE "files" ADD COLUMN data BYTEA;
