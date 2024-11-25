@@ -13,6 +13,7 @@ const passport = require('./strategies/user.strategy');
 const userRouter = require('./routes/user.router');
 const questionsRouter = require('./routes/questions.router'); // importing questions routes 
 const articlesRouter = require('./routes/articles.router');  // importing article routes
+const savedRouter = require('./routes/saved.router')
 const filesRouter = require('./routes/files.router'); // importing files routes
 
 // Express Middleware
@@ -38,7 +39,6 @@ app.use(cors());
 app.use('/api/user', userRouter); //user routes 
 app.use('/api/questions', questionsRouter) // questions 
 app.use('/api/articles', articlesRouter)  // articles 
-app.use('/api/files', filesRouter); // PDF files
 
 // Listen Server & Port
 app.listen(PORT, () => {
