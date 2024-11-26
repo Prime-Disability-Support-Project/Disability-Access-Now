@@ -26,8 +26,8 @@ function* fetchUserAnswered() {
 }
 
 function* userQuestionsSaga() {
-  yield takeLatest("FETCH_UNANSWERED", fetchUserUnanswered);
-  yield takeLatest("FETCH_ANSWERED", fetchUserAnswered);
+  yield takeLatest("FETCH_USER_UNANSWERED", fetchUserUnanswered);
+  yield takeLatest("FETCH_USER_ANSWERED", fetchUserAnswered);
 }
 
 export default userQuestionsSaga;

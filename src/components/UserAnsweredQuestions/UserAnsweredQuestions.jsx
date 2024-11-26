@@ -8,7 +8,7 @@ export default function UserAnsweredQuestions() {
   );
 
   useEffect(() => {
-    dispatch({ type: "FETCH_ANSWERED" });
+    dispatch({ type: "FETCH_USER_ANSWERED" });
     console.log(answeredQuestions);
   }, [dispatch]);
 

@@ -8,7 +8,7 @@ export default function UserUnansweredQuestions() {
   );
 
   useEffect(() => {
-    dispatch({ type: "FETCH_UNANSWERED" });
+    dispatch({ type: "FETCH_USER_UNANSWERED" });
     console.log(unansweredQuestions);
   }, [dispatch]);
 
