@@ -4,9 +4,7 @@ const router = express.Router();
 
 // Get all unanswered questions for the specific user - ordered by date
 router.get("/user-unanswered-questions", (req, res) => {
-  // TODO: const userId = req.user.id;
-  // set value for testing purposes
-  const userId = 5;
+  const userId = req.user.id;
   const queryText =
     'SELECT * FROM questions WHERE "user_id" = $1 AND "answered" = $2 ORDER BY "question_date" ASC;';
   const params = [userId, false];
@@ -21,9 +19,7 @@ router.get("/user-unanswered-questions", (req, res) => {
 
 // Get all answered questions for the specific user - ordered by date
 router.get("/user-answered-questions", (req, res) => {
-  // TODO: const userId = req.user.id;
-  // set value for testing purposes
-  const userId = 2;
+  const userId = req.user.id;
   const queryText =
     'SELECT * FROM questions WHERE "user_id" = $1 AND "answered" = $2 ORDER BY "question_date" ASC;';
   const params = [userId, true];
@@ -74,9 +70,7 @@ router.post("/new-question-without-article", async (req, res) => {
   const question_date = req.body.questionDate;
   // flagged = false
 
-  // TODO: const userId = req.user.id;
-  // set value for testing purposes
-  const userId = 1;
+  const userId = req.user.id;
 
   try {
     const insertQuery = `INSERT INTO questions ("question", "answer", "answered", "unread", "associated_article_url", "question_date", "flagged", "user_id") 
@@ -113,9 +107,7 @@ router.post("/new-question-with-article", async (req, res) => {
   const question_date = req.body.questionDate;
   // flagged = false
 
-  // TODO: const userId = req.user.id;
-  // set value for testing purposes
-  const userId = 1;
+  const userId = req.user.id;
 
   try {
     const insertQuery = `INSERT INTO questions ("question", "answer", "answered", "unread", "associated_article_url", "question_date", "flagged", "user_id") 
@@ -194,9 +186,8 @@ router.put("/admin-unread", (req, res) => {
 
 // Get the count of answered questions that are unread for the specific user (used to show the number of notifications)
 router.get("/user-answered-questions-count", (req, res) => {
-  // TODO: const userId = req.user.id;
-  // set value for testing purposes
-  const userId = 1;
+  const userId = req.user.id;
+
 
   const queryText = `
     SELECT COUNT(*) AS unread_answered_questions
@@ -265,9 +256,8 @@ router.put("/admin-answer", (req, res) => {
 router.delete("/:id", (req, res) => {
   const questionId = req.params.id;
 
-  // TODO: const userId = req.user.id;
-  // set value for testing purposes
-  const userId = 2;
+  const userId = req.user.id;
+
 
   pool
     .query(`DELETE FROM "questions" WHERE id = $1 AND user_id= $2`, [
