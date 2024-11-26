@@ -4,7 +4,7 @@ const router = express.Router();
 
 // endpoint for uploading files
 router.post('/upload', async (req, res) => {
-    const { filename, data, article_id } = req.body;
+    const { filename, data } = req.body;
     // converts a base64-encoded string into a binary buffer
     // buffer is used to manipulate blob data
     // data is the blob, 'base64' specifies the encoding of input
@@ -15,29 +15,24 @@ router.post('/upload', async (req, res) => {
     const client = await pool.connect();
 
     try {
+        
         const sqlText = `
             INSERT INTO files (filename, data)
             VALUES ($1, $2)
             RETURNING id
-            `
-            const queryText = `
-            INSERT INTO articles_files (article_id, file_id)
-            VALUES ($1, $2)
-            `
+            `;
 
         // sends client query, and filename / buffer to db
         const result = await client.query(sqlText, [filename, buffer]);
         const fileId = result.rows[0].id;
-        await client.query(queryText, [article_id, fileId]);
         res.status(200).send('File Upload Success!');
     } catch (error) {
         console.error(error);
         res.status(500).send('Error Uploading File');
+    } finally {
+        client.release()
     }
 
-
-    // release client from pool after either way
-    client.release();
 });
 
 
@@ -63,14 +58,29 @@ router.get('/download/:id', async (req, res) => {
     } catch (error) {
         console.error(error);
         res.status(500).send('Error Downloading File');
+    } finally {
+        client.release()
     }
 
-    client.release();
 });
 
+router.get('/search', async (req, res) => {
+    const { keyword } = req.query;
+    console.log('Searching for Keyword', keyword)
 
+    const client = await pool.connect();
 
-
-
+    try {
+        const result = await client.query(`SELECT id, filename FROM files WHERE filename ILIKE $1`, [`%${keyword}%`]);
+        
+        console.log(`Search Result Rows: ${JSON.stringify(result.rows)}`)
+        res.status(200).json(result.rows);
+    } catch (error) {
+        console.error(error);
+        res.sendStatus(500);
+    } finally {
+        client.release();
+    }
+});
 
 module.exports = router;
