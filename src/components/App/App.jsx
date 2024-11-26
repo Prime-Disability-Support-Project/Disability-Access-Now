@@ -79,6 +79,22 @@ function App() {
             <AskAQuestionPage />
           </ProtectedRoute>
 
+          <ProtectedRoute
+            // logged in shows Ask A Question Page
+            exact
+            path="/contact"
+          >
+            <Contact />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows Ask A Question Page
+            exact
+            path="/savedResources"
+          >
+            <SavedResources />
+          </ProtectedRoute>
+
           <Route
             exact
             path="/login"
