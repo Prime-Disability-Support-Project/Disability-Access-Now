@@ -22,6 +22,7 @@ import RegisterPage from '../RegisterPage/RegisterPage';
 import AskAQuestionPage from '../AskAQuestionPage/AskAQuestionPage';
 import Contact from '../ContactUs/ContactUs';
 import SavedResources from '../SavedResources/SavedResources';
+import FormsAndArticles from '../FormsAndArticles/FormsAndArticles';
 
 import './App.css';
 
@@ -85,6 +86,14 @@ function App() {
             path="/contact"
           >
             <Contact />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows Ask A Question Page
+            exact
+            path="/formsAndArticles"
+          >
+            <FormsAndArticles />
           </ProtectedRoute>
 
           <ProtectedRoute
