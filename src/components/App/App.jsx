@@ -21,6 +21,7 @@ import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import AskAQuestionPage from '../AskAQuestionPage/AskAQuestionPage';
 import Contact from '../ContactUs/ContactUs';
+import SavedResources from '../SavedResources/SavedResources';
 
 import './App.css';
 
@@ -76,12 +77,6 @@ function App() {
             path="/userQuestions"
           >
             <AskAQuestionPage />
-          </ProtectedRoute>
-          <ProtectedRoute 
-          
-          exact path = "/contact">
-             <Contact />
-
           </ProtectedRoute>
 
           <Route
