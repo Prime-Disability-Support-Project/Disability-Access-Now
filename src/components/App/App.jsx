@@ -19,6 +19,7 @@ import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
+import AskQuestion from '../AskAQuestionPage/AskAQuestionPage.jsx'; // imports AskQuestion component
 
 import './App.css';
 
@@ -108,6 +109,13 @@ function App() {
               // Otherwise, show the Landing page
               <LandingPage />
             }
+          </Route>
+
+          {/*Route for AskQuestion component*/}
+          <Route 
+          exact path="/new-question-without-article"
+          >
+            <AskQuestion />
           </Route>
 
           {/* If none of the other routes matched, we will show a 404. */}
