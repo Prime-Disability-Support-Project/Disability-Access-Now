@@ -101,7 +101,7 @@ function Nav() {
               </div>
             </div>
             
-            <Link className="navLink" to="/saved-resources">
+            <Link className="navLink" to="/savedResources">
               Saved Resources
             </Link>
 
