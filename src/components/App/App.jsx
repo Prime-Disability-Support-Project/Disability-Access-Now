@@ -19,11 +19,13 @@ import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
+import AskQuestion from '../AskAQuestionPage/AskAQuestionPage.jsx'; // imports AskQuestion component
 import AskAQuestionPage from '../AskAQuestionPage/AskAQuestionPage';
 import Contact from '../ContactUs/ContactUs';
 import SavedResources from '../SavedResources/SavedResources';
 import FormsAndArticles from '../FormsAndArticles/FormsAndArticles';
 import Article from '../Article/Article';
+import UploadDownload from '../UploadDownload/UploadDownload';
 
 import './App.css';
 
@@ -62,7 +64,9 @@ function App() {
             exact
             path="/user"
           >
-            <UserPage />
+            <UploadDownload />
+            
+            
           </ProtectedRoute>
 
           <ProtectedRoute
@@ -149,6 +153,13 @@ function App() {
               // Otherwise, show the Landing page
               <LandingPage />
             }
+          </Route>
+
+          {/*Route for AskQuestion component*/}
+          <Route 
+          exact path="/new-question-without-article"
+          >
+            <AskQuestion />
           </Route>
 
           {/* If none of the other routes matched, we will show a 404. */}

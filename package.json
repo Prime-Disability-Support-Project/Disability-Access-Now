@@ -15,6 +15,7 @@
     "express-session": "^1.18.0",
     "marked": "^15.0.2",
     "marked-react": "^2.0.0",
+    "native-file-system-adapter": "^3.0.1",
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",
     "pdf-lib": "^1.17.1",
