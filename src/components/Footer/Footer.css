@@ -1,5 +1,18 @@
 footer {
-  margin-top: 80px;
-  padding: 20px;
   text-align: center;
+  padding: 20px;
+  background-color: #00acb0;
+  color: white;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+/* #00acb0;*/
+}
+
+a {
+  color: #b4174668;
+  text-decoration: none;
+}
+ a:hover {
+  text-decoration:underline;
 }
