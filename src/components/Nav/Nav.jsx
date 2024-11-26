@@ -87,7 +87,7 @@ function Nav() {
             Unread Answers {unreadAnswersCount > 0 && `(${unreadAnswersCount})`}
             </Link>
 
-            <Link className="navLink" to="/new-question-without-article">
+            <Link className="navLink" to="/userQuestions">
               Ask a Question
             </Link>
 
