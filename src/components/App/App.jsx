@@ -20,6 +20,7 @@ import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import AskAQuestionPage from '../AskAQuestionPage/AskAQuestionPage';
+import Contact from '../ContactUs/ContactUs';
 
 import './App.css';
 
@@ -76,6 +77,12 @@ function App() {
           >
             <AskAQuestionPage />
           </ProtectedRoute>
+          <ProtectedRoute 
+          
+          exact path = "/contact">
+             <Contact />
+
+          </ProtectedRoute>
 
           <Route
             exact
@@ -124,7 +131,9 @@ function App() {
             <h1>404</h1>
           </Route>
         </Switch>
-        <Footer />
+        
+        {user.id && <Footer />
+          }
       </div>
     </Router>
   );
