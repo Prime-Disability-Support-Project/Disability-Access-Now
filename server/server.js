@@ -39,6 +39,8 @@ app.use(cors());
 app.use('/api/user', userRouter); //user routes 
 app.use('/api/questions', questionsRouter) // questions 
 app.use('/api/articles', articlesRouter)  // articles 
+app.use('/api/saved', savedRouter) // saved articles & files
+app.use('/api/files', filesRouter) // files
 
 // Listen Server & Port
 app.listen(PORT, () => {

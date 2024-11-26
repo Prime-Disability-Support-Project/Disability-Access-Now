@@ -4,9 +4,8 @@ const router = express.Router();
 
 // GET all articles that are saved by a specific user
 router.get("/articles", (req, res) => {
-  // TODO: const userId = req.user.id;
-  // set value for testing purposes
-  const userId = 2;
+  const userId = req.user.id;
+
   const queryText = `
     SELECT articles.id, articles.title, articles.subtitle, articles.body, articles.article_url 
     FROM "savedArticle"
@@ -28,9 +27,8 @@ router.get("/articles", (req, res) => {
 
 // GET all files that are saved by a specific user
 router.get("/files", (req, res) => {
-  // TODO: const userId = req.user.id;
-  // set value for testing purposes
-  const userId = 2;
+  const userId = req.user.id;
+
   const queryText = `
       SELECT files.id, files.filename, files.data
       FROM "savedFile"
@@ -54,9 +52,7 @@ router.get("/files", (req, res) => {
 router.post("/save-article", (req, res) => {
   const articleId = req.body.articleId;
 
-  // TODO: const userId = req.user.id;
-  // set value for testing purposes
-  const userId = 1;
+  const userId = req.user.id;
 
   const insertQuery = `INSERT INTO "savedArticle" ("article_id", "user_id") 
         VALUES ($1, $2);`;
@@ -76,9 +72,7 @@ router.post("/save-article", (req, res) => {
 router.post("/save-file", (req, res) => {
   const fileId = req.body.fileId;
 
-  // TODO: const userId = req.user.id;
-  // set value for testing purposes
-  const userId = 1;
+  const userId = req.user.id;
 
   const insertQuery = `INSERT INTO "savedFile" ("file_id", "user_id") 
           VALUES ($1, $2);`;
@@ -98,9 +92,8 @@ router.post("/save-file", (req, res) => {
 router.delete("/article/:id", (req, res) => {
   const articleId = req.params.id;
 
-  // TODO: const userId = req.user.id;
-  // set value for testing purposes
-  const userId = 1;
+  const userId = req.user.id;
+
   pool
     .query(`DELETE FROM "savedArticle" WHERE article_id = $1 AND user_id= $2`, [
       articleId,
@@ -119,9 +112,8 @@ router.delete("/article/:id", (req, res) => {
 router.delete("/file/:id", (req, res) => {
   const fileId = req.params.id;
 
-  // TODO: const userId = req.user.id;
-  // set value for testing purposes
-  const userId = 1;
+  const userId = req.user.id;
+
   pool
     .query(`DELETE FROM "savedFile" WHERE file_id = $1 AND user_id= $2`, [
       fileId,
