@@ -23,6 +23,7 @@ import AskAQuestionPage from '../AskAQuestionPage/AskAQuestionPage';
 import Contact from '../ContactUs/ContactUs';
 import SavedResources from '../SavedResources/SavedResources';
 import FormsAndArticles from '../FormsAndArticles/FormsAndArticles';
+import Article from '../Article/Article';
 
 import './App.css';
 
@@ -81,7 +82,6 @@ function App() {
           </ProtectedRoute>
 
           <ProtectedRoute
-            // logged in shows Ask A Question Page
             exact
             path="/contact"
           >
@@ -89,7 +89,6 @@ function App() {
           </ProtectedRoute>
 
           <ProtectedRoute
-            // logged in shows Ask A Question Page
             exact
             path="/formsAndArticles"
           >
@@ -97,7 +96,13 @@ function App() {
           </ProtectedRoute>
 
           <ProtectedRoute
-            // logged in shows Ask A Question Page
+            
+            path="/articlePage"
+          >
+            <Article />
+          </ProtectedRoute>
+
+          <ProtectedRoute
             exact
             path="/savedResources"
           >
