@@ -24,7 +24,6 @@ router.post('/upload', async (req, res) => {
 
         // sends client query, and filename / buffer to db
         const result = await client.query(sqlText, [filename, buffer]);
-        const fileId = result.rows[0].id;
         res.status(200).send('File Upload Success!');
     } catch (error) {
         console.error(error);
@@ -37,14 +36,14 @@ router.post('/upload', async (req, res) => {
 
 
 // endpoint for downloading files
-router.get('/download/:id', async (req, res) => {
-    const { id } = req.params;
+router.get('/download/:filename', async (req, res) => {
+    const { filename } = req.params;
 
     const client = await pool.connect();
     try {
-        const sqlText = `SELECT filename, data FROM files WHERE id = $1`
+        const sqlText = `SELECT filename, data FROM files WHERE filename = $1`
     
-        const result = await client.query(sqlText, [id]);
+        const result = await client.query(sqlText, [filename]);
         if(result.rows.length > 0){
             const { filename, data } = result.rows[0];
             // if there is a file sent, set Headers, headers are used
