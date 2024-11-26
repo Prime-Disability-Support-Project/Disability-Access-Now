@@ -2,7 +2,7 @@ import { all } from 'redux-saga/effects';
 import loginSaga from './login.saga';
 import registrationSaga from './registration.saga';
 import userSaga from './user.saga';
-import adminQuestionsSaga from './adminQuestions.reducer';
+import adminQuestionsSaga from './adminQuestions.saga';
 import userQuestionsSaga from './userQuestions.saga';
 
 // rootSaga is the primary saga.
