@@ -22,6 +22,7 @@ import RegisterPage from '../RegisterPage/RegisterPage';
 import AskAQuestionPage from '../AskAQuestionPage/AskAQuestionPage';
 import Contact from '../ContactUs/ContactUs';
 import SavedResources from '../SavedResources/SavedResources';
+import UploadDownload from '../UploadDownload/UploadDownload';
 
 import './App.css';
 
@@ -60,7 +61,9 @@ function App() {
             exact
             path="/user"
           >
-            <UserPage />
+            <UploadDownload />
+            
+            
           </ProtectedRoute>
 
           <ProtectedRoute
