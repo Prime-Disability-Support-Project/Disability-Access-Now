@@ -24,18 +24,6 @@ CREATE TABLE "questions" (
     "user_id" INTEGER REFERENCES "user"(id)  -- Foreign key to the 'user' table
 );
 
-CREATE TABLE "savedFile" (
-    "id" SERIAL PRIMARY KEY,               -- auto-incrementing primary key
-    "file_id" INT REFERENCES "files" (id) NOT NULL, -- foreign key referencing the files table
-    "user_id" INTEGER REFERENCES "user" (id) -- foreign key referencing the user table
-);
-
-CREATE TABLE "savedArticle" (
-    "id" SERIAL PRIMARY KEY,               -- auto-incrementing primary key
-    "article_id" INT REFERENCES "articles" (id) NOT NULL, -- foreign key referencing the articles table
-    "user_id" INTEGER REFERENCES "user" (id) -- foreign key referencing the user table
-);
-
 CREATE TABLE "articles" (
     "id" SERIAL PRIMARY KEY,               -- auto-incrementing primary key
     "title" VARCHAR(255) NOT NULL,          -- title of the article, max length 255
@@ -53,6 +41,18 @@ CREATE TABLE "articles_files" (
     "id" SERIAL PRIMARY KEY,               -- auto-incrementing primary key
     "article_id" INTEGER REFERENCES "articles"("id"),  -- foreign key referencing articles.id
     "file_id" INTEGER REFERENCES "files"("id")         -- foreign key referencing files.id
+);
+
+CREATE TABLE "savedFile" (
+    "id" SERIAL PRIMARY KEY,               -- auto-incrementing primary key
+    "file_id" INT REFERENCES "files" (id) NOT NULL, -- foreign key referencing the files table
+    "user_id" INTEGER REFERENCES "user" (id) -- foreign key referencing the user table
+);
+
+CREATE TABLE "savedArticle" (
+    "id" SERIAL PRIMARY KEY,               -- auto-incrementing primary key
+    "article_id" INT REFERENCES "articles" (id) NOT NULL, -- foreign key referencing the articles table
+    "user_id" INTEGER REFERENCES "user" (id) -- foreign key referencing the user table
 );
 
 -- * adds a column data to the files table, BYTEA is used for BLOB (binary large object) Storage
