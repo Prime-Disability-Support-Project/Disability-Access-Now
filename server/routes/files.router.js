@@ -109,4 +109,22 @@ router.get("/allFiles/:id", (req, res) => {
     });
 });
 
+
+// Delete a specific file
+router.delete("/:id", (req, res) => {
+    const fileId = req.params.id;
+  
+    pool
+      .query(`DELETE FROM "files" WHERE id = $1;`, [
+        fileId
+      ])
+      .then((result) => {
+        res.status(200).send("File successfully deleted");
+      })
+      .catch((error) => {
+        console.log("Error deleting:", error);
+        res.sendStatus(500);
+      });
+  });
+
 module.exports = router;

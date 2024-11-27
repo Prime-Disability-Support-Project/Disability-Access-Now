@@ -7,9 +7,15 @@ export default function AdminManageResources() {
   const dispatch = useDispatch();
   const history = useHistory();
   const allArticles = useSelector((store) => store.articles.allArticles);
+  const allFiles = useSelector((store) => store.files.allFiles);
+
 
   useEffect(() => {
     dispatch({ type: "FETCH_ALL_ARTICLES" });
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch({ type: "FETCH_ALL_FILES" });
   }, [dispatch]);
 
   const handleEdit = (articleId) => {
@@ -18,6 +24,10 @@ export default function AdminManageResources() {
 
   const handleDelete = (articleId) => {
     dispatch({ type: "REMOVE_ARTICLE", payload: articleId });
+  };
+
+  const handleDeleteFile = (fileId) => {
+    dispatch({ type: "REMOVE_FILE", payload: fileId });
   };
 
   return (
@@ -34,6 +44,17 @@ export default function AdminManageResources() {
               {article.title}
               <button onClick={() => handleEdit(article.id)}>Edit</button>
               <button onClick={() => handleDelete(article.id)}>Delete</button>
+            </li>
+          );
+        })}
+      </ul>
+      <h2>Choose a File to Edit</h2>
+      <ul>
+        {allFiles.map((file) => {
+          return (
+            <li key={file.id}>
+              {file.filename}
+              <button onClick={() => handleDeleteFile(file.id)}>Delete</button>
             </li>
           );
         })}
