@@ -1,12 +1,11 @@
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import LogOutButton from "../LogOutButton/LogOutButton";
 import "./Nav.css";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import SearchPDF from "../Blob/SearchPDF";
-import UploadPDF from "../Blob/UploadPDF";
-import DownloadPDF from "../Blob/DownloadPDF";
+
 
 function Nav() {
   const dispatch = useDispatch();
@@ -79,7 +78,7 @@ function Nav() {
                   Search
                 </button>
               </form> */}
-              <SearchPDF />
+              <SearchPDF onClick searchResults={searchTerm} />
             </div>
 
             <Link className="navLink" to="/user">
