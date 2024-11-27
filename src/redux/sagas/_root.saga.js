@@ -6,6 +6,7 @@ import adminQuestionsSaga from './adminQuestions.saga';
 import userQuestionsSaga from './userQuestions.saga';
 import savedSaga from './saved.saga';
 import articlesSaga from './articles.saga';
+import userLoginsSaga from './userLogins.saga';
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -23,5 +24,6 @@ export default function* rootSaga() {
     userQuestionsSaga(),
     savedSaga(),
     articlesSaga(),
+    userLoginsSaga(),
   ]);
 }
