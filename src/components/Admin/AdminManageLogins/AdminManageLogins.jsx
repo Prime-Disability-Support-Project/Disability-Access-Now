@@ -20,16 +20,23 @@ export default function AdminManageLogins() {
     dispatch({ type: "FETCH_ALL_USERS" });
   }, []);
 
+  const handleApprove = (userId) => {
+    dispatch({type: "APPROVE_LOGIN", payload: userId})
+  }
+
   return (
     <div>
       <h1>Manage Logins</h1>
       <h2>Pending Logins</h2>
       {allPendingUsers.map((user) => {
         return (
-          <ul key={user.id}>
-            <li>Name: {user.name}</li>
-            <li>Email Address: {user.email}</li>
-          </ul>
+          <div>
+            <ul key={user.id}>
+              <li>Name: {user.name}</li>
+              <li>Email Address: {user.email}</li>
+            </ul>
+            <button onClick={() => handleApprove(user.id)}>Approve</button>
+          </div>
         );
       })}
       <h2>Approved Logins</h2>

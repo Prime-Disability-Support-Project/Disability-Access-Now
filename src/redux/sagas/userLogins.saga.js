@@ -19,8 +19,20 @@ function* fetchAllUsers() {
   }
 }
 
+// Update approved to true for the selected user
+function* approveLogin(action) {
+    try {
+      // action.payload is the user ID
+      yield axios.put(`/api/user/${action.payload}`);
+      yield put({ type: "FETCH_ALL_USERS" });
+    } catch (error) {
+      console.error("approveLogin error in saved.saga", error);
+    }
+  }
+
 function* userLoginsSaga() {
   yield takeLatest("FETCH_ALL_USERS", fetchAllUsers);
+  yield takeLatest("APPROVE_LOGIN", approveLogin);
 }
 
 export default userLoginsSaga;
