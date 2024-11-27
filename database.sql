@@ -11,7 +11,6 @@ CREATE TABLE "user" (
     "approved" BOOLEAN DEFAULT FALSE
 );
 
-
 CREATE TABLE "questions" (
     "id" SERIAL PRIMARY KEY,                -- Unique identifier, auto-incremented
     "question" VARCHAR(1000),               -- user question input      
@@ -21,7 +20,7 @@ CREATE TABLE "questions" (
     "associated_article_url" VARCHAR(255),  -- Optional field for a URL to an associated article
     "question_date" DATE,                   -- The date when the question was posted
     "flagged" BOOLEAN DEFAULT FALSE,        -- Whether the question has been flagged (defaults to false)
-    "user_id" INTEGER REFERENCES "user"(id)  -- Foreign key to the 'user' table
+    "user_id" INTEGER REFERENCES "user"(id) ON DELETE CASCADE  -- Foreign key to the 'user' table
 );
 
 CREATE TABLE "articles" (
@@ -34,27 +33,25 @@ CREATE TABLE "articles" (
 
 CREATE TABLE "files" (
     "id" SERIAL PRIMARY KEY,               -- auto-incrementing primary key
-    "filename" VARCHAR(255) NOT NULL        -- filename of the file, max length 255
+    "filename" VARCHAR(255) NOT NULL,        -- filename of the file, max length 255
+    "data" BYTEA                            -- learn more about BYTEA at https://shorturl.at/OANxy
 );
-
-CREATE TABLE "articles_files" (
-    "id" SERIAL PRIMARY KEY,               -- auto-incrementing primary key
-    "article_id" INTEGER REFERENCES "articles"("id"),  -- foreign key referencing articles.id
-    "file_id" INTEGER REFERENCES "files"("id")         -- foreign key referencing files.id
-);
-
 CREATE TABLE "savedFile" (
     "id" SERIAL PRIMARY KEY,               -- auto-incrementing primary key
-    "file_id" INT REFERENCES "files" (id) NOT NULL, -- foreign key referencing the files table
-    "user_id" INTEGER REFERENCES "user" (id) -- foreign key referencing the user table
+    "file_id" INT REFERENCES "files" (id) ON DELETE CASCADE NOT NULL, -- foreign key referencing the files table
+    "user_id" INTEGER REFERENCES "user" (id) ON DELETE CASCADE -- foreign key referencing the user table
 );
 
 CREATE TABLE "savedArticle" (
     "id" SERIAL PRIMARY KEY,               -- auto-incrementing primary key
-    "article_id" INT REFERENCES "articles" (id) NOT NULL, -- foreign key referencing the articles table
-    "user_id" INTEGER REFERENCES "user" (id) -- foreign key referencing the user table
+    "article_id" INT REFERENCES "articles" (id) ON DELETE CASCADE NOT NULL, -- foreign key referencing the articles table
+    "user_id" INTEGER REFERENCES "user" (id) ON DELETE CASCADE -- foreign key referencing the user table
 );
 
--- * adds a column data to the files table, BYTEA is used for BLOB (binary large object) Storage
--- learn more about BYTEA at https://shorturl.at/OANxy
-ALTER TABLE "files" ADD COLUMN data BYTEA;
+CREATE TABLE "articles_files" (
+    "id" SERIAL PRIMARY KEY,               -- auto-incrementing primary key
+    "article_id" INTEGER REFERENCES "articles"("id") ON DELETE CASCADE,  -- foreign key referencing articles.id
+    "file_id" INTEGER REFERENCES "files"("id") ON DELETE CASCADE         -- foreign key referencing files.id
+);
+
+

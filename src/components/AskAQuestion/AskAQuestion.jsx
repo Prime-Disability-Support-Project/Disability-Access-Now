@@ -29,20 +29,20 @@ const AskQuestion = () => {
                 question,
                 questionDate: new Date().toISOString(),
             });
-            // If request is successful, dispatch to add question to state
-            dispatch({
-                type: 'SET_USER_UNANSWERED',
-                payload: {
-                question,
-                answer: null,
-                answered: false,
-                unread: true,
-                associated_article_url: null,
-                questionDate: new Date().toISOString(),
-                flagged: false,
-                user_id: 1,
-                },
-            });
+            // // If request is successful, dispatch to add question to state
+            // dispatch({
+            //     type: 'SET_USER_UNANSWERED',
+            //     payload: {
+            //     question,
+            //     answer: null,
+            //     answered: false,
+            //     unread: true,
+            //     associated_article_url: null,
+            //     questionDate: new Date().toISOString(),
+            //     flagged: false,
+            //     user_id: 1,
+            //     },
+            // });
 
             setQuestion('');
             setError(null)

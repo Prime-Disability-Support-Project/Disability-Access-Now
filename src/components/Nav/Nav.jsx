@@ -86,14 +86,17 @@ function Nav() {
               Home
             </Link>
 
-        {/* admin links - only show up if a user is logged in and their role is "2" */}
-            {
-        (user.role === 2 && (
-          <Link className="navLink" to="/adminManage">
-            Manage Logins
-          </Link>
-        ))
-      }
+            {/* admin links - only show up if a user is logged in and their role is "2" */}
+            {user.role === 2 && (
+              <>
+                <Link className="navLink" to="/adminManage">
+                  Manage Logins
+                </Link>
+                <Link className="navLink" to="/adminManageResources">
+                  Manage Resources
+                </Link>
+              </>
+            )}
 
             <Link className="navLink" to="/user-unread">
               Unread Answers{" "}

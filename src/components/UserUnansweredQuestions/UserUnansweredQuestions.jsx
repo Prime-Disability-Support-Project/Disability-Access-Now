@@ -9,8 +9,7 @@ export default function UserUnansweredQuestions() {
 
   useEffect(() => {
     dispatch({ type: "FETCH_USER_UNANSWERED" });
-    console.log(unansweredQuestions);
-  }, [dispatch]);
+  }, []);
 
   return (
     <div>
@@ -18,17 +17,21 @@ export default function UserUnansweredQuestions() {
       <ul>
         {unansweredQuestions.map((question) => {
           return (
-            <div className="questions-list">
-            <li key={question.id}>
-              <p>Question: {question.question}</p>
-              <p>Date Submitted: {question.question_date}</p>
-              <p>
-                Associated Article:{" "}
-                {question.associated_article_url
-                  ? <a href={question.associated_article_url}>{question.associated_article_url}</a>
-                  : "No article was associated with this question"}
-              </p>
-            </li>
+            <div key={question.id} className="questions-list">
+              <li>
+                <p>Question: {question.question}</p>
+                <p>Date Submitted: {question.question_date}</p>
+                <p>
+                  Associated Article:{" "}
+                  {question.associated_article_url ? (
+                    <a href={question.associated_article_url}>
+                      {question.associated_article_url}
+                    </a>
+                  ) : (
+                    "No article was associated with this question"
+                  )}
+                </p>
+              </li>
             </div>
           );
         })}
