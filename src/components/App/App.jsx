@@ -25,7 +25,7 @@ import Contact from '../ContactUs/ContactUs';
 import SavedResources from '../SavedResources/SavedResources';
 import FormsAndArticles from '../FormsAndArticles/FormsAndArticles';
 import Article from '../Article/Article';
-import UploadDownload from '../UploadDownload/UploadDownload';
+import UploadDownload from '../Blob/blobAll.jsx';
 import AdminManageLogins from '../Admin/AdminManageLogins/AdminManageLogins.jsx';
 import AdminManageResources from '../Admin/AdminManageResources/AdminManageResources.jsx';
 import AdminArticleEdit from '../Admin/AdminArticleEdit/AdminArticleEdit.jsx';
