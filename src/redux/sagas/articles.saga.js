@@ -1,6 +1,7 @@
 import { put, takeLatest } from "redux-saga/effects";
 import axios from "axios";
 
+// GET all articles
 function* fetchAllArticles() {
   try {
     const articlesResponse = yield axios.get("/api/articles");
@@ -13,6 +14,7 @@ function* fetchAllArticles() {
   }
 }
 
+// GET a specific article
 function* fetchSpecificArticle(action) {
   try {
     const articleId = action.payload
@@ -26,9 +28,21 @@ function* fetchSpecificArticle(action) {
   }
 }
 
+// DELETE the selected article, then call a GET to refresh
+function* removeArticle(action) {
+    try {
+      // action.payload is the article ID
+      yield axios.delete(`/api/articles/${action.payload}`);
+      yield put({ type: "FETCH_ALL_ARTICLES" });
+    } catch (error) {
+      console.error("removeArticle error in articles.saga", error);
+    }
+  }
+
 function* articlesSaga() {
   yield takeLatest("FETCH_ALL_ARTICLES", fetchAllArticles);
   yield takeLatest("FETCH_SPECIFIC_ARTICLE", fetchSpecificArticle);
+  yield takeLatest("REMOVE_ARTICLE", removeArticle);
 }
 
 export default articlesSaga;
