@@ -27,6 +27,7 @@ import FormsAndArticles from '../FormsAndArticles/FormsAndArticles';
 import Article from '../Article/Article';
 import UploadDownload from '../Blob/blobAll.jsx';
 import AdminManageLogins from '../Admin/AdminManageLogins/AdminManageLogins.jsx';
+import FAQ from '../FAQs/FAQs.jsx';
 import AdminManageResources from '../Admin/AdminManageResources/AdminManageResources.jsx';
 import AdminArticleEdit from '../Admin/AdminArticleEdit/AdminArticleEdit.jsx';
 import AdminAddArticle from '../Admin/AdminAddArticle/AdminAddArticle.jsx';
@@ -144,6 +145,12 @@ function App() {
           >
             <SavedResources />
           </ProtectedRoute>
+          <ProtectedRoute exact path="/faqs">
+            <FAQ />
+          
+          </ProtectedRoute>
+         
+
 
           <Route
             exact
