@@ -12,6 +12,7 @@ function Nav() {
   const user = useSelector((store) => store.user);
   const unreadAnswersCount = useSelector((store) => store.unreadAnswersCount);
   const [searchTerm, setSearchTerm] = useState("");
+  const history = useHistory();
 
   useEffect(() => {
     if (user.id) {
@@ -40,10 +41,9 @@ function Nav() {
   // Handles search form submission
   const handleSearch = (event) => {
     event.preventDefault();
-
-    // Put BLOB search-code here!
-    console.log("Searching for:", searchTerm);
+    history.push(`search-results?query=${searchTerm}`)
   };
+
 
   return (
     <div className="nav">
@@ -64,23 +64,18 @@ function Nav() {
       {user.id && (
         <>
           <div className="nav-links">
-            <div className="nav-right">
-              {/* Search Form*/}
-              {/* <form onSubmit={handleSearch} className="search-form">
-                <input
-                  type="text"
-                  placeholder="Search..."
-                  value={searchTerm}
-                  onChange={(event) => setSearchTerm(event.target.value)}
-                  className="search-input"
-                />
-                <button type="submit" className="search-button">
-                  Search
-                </button>
-              </form> */}
-              <SearchPDF onClick searchResults={searchTerm} />
-            </div>
-
+          <div className="nav-right">
+                {/* Search Form */}
+                <form onSubmit={handleSearch}>
+                  <input
+                    type="text"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    placeholder="Search for PDFs"
+                  />
+                  <button type="submit">Search</button>
+                </form>
+              </div>
             <Link className="navLink" to="/user">
               Home
             </Link>
