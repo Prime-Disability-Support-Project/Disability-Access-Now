@@ -69,7 +69,6 @@ router.post("/new-question-without-article", async (req, res) => {
   // associated_article_url = null
   const question_date = req.body.questionDate;
   // flagged = false
-
   const userId = req.user.id;
 
   try {
