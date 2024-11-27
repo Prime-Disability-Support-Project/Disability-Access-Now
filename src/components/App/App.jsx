@@ -165,7 +165,7 @@ function App() {
 
           {/*Route for AskQuestion component*/}
           <Route 
-          exact path="/new-question-without-article"
+          exact path="/userQuestions"
           >
             <AskQuestion />
           </Route>

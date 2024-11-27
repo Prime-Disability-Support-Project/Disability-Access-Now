@@ -1,72 +1,52 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import UserUnansweredQuestions from "../UserUnansweredQuestions/UserUnansweredQuestions";
+import UserAnsweredQuestions from "../UserAnsweredQuestions/UserAnsweredQuestions";
+import AskQuestion from "../AskAQuestion/AskAQuestion.jsx";
+import "../AskAQuestionPage/AskAQuestionPage.css"
+import '../AskAQuestion/AskAQuestion.css'
 
-import './AskAQuestionPage.css'
+import { useState } from "react";
 
-const AskQuestion = () => {
-    const [question, setQuestion] = useState('');
-    const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState(null);
+export default function AskAQuestionPage() {
+  const [view, setView] = useState("unanswered");
+  const [showPopup, setShowPopup] = useState(false); 
 
-    const handleQuestionChange = (even) => {
-        setQuestion(event.target.value);
-    };
+  const togglePopup = () => {
+    setShowPopup(!showPopup);
+  }
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        setIsLoading(true);
-
-        try {
-            await axios.post('/new-question-without-article', {
-
-
-                
-                question,
-                questionDate: new Date().toISOString(),
-            });
-            setQuestion('');
-            setError(null)
-        } catch (err) {
-            setError('Error submitting your question. Please try again later.');
-        } finally {
-            setIsLoading(false);
-        }
-    };
-
-    return (
-        <>
-          <div className="ask-title">
+  return (
+    <>
+        <div className="ask-a-question-page">
+        <div className="ask-title">
             <h2>Ask A Question</h2>
-            <button className="ask-button">Click here to ask a question</button>
-            </div>
-        <main>
-          
-            <div className="questions-container">
-                <div className="tabs">
-                    <button>Unanswered Questions</button>
-                    <button>Answered Questions</button>
-                </div>
-                
-               
-               
-            </div>
-            <form onSubmit={handleSubmit} className="question-form">
-                <textarea
-                value={question}
-                onChange={handleQuestionChange}
-                placeholder="Enter your question here..."
-                required
-
-                ></textarea>
-                {error && <div className="error">{error}</div>}
-                <button type="submit" disabled={isLoading}>
-                    {isLoading ? 'Submitting...' : 'Submit Question'}
+            <button className="ask-button" onClick={togglePopup}>
+                Click here to ask a question
                 </button>
-            </form>
-        </main>
-        
-    </>
-  );
-};
+            </div>
 
-export default AskQuestion;
+      <div className="tabs">
+        <button onClick={() => setView('unanswered')}>Unanswered Questions</button>
+        <button onClick={() => setView('answered')}>Answered Questions</button>
+      </div>
+      <div className="questions-list">
+        {view === "unanswered" ? (
+            <UserUnansweredQuestions />
+        ) : (
+            <UserAnsweredQuestions />
+        )}
+        </div>
+        {/* Pop-up for asking a question */}
+        {showPopup && (
+            <div className="popup-container">
+            <div className="popup-content">
+                <AskQuestion />
+                <button className="close-button" onClick={togglePopup}>
+                    Close
+                    </button>   
+                </div>
+            </div>
+        )}
+        </div>
+        </>
+  )
+}

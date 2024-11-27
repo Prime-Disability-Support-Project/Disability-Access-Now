@@ -18,7 +18,8 @@ export default function UserAnsweredQuestions() {
       <ul>
         {answeredQuestions.map((question) => {
           return (
-            <li key={question.id}>
+            <div className="questions-list">
+            <p key={question.id}>
               <p>Question: {question.question}</p>
               <p>Answer: {question.answer}</p>
               <p>Date Submitted: {question.question_date}</p>
@@ -28,7 +29,8 @@ export default function UserAnsweredQuestions() {
                   ? <a href={question.associated_article_url}>{question.associated_article_url}</a>
                   : "No article was associated with this question"}
               </p>
-            </li>
+            </p>
+            </div>
           );
         })}
       </ul>

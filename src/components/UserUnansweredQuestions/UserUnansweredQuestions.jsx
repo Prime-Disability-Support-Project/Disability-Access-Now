@@ -18,6 +18,7 @@ export default function UserUnansweredQuestions() {
       <ul>
         {unansweredQuestions.map((question) => {
           return (
+            <div className="questions-list">
             <li key={question.id}>
               <p>Question: {question.question}</p>
               <p>Date Submitted: {question.question_date}</p>
@@ -28,6 +29,7 @@ export default function UserUnansweredQuestions() {
                   : "No article was associated with this question"}
               </p>
             </li>
+            </div>
           );
         })}
       </ul>

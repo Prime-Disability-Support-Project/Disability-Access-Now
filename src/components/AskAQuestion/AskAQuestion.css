@@ -1,0 +1,156 @@
+/* AskAQuestion.css */
+
+main {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+    max-width: 600px;
+    margin: auto;
+    padding: 2rem;
+}
+
+.ask-a-question-page {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #333;
+  display: float;
+}
+
+.ask-a-question-page {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 1rem;
+}
+
+.header h1 {
+    font-size: 2rem;
+    margin: 0.5rem;
+}
+
+.user-info input {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 9px;
+}
+
+.user-info button {
+    padding: 0.5rem 1rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    
+}
+
+.ask-button {
+    display: flex;
+    margin: 1rem;
+    margin-bottom: 6rem;
+    margin-left: 4rem;
+    padding: 1.3rem 4rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 9px;
+    cursor: pointer;
+}
+
+.question-container {
+    display: flex;
+    margin-top: 1rem;
+    gap: 2rem;
+}
+
+.tabs {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.ask-title {
+    display: flex;
+    justify-content: left;
+    align-items: left;
+    width: 100%;
+    margin-bottom: 0.2rem;
+    margin-left: 2rem;
+}
+
+.tabs button {
+    width: 80%;
+    padding: 0.5rem 1rem;
+    margin-bottom: 0.5rem;
+    border: none;
+    background-color: #f0f0f0;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 1rem;
+}
+
+.questions-list {
+    padding: 0.5rem 1rem;
+display: flex;
+flex-wrap: wrap;
+gap: 1rem;
+border: 1px solid #ccc;
+background-color: #f9f9f9;
+box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+margin-top: 1rem;
+justify-content: center;
+text-align: center;
+}
+
+.question-list::-webkit-scrollbar {
+width: 10px;
+}
+
+.question-list::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+    }
+
+.question-list::-webkit-scrollbar-thumb:hover {
+        background: #555;
+        }
+
+.question-card {
+    padding: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+}
+
+.question-card:hover {
+transform: translateY(-5px);
+box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.question-form textarea {
+    width: 100%;
+    height: 280px;
+    padding: 1.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+    min-height: 40px;
+   
+}
+
+.question-form button{
+    background-color: #007bff;
+    margin-bottom: 3rem;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+footer {
+    text-align: center;
+    padding: 1rem;
+    background-color: #f4f4f4;
+    margin-top: 75rem;
+    border-top: 2px solid #ccc;
+}
