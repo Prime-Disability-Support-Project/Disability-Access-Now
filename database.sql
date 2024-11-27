@@ -54,15 +54,4 @@ CREATE TABLE "articles_files" (
     "file_id" INTEGER REFERENCES "files"("id") ON DELETE CASCADE         -- foreign key referencing files.id
 );
 
-CREATE TABLE "savedFile" (
-    "id" SERIAL PRIMARY KEY,               -- auto-incrementing primary key
-    "file_id" INT REFERENCES "files" (id) NOT NULL, -- foreign key referencing the files table
-    "user_id" INTEGER REFERENCES "user" (id) -- foreign key referencing the user table
-);
-
-CREATE TABLE "savedArticle" (
-    "id" SERIAL PRIMARY KEY,               -- auto-incrementing primary key
-    "article_id" INT REFERENCES "articles" (id) NOT NULL, -- foreign key referencing the articles table
-    "user_id" INTEGER REFERENCES "user" (id) -- foreign key referencing the user table
-);
 
