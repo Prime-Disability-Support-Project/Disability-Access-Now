@@ -55,10 +55,6 @@
   font-size: 14px;
   border: none;
   cursor: pointer;
-
-  border: none;
-  cursor: pointer;
-  outline: 0;
 }
 
   .navLink:hover {
@@ -77,6 +73,7 @@
     font-size: 14px;
     border: none;
     cursor: pointer;
+    pointer-events: none;
   }
 
   .dropdown-content {

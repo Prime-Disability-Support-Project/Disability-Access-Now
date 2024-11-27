@@ -1,5 +1,23 @@
-footer {
-  margin-top: 80px;
-  padding: 20px;
+.footer html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.footer footer {
   text-align: center;
+  padding: 20px;
+  color: black;
+  width: 100%;
+}
+.footer a {
+  text-decoration: none;
+}
+
+.footer a:hover,
+a:focus {
+  color: #007bff;
+  cursor: pointer;
 }

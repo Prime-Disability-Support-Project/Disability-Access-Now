@@ -19,7 +19,6 @@ function LoginForm() {
           password: password,
         },
       });
-      console.log('email and password', email, password)
     } else {
       dispatch({ type: 'LOGIN_INPUT_ERROR' });
     }

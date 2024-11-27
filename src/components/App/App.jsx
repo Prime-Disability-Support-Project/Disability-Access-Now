@@ -21,6 +21,12 @@ import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import AskQuestion from '../AskAQuestionPage/AskAQuestionPage.jsx'; // imports AskQuestion component
 import AskAQuestionPage from '../AskAQuestionPage/AskAQuestionPage';
+import Contact from '../ContactUs/ContactUs';
+import SavedResources from '../SavedResources/SavedResources';
+import FormsAndArticles from '../FormsAndArticles/FormsAndArticles';
+import Article from '../Article/Article';
+import UploadDownload from '../UploadDownload/UploadDownload';
+import AdminManageLogins from '../Admin/AdminManageLogins/AdminManageLogins.jsx';
 
 import './App.css';
 
@@ -59,7 +65,9 @@ function App() {
             exact
             path="/user"
           >
-            <UserPage />
+            <UploadDownload />
+            
+            
           </ProtectedRoute>
 
           <ProtectedRoute
@@ -76,6 +84,41 @@ function App() {
             path="/userQuestions"
           >
             <AskAQuestionPage />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            exact
+            path="/contact"
+          >
+            <Contact />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            exact
+            path="/formsAndArticles"
+          >
+            <FormsAndArticles />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            exact
+            path="/adminManage"
+          >
+            <AdminManageLogins />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            
+            path="/articlePage"
+          >
+            <Article />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            exact
+            path="/savedResources"
+          >
+            <SavedResources />
           </ProtectedRoute>
 
           <Route
@@ -132,7 +175,9 @@ function App() {
             <h1>404</h1>
           </Route>
         </Switch>
-        <Footer />
+        
+        {user.id && <Footer />
+          }
       </div>
     </Router>
   );

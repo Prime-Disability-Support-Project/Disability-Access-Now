@@ -17,13 +17,9 @@ const savedRouter = require('./routes/saved.router') // importing files routes
 const filesRouter = require('./routes/files.router'); // importing files routes
 
 // Express Middleware
-app.use(express.json());
-app.use(express.urlencoded({extended: true}));
+app.use(bodyParser.json({ limit: '100mb' }));
+app.use(bodyParser.urlencoded({ limit: '100mb', extended: true }));
 app.use(express.static('build'));
-
-// Body Parser Middleware
-app.use(bodyParser.json({limit: '50mb'}));
-app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 
 // Passport Session Configuration
 app.use(sessionMiddleware);
@@ -39,6 +35,8 @@ app.use(cors());
 app.use('/api/user', userRouter); //user routes 
 app.use('/api/questions', questionsRouter) // questions 
 app.use('/api/articles', articlesRouter)  // articles 
+app.use('/api/saved', savedRouter) // saved articles & files
+app.use('/api/files', filesRouter) // files
 
 // Listen Server & Port
 app.listen(PORT, () => {
