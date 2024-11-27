@@ -11,7 +11,6 @@ CREATE TABLE "user" (
     "approved" BOOLEAN DEFAULT FALSE
 );
 
-
 CREATE TABLE "questions" (
     "id" SERIAL PRIMARY KEY,                -- Unique identifier, auto-incremented
     "question" VARCHAR(1000),               -- user question input      
@@ -22,18 +21,6 @@ CREATE TABLE "questions" (
     "question_date" DATE,                   -- The date when the question was posted
     "flagged" BOOLEAN DEFAULT FALSE,        -- Whether the question has been flagged (defaults to false)
     "user_id" INTEGER REFERENCES "user"(id) ON DELETE CASCADE  -- Foreign key to the 'user' table
-);
-
-CREATE TABLE "savedFile" (
-    "id" SERIAL PRIMARY KEY,               -- auto-incrementing primary key
-    "file_id" INT REFERENCES "files" (id) ON DELETE CASCADE NOT NULL, -- foreign key referencing the files table
-    "user_id" INTEGER REFERENCES "user" (id) ON DELETE CASCADE -- foreign key referencing the user table
-);
-
-CREATE TABLE "savedArticle" (
-    "id" SERIAL PRIMARY KEY,               -- auto-incrementing primary key
-    "article_id" INT REFERENCES "articles" (id) ON DELETE CASCADE NOT NULL, -- foreign key referencing the articles table
-    "user_id" INTEGER REFERENCES "user" (id) ON DELETE CASCADE -- foreign key referencing the user table
 );
 
 CREATE TABLE "articles" (
@@ -48,6 +35,17 @@ CREATE TABLE "files" (
     "id" SERIAL PRIMARY KEY,               -- auto-incrementing primary key
     "filename" VARCHAR(255) NOT NULL,        -- filename of the file, max length 255
     "data" BYTEA                            -- learn more about BYTEA at https://shorturl.at/OANxy
+);
+CREATE TABLE "savedFile" (
+    "id" SERIAL PRIMARY KEY,               -- auto-incrementing primary key
+    "file_id" INT REFERENCES "files" (id) ON DELETE CASCADE NOT NULL, -- foreign key referencing the files table
+    "user_id" INTEGER REFERENCES "user" (id) ON DELETE CASCADE -- foreign key referencing the user table
+);
+
+CREATE TABLE "savedArticle" (
+    "id" SERIAL PRIMARY KEY,               -- auto-incrementing primary key
+    "article_id" INT REFERENCES "articles" (id) ON DELETE CASCADE NOT NULL, -- foreign key referencing the articles table
+    "user_id" INTEGER REFERENCES "user" (id) ON DELETE CASCADE -- foreign key referencing the user table
 );
 
 CREATE TABLE "articles_files" (
