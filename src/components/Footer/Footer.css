@@ -1,18 +1,23 @@
-footer {
-  text-align: center;
-  padding: 20px;
-  background-color: #00acb0;
-  color: white;
-  position: absolute;
-  width: 100%;
-  bottom: 0;
-/* #00acb0;*/
+.footer html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
-a {
-  color: #b4174668;
+.footer footer {
+  text-align: center;
+  padding: 20px;
+  color: black;
+  width: 100%;
+}
+.footer a {
   text-decoration: none;
 }
- a:hover {
-  text-decoration:underline;
+
+.footer a:hover,
+a:focus {
+  color: #007bff;
+  cursor: pointer;
 }

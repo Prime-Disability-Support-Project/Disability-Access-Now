@@ -21,7 +21,7 @@ export default function ArticleList() {
         {allArticles.map((article) => {
           return (
             <li key={article.id} onClick={() => handleClick(article.id)}>
-              {article.title}
+              <a>{article.title}</a>
             </li>
           );
         })}

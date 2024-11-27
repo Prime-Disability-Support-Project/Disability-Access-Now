@@ -47,7 +47,7 @@ function Nav() {
     <div className="nav">
       {/*links to homepage and navigation title*/}
       <Link to="/home">
-        <h2 className="nav-title">Disability Support Application</h2>
+        <h2 className="nav-title">Disability Access Now</h2>
       </Link>
 
       {/* If no user is logged in, show these links */}
@@ -90,7 +90,7 @@ function Nav() {
           </Link>
         ))
       }
-            
+
             <Link className="navLink" to="/user-unread">
               Unread Answers{" "}
               {unreadAnswersCount > 0 && `(${unreadAnswersCount})`}
@@ -101,7 +101,7 @@ function Nav() {
             </Link>
 
             <div className="dropdown">
-              <button className="dropbtn">Resources</button>
+              <Link className="dropbtn">Resources</Link>
               <div className="dropdown-content">
                 <Link to="/am-i-eligible">Am I eligible</Link>
                 <Link to="/forms-to-should-start-with">

@@ -16,7 +16,8 @@ router.get("/", rejectUnauthenticated, (req, res) => {
 
 // Gets all users that have not been approved
 router.get("/allPending", rejectUnauthenticated, (req, res) => {
-  const queryText = 'SELECT * FROM "user" WHERE approved = false ORDER BY "name" ASC;';
+  const queryText =
+    'SELECT * FROM "user" WHERE approved = false ORDER BY "name" ASC;';
   pool
     .query(queryText)
     .then((results) => res.send(results.rows))
@@ -28,7 +29,8 @@ router.get("/allPending", rejectUnauthenticated, (req, res) => {
 
 // Gets all users who have been approved
 router.get("/allApproved", rejectUnauthenticated, (req, res) => {
-  const queryText = 'SELECT * FROM "user" WHERE approved = true ORDER BY "name" ASC;';
+  const queryText =
+    'SELECT * FROM "user" WHERE approved = true ORDER BY "name" ASC;';
   pool
     .query(queryText)
     .then((results) => res.send(results.rows))
@@ -41,8 +43,6 @@ router.get("/allApproved", rejectUnauthenticated, (req, res) => {
 // set approved to true for the selected user
 router.put("/:id", (req, res) => {
   const userId = req.params.id;
-
-  // toggle the "approved" value
   const queryText = `
     UPDATE "user"
     SET "approved" = true
@@ -58,6 +58,54 @@ router.put("/:id", (req, res) => {
     })
     .catch((error) => {
       console.error("Error with updating approved:", error);
+      res.sendStatus(500); // Server error
+    });
+});
+
+// toggles user role between user (1) and admin (2)
+router.put("/privileges/:id", (req, res) => {
+  const userId = req.params.id;
+
+  // SQL query for the toggle
+  const queryText = `
+    UPDATE "user"
+    SET "role" = CASE
+      WHEN "role" = 1 THEN 2
+      ELSE 1
+    END
+    WHERE "id" = $1;
+  `;
+
+  const params = [userId];
+
+  pool
+    .query(queryText, params)
+    .then(() => {
+      res.sendStatus(200); // Success
+    })
+    .catch((error) => {
+      console.error("Error with updating privileges:", error);
+      res.sendStatus(500); // Server error
+    });
+});
+
+// remove the selected user
+router.delete("/:id", (req, res) => {
+  const userId = req.params.id;
+  const queryText = `
+    DELETE FROM "user"
+    WHERE "id" = $1;
+  `;
+
+  const params = [userId];
+
+  pool
+    .query(queryText, params)
+    .then(() => {
+      res.sendStatus(200); // Success
+    })
+    .catch((error) => {
+      console.error("Error with removing user:", error);
       res.sendStatus(500); // Server error
     });
 });

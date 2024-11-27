@@ -21,8 +21,16 @@ export default function AdminManageLogins() {
   }, []);
 
   const handleApprove = (userId) => {
-    dispatch({type: "APPROVE_LOGIN", payload: userId})
-  }
+    dispatch({ type: "APPROVE_LOGIN", payload: userId });
+  };
+
+  const handleAdmin = (userId) => {
+    dispatch({ type: "ADMIN_TOGGLE", payload: userId });
+  };
+
+  const handleRemove = (userId) => {
+    dispatch({ type: "REMOVE_USER", payload: userId });
+  };
 
   return (
     <div>
@@ -30,22 +38,42 @@ export default function AdminManageLogins() {
       <h2>Pending Logins</h2>
       {allPendingUsers.map((user) => {
         return (
-          <div>
-            <ul key={user.id}>
-              <li>Name: {user.name}</li>
-              <li>Email Address: {user.email}</li>
-            </ul>
+          <ul key={user.id}>
+            <li>
+              <strong>Name:</strong> {user.name}
+            </li>
+            <li>
+              <strong>Email Address:</strong> {user.email}
+            </li>
             <button onClick={() => handleApprove(user.id)}>Approve</button>
-          </div>
+            <button onClick={() => handleRemove(user.id)}>Remove User</button>
+          </ul>
         );
       })}
       <h2>Approved Logins</h2>
       {allApprovedUsers.map((user) => {
         return (
           <ul key={user.id}>
-            <li>Name: {user.name}</li>
-            <li>Email Address: {user.email}</li>
-            <li>Current Role: {user.role === 1 ? "User" : "Administrator"}</li>
+            <li>
+              <strong>Name:</strong> {user.name}
+            </li>
+            <li>
+              <strong>Email Address:</strong> {user.email}
+            </li>
+            <li>
+              <strong>Access Level:</strong>{" "}
+              {user.role === 1 ? "User" : "Administrator"}
+            </li>
+            {user.role === 1 ? (
+              <button onClick={() => handleAdmin(user.id)}>
+                Grant Admin Privileges
+              </button>
+            ) : (
+              <button onClick={() => handleAdmin(user.id)}>
+                Revoke Admin Privileges
+              </button>
+            )}
+            <button onClick={() => handleRemove(user.id)}>Remove User</button>
           </ul>
         );
       })}
