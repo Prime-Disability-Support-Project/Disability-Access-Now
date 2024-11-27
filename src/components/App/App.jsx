@@ -28,6 +28,7 @@ import Article from '../Article/Article';
 import UploadDownload from '../UploadDownload/UploadDownload';
 import AdminManageLogins from '../Admin/AdminManageLogins/AdminManageLogins.jsx';
 import AdminManageResources from '../Admin/AdminManageResources/AdminManageResources.jsx';
+import AdminArticleEdit from '../Admin/AdminArticleEdit/AdminArticleEdit.jsx';
 
 import './App.css';
 
@@ -120,6 +121,13 @@ function App() {
             path="/articlePage"
           >
             <Article />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            
+            path="/editArticle"
+          >
+            <AdminArticleEdit />
           </ProtectedRoute>
 
           <ProtectedRoute

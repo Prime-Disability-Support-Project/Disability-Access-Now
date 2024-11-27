@@ -84,9 +84,9 @@ router.post("/", (req, res) => {
 // PUT Update an Article
 router.put("/:articleId", (req, res) => {
   const { articleId } = req.params;
-  const { title, subtitle, body, article_url } = req.body;
-  const queryText = `UPDATE articles SET "title" = $1, "subtitle" = $2, "body" = $3, "article_url" = $4 WHERE id = $5`;
-  const params = [title, subtitle, body, article_url, articleId];
+  const { title, subtitle, body } = req.body;
+  const queryText = `UPDATE articles SET "title" = $1, "subtitle" = $2, "body" = $3 WHERE id = $4`;
+  const params = [title, subtitle, body, articleId];
 
   pool
     .query(queryText, params)

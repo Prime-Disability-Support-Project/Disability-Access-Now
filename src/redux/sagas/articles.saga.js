@@ -28,6 +28,16 @@ function* fetchSpecificArticle(action) {
   }
 }
 
+// Update an article's content
+function* editArticle(action) {
+    try {
+      yield axios.put(`/api/articles/${action.payload.articleId}`, action.payload);
+      yield put({ type: "FETCH_ALL_ARTICLES" });
+    } catch (error) {
+      console.error("editArticle error in articles.saga", error);
+    }
+  }
+
 // DELETE the selected article, then call a GET to refresh
 function* removeArticle(action) {
     try {
@@ -43,6 +53,7 @@ function* articlesSaga() {
   yield takeLatest("FETCH_ALL_ARTICLES", fetchAllArticles);
   yield takeLatest("FETCH_SPECIFIC_ARTICLE", fetchSpecificArticle);
   yield takeLatest("REMOVE_ARTICLE", removeArticle);
+  yield takeLatest("EDIT_ARTICLE", editArticle);
 }
 
 export default articlesSaga;

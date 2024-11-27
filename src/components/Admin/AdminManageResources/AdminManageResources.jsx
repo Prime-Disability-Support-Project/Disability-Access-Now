@@ -11,7 +11,9 @@ export default function AdminManageResources() {
     dispatch({ type: "FETCH_ALL_ARTICLES" });
   }, [dispatch]);
 
-  const handleEdit = (articleId) => {};
+  const handleEdit = (articleId) => {
+    history.push(`/editArticle/${articleId}`);
+  };
 
   const handleDelete = (articleId) => {
     dispatch({ type: "REMOVE_ARTICLE", payload: articleId });
@@ -19,6 +21,11 @@ export default function AdminManageResources() {
 
   return (
     <div>
+      <h1>Manage Resources</h1>
+      <h2>Add New Resources</h2>
+      <button>Add a New Article</button>
+      <button>Add a New PDF</button>
+      <h2>Choose an Article to Edit</h2>
       <ul>
         {allArticles.map((article) => {
           return (
