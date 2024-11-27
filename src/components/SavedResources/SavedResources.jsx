@@ -30,9 +30,9 @@ export default function SavedResources() {
             <>
               <li key={article.id}>
                 <p>{article.title}</p>
-                <a href={article.article_url}>{article.article_url}</a>
+                <a href={`http://localhost:5173/#/articlePage/${article.id}`} >{article.title}</a>
               </li>
-              <button onClick={() => removeArticle(article.id)}>Remove Article</button>
+              <button onClick={() => removeArticle(article.id)}>Remove From Saved</button>
             </>
           );
         })}
@@ -45,7 +45,7 @@ export default function SavedResources() {
             <li key={file.id}>
               <p>{file.filename}</p>
             </li>
-            <button onClick={() => removeFile(file.id)}>Remove File</button>
+            <button onClick={() => removeFile(file.id)}>Remove From Saved</button>
             </>
           );
         })}

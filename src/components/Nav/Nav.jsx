@@ -4,6 +4,9 @@ import "./Nav.css";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
+import SearchPDF from "../Blob/SearchPDF";
+import UploadPDF from "../Blob/UploadPDF";
+import DownloadPDF from "../Blob/DownloadPDF";
 
 function Nav() {
   const dispatch = useDispatch();
@@ -64,7 +67,7 @@ function Nav() {
           <div className="nav-links">
             <div className="nav-right">
               {/* Search Form*/}
-              <form onSubmit={handleSearch} className="search-form">
+              {/* <form onSubmit={handleSearch} className="search-form">
                 <input
                   type="text"
                   placeholder="Search..."
@@ -75,21 +78,25 @@ function Nav() {
                 <button type="submit" className="search-button">
                   Search
                 </button>
-              </form>
+              </form> */}
+              <SearchPDF />
             </div>
 
             <Link className="navLink" to="/user">
               Home
             </Link>
 
-        {/* admin links - only show up if a user is logged in and their role is "2" */}
-            {
-        (user.role === 2 && (
-          <Link className="navLink" to="/adminManage">
-            Manage Logins
-          </Link>
-        ))
-      }
+            {/* admin links - only show up if a user is logged in and their role is "2" */}
+            {user.role === 2 && (
+              <>
+                <Link className="navLink" to="/adminManage">
+                  Manage Logins
+                </Link>
+                <Link className="navLink" to="/adminManageResources">
+                  Manage Resources
+                </Link>
+              </>
+            )}
 
             <Link className="navLink" to="/user-unread">
               Unread Answers{" "}

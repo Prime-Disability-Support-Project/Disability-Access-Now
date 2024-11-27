@@ -25,9 +25,12 @@ import Contact from '../ContactUs/ContactUs';
 import SavedResources from '../SavedResources/SavedResources';
 import FormsAndArticles from '../FormsAndArticles/FormsAndArticles';
 import Article from '../Article/Article';
-import UploadDownload from '../UploadDownload/UploadDownload';
+import UploadDownload from '../Blob/blobAll.jsx';
 import AdminManageLogins from '../Admin/AdminManageLogins/AdminManageLogins.jsx';
 import FAQ from '../FAQs/FAQs.jsx';
+import AdminManageResources from '../Admin/AdminManageResources/AdminManageResources.jsx';
+import AdminArticleEdit from '../Admin/AdminArticleEdit/AdminArticleEdit.jsx';
+import AdminAddArticle from '../Admin/AdminAddArticle/AdminAddArticle.jsx';
 
 import './App.css';
 
@@ -109,10 +112,31 @@ function App() {
           </ProtectedRoute>
 
           <ProtectedRoute
+            exact
+            path="/adminManageResources"
+          >
+            <AdminManageResources />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            exact
+            path="/adminAddArticle"
+          >
+            <AdminAddArticle />
+          </ProtectedRoute>
+
+          <ProtectedRoute
             
             path="/articlePage"
           >
             <Article />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            
+            path="/editArticle"
+          >
+            <AdminArticleEdit />
           </ProtectedRoute>
 
           <ProtectedRoute
@@ -172,7 +196,7 @@ function App() {
 
           {/*Route for AskQuestion component*/}
           <Route 
-          exact path="/new-question-without-article"
+          exact path="/userQuestions"
           >
             <AskQuestion />
           </Route>

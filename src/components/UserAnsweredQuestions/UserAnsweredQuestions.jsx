@@ -9,7 +9,6 @@ export default function UserAnsweredQuestions() {
 
   useEffect(() => {
     dispatch({ type: "FETCH_USER_ANSWERED" });
-    console.log(answeredQuestions);
   }, [dispatch]);
 
   return (
@@ -18,17 +17,23 @@ export default function UserAnsweredQuestions() {
       <ul>
         {answeredQuestions.map((question) => {
           return (
-            <li key={question.id}>
-              <p>Question: {question.question}</p>
-              <p>Answer: {question.answer}</p>
-              <p>Date Submitted: {question.question_date}</p>
-              <p>
-                Associated Article:{" "}
-                {question.associated_article_url
-                  ? <a href={question.associated_article_url}>{question.associated_article_url}</a>
-                  : "No article was associated with this question"}
-              </p>
-            </li>
+            <div key={question.id} className="questions-list">
+              <li>
+                <p>Question: {question.question}</p>
+                <p>Answer: {question.answer}</p>
+                <p>Date Submitted: {question.question_date}</p>
+                <p>
+                  Associated Article:{" "}
+                  {question.associated_article_url ? (
+                    <a href={question.associated_article_url}>
+                      {question.associated_article_url}
+                    </a>
+                  ) : (
+                    "No article was associated with this question"
+                  )}
+                </p>
+              </li>
+            </div>
           );
         })}
       </ul>
