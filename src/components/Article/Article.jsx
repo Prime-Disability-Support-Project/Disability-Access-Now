@@ -21,7 +21,7 @@ export default function Article() {
 
   return (
     <div>
-      <button onClick={() => history.push("/formsAndArticles")}>Back</button>
+      <button onClick={() => history.goBack()}>Back</button>
       <h1>{specificArticle.title}</h1>
       <h2>{specificArticle.subtitle}</h2>
       <p>{specificArticle.body}</p>

@@ -66,7 +66,7 @@ export default function UploadPDF() {
 
   return (
     <div>
-      <h1>PDF Title: {fileTitle}</h1>
+      {/* <p>PDF Title: {fileTitle}</p> */}
       <button onClick={openFileHandler}>Upload New PDF</button>
     </div>
   );

@@ -40,13 +40,13 @@ router.get("/:articleId", (req, res) => {
 
 // POST New Article (Also Update Junction Table if Files are Provided)
 router.post("/", (req, res) => {
-  const { title, subtitle, body, article_url, fileIds } = req.body;
+  const { title, subtitle, body, fileIds } = req.body;
   const queryText = `
-                                  INSERT INTO articles ("title", "subtitle", "body", "article_url") 
-                                  VALUES ($1, $2, $3, $4) 
+                                  INSERT INTO articles ("title", "subtitle", "body") 
+                                  VALUES ($1, $2, $3) 
                                   RETURNING id;
                                                 `;
-  const params = [title, subtitle, body, article_url];
+  const params = [title, subtitle, body];
 
   pool
     .query(queryText, params)

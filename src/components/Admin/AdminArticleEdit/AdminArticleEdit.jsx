@@ -35,13 +35,13 @@ export default function AdminArticleEdit() {
     };
     dispatch({ type: "EDIT_ARTICLE", payload: articleData });
     dispatch({ type: "RESET_SPECIFIC_ARTICLE" });
-    history.push("/adminManageResources");
+    history.goBack();
   };
 
   // resets the store after they leave the page
   const handleCancel = () => {
     dispatch({ type: "RESET_SPECIFIC_ARTICLE" });
-    history.push("/adminManageResources");
+    history.goBack();
   };
 
   // fetches the specific article using the articleId in the url
