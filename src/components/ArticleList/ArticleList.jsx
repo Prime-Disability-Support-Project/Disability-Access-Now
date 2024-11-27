@@ -1,9 +1,6 @@
-import Article from "../Article/Article";
-
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
 
 export default function ArticleList() {
   const dispatch = useDispatch();
@@ -20,9 +17,15 @@ export default function ArticleList() {
 
   return (
     <div>
-      {allArticles.map((article) => {
-        return <p onClick={() => handleClick(article.id)}>{article.title}</p>;
-      })}
+      <ul>
+        {allArticles.map((article) => {
+          return (
+            <li key={article.id} onClick={() => handleClick(article.id)}>
+              {article.title}
+            </li>
+          );
+        })}
+      </ul>
     </div>
   );
 }

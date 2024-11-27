@@ -13,17 +13,17 @@ export default function Article() {
   );
 
   useEffect(() => {
-    const url = window.location.href; 
-    const articleId = url.split("/").pop(); 
+    const url = window.location.href;
+    const articleId = url.split("/").pop();
     dispatch({
-        type: "FETCH_SPECIFIC_ARTICLE",
-        payload: articleId,
-      });
+      type: "FETCH_SPECIFIC_ARTICLE",
+      payload: articleId,
+    });
   }, []);
-
 
   return (
     <div>
+      <button onClick={() => history.push("/formsAndArticles")}>Back</button>
       <h1>{specificArticle.title}</h1>
       <h2>{specificArticle.subtitle}</h2>
       <p>{specificArticle.body}</p>
