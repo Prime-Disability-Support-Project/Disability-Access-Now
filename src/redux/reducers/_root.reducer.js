@@ -6,6 +6,7 @@ import adminQuestions from './adminQuestions.reducer';
 import saved from './saved.reducer';
 import articles from './articles.reducer'
 import userLogins from './userLogins.reducer'
+import files from './files.reducer'
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   saved, // contains all saved articles and files
   articles, // contains all articles and specific articles
   userLogins,
+  files
 });
 
 export default rootReducer;

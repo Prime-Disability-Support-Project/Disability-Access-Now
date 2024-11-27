@@ -1,4 +1,5 @@
 import ArticleList from "../ArticleList/ArticleList";
+import FilesList from "../FilesList/FilesList";
 import "./FormsAndArticles.css";
 
 export default function FormsAndArticles() {
@@ -14,6 +15,7 @@ export default function FormsAndArticles() {
         </section>
         <section>
           <h2>Files</h2>
+          <FilesList />
         </section>
       </div>
     </body>
