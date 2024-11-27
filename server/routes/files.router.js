@@ -98,8 +98,9 @@ router.get("/allFiles", (req, res) => {
 
 // Get specific file
 router.get("/allFiles/:id", (req, res) => {
-  const queryText = 'SELECT * FROM files WHERE "id" = $1 ORDER BY "filename" ASC;';
-  const params = [req.params.id]
+  const queryText =
+    'SELECT * FROM files WHERE "id" = $1 ORDER BY "filename" ASC;';
+  const params = [req.params.id];
   pool
     .query(queryText, params)
     .then((results) => res.send(results.rows))
@@ -109,22 +110,42 @@ router.get("/allFiles/:id", (req, res) => {
     });
 });
 
+// Get all filenames associated with a specific article
+router.get("/associatedFiles/:id", (req, res) => {
+  const queryText = `
+    SELECT 
+    files.filename AS filename
+    FROM 
+    articles_files
+    JOIN 
+    files ON articles_files.file_id = files.id
+    WHERE 
+    articles_files.article_id = $1;
+    `;
+
+  const params = [req.params.id];
+  pool
+    .query(queryText, params)
+    .then((results) => res.send(results.rows))
+    .catch((error) => {
+      console.log("Error making GET for associated files:", error);
+      res.sendStatus(500);
+    });
+});
 
 // Delete a specific file
 router.delete("/:id", (req, res) => {
-    const fileId = req.params.id;
-  
-    pool
-      .query(`DELETE FROM "files" WHERE id = $1;`, [
-        fileId
-      ])
-      .then((result) => {
-        res.status(200).send("File successfully deleted");
-      })
-      .catch((error) => {
-        console.log("Error deleting:", error);
-        res.sendStatus(500);
-      });
-  });
+  const fileId = req.params.id;
+
+  pool
+    .query(`DELETE FROM "files" WHERE id = $1;`, [fileId])
+    .then((result) => {
+      res.status(200).send("File successfully deleted");
+    })
+    .catch((error) => {
+      console.log("Error deleting:", error);
+      res.sendStatus(500);
+    });
+});
 
 module.exports = router;

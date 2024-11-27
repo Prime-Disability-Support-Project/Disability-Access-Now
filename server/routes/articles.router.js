@@ -103,40 +103,6 @@ router.put("/:articleId", (req, res) => {
     });
 });
 
-// TODO: Commented out for Nick to look at
-// post files
-// router.post("/files", (req, res) => {
-//   const { filename } = req.body;
-
-//   const queryText = 'INSERT INTO files ("filename") VALUES ($1)';
-
-//   pool
-//     .query(queryText, [filename])
-//     .then((results) => {
-//       res.status(201).send(results.rows[0]);
-//     })
-//     .catch((error) => {
-//       console.error("Error inserting file:", error);
-//       res.status(500).send("Database query failed");
-//     });
-// });
-
-
-// TODO: Commented out for Nick to look at
-// GET method to fetch all files
-// router.get("/files", (req, res) => {
-//   const queryText = "SELECT * FROM files";
-
-//   pool
-//     .query(queryText)
-//     .then((results) => {
-//       res.status(200).send(results.rows);
-//     })
-//     .catch((error) => {
-//       console.error("Error fetching files:", error);
-//       res.status(500).send("Database query failed");
-//     });
-// });
 
 // DELETE an Article
 router.delete("/:articleId", (req, res) => {

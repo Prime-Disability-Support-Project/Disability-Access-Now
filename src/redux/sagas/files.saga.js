@@ -28,6 +28,20 @@ function* fetchSpecificFile(action) {
   }
 }
 
+// GET all files associated with an article
+function* fetchAssociatedFiles(action) {
+    try {
+      const articleId = action.payload;
+      const filesResponse = yield axios.get(`/api/files/associatedFiles/${articleId}`);
+      yield put({
+        type: "SET_ASSOCIATED_FILES",
+        payload: filesResponse.data,
+      });
+    } catch (error) {
+      console.log("fetchSpecificFile error in saga:", error);
+    }
+  }
+
 // POST a new article, then call a GET to refresh
 // function* addArticle(action) {
 //     try {
@@ -62,6 +76,7 @@ function* removeFile(action) {
 function* filesSaga() {
   yield takeLatest("FETCH_ALL_FILES", fetchAllFiles);
   yield takeLatest("FETCH_SPECIFIC_FILE", fetchSpecificFile);
+  yield takeLatest("FETCH_ASSOCIATED_FILES", fetchAssociatedFiles);
   yield takeLatest("REMOVE_FILE", removeFile);
 }
 

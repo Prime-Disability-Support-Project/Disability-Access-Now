@@ -36,7 +36,7 @@ export default function AdminAddArticle() {
       fileIds: 3
     };
     dispatch({ type: "ADD_ARTICLE", payload: articleData });
-    history.goBack();
+    history.push("/adminManageResources");
   };
 
   // resets the store after they leave the page

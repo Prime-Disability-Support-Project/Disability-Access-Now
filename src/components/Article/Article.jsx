@@ -10,6 +10,8 @@ export default function Article() {
     (store) => store.articles.specificArticle
   );
 
+  const associatedFiles = useSelector((store) => store.files.associatedFiles);
+
   useEffect(() => {
     const url = window.location.href;
     const articleId = url.split("/").pop();
@@ -17,6 +19,7 @@ export default function Article() {
       type: "FETCH_SPECIFIC_ARTICLE",
       payload: articleId,
     });
+    dispatch({ type: "FETCH_ASSOCIATED_FILES", payload: articleId });
   }, []);
 
   return (
@@ -25,6 +28,14 @@ export default function Article() {
       <h1>{specificArticle.title}</h1>
       <h2>{specificArticle.subtitle}</h2>
       <p>{specificArticle.body}</p>
+      <h2>Associated Files:</h2>
+      <ul>
+        {associatedFiles
+          ? associatedFiles.map((file) => {
+              return <li>{file.filename}</li>;
+            })
+          : "No Associated Files"}
+      </ul>
     </div>
   );
 }
