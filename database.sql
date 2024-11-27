@@ -28,7 +28,6 @@ CREATE TABLE "articles" (
     "title" VARCHAR(255) NOT NULL,          -- title of the article, max length 255
     "subtitle" VARCHAR(255),                -- subtitle of the article, max length 255
     "body" TEXT,                            -- body/content of the article (TEXT for flexibility)
-    "article_url" VARCHAR(1000) NOT NULL             -- URL of the article
 );
 
 CREATE TABLE "files" (

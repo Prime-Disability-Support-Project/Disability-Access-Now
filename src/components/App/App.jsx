@@ -29,6 +29,7 @@ import UploadDownload from '../Blob/blobAll.jsx';
 import AdminManageLogins from '../Admin/AdminManageLogins/AdminManageLogins.jsx';
 import AdminManageResources from '../Admin/AdminManageResources/AdminManageResources.jsx';
 import AdminArticleEdit from '../Admin/AdminArticleEdit/AdminArticleEdit.jsx';
+import AdminAddArticle from '../Admin/AdminAddArticle/AdminAddArticle.jsx';
 
 import './App.css';
 
@@ -114,6 +115,13 @@ function App() {
             path="/adminManageResources"
           >
             <AdminManageResources />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            exact
+            path="/adminAddArticle"
+          >
+            <AdminAddArticle />
           </ProtectedRoute>
 
           <ProtectedRoute

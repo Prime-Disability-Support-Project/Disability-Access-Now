@@ -1,6 +1,7 @@
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import UploadPDF from "../../Blob/UploadPDF";
 
 export default function AdminManageResources() {
   const dispatch = useDispatch();
@@ -23,8 +24,8 @@ export default function AdminManageResources() {
     <div>
       <h1>Manage Resources</h1>
       <h2>Add New Resources</h2>
-      <button>Add a New Article</button>
-      <button>Add a New PDF</button>
+      <button onClick={() => history.push("/adminAddArticle")}>Add a New Article</button>
+      <UploadPDF />
       <h2>Choose an Article to Edit</h2>
       <ul>
         {allArticles.map((article) => {
