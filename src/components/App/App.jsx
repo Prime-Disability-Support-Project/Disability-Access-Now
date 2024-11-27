@@ -26,6 +26,7 @@ import SavedResources from '../SavedResources/SavedResources';
 import FormsAndArticles from '../FormsAndArticles/FormsAndArticles';
 import Article from '../Article/Article';
 import UploadDownload from '../UploadDownload/UploadDownload';
+import AdminManageLogins from '../Admin/AdminManageLogins/AdminManageLogins.jsx';
 
 import './App.css';
 
@@ -97,6 +98,13 @@ function App() {
             path="/formsAndArticles"
           >
             <FormsAndArticles />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            exact
+            path="/adminManage"
+          >
+            <AdminManageLogins />
           </ProtectedRoute>
 
           <ProtectedRoute

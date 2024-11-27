@@ -14,6 +14,32 @@ router.get('/', rejectUnauthenticated, (req, res) => {
   res.send(req.user);
 });
 
+// Gets all users that have not been approved
+router.get("/allPending",rejectUnauthenticated, (req, res) => {
+  const queryText =
+    'SELECT * FROM "user" WHERE approved = false;';
+  pool
+    .query(queryText)
+    .then((results) => res.send(results.rows))
+    .catch((error) => {
+      console.log("Error making GET for all pending users:", error);
+      res.sendStatus(500);
+    });
+});
+
+// Gets all users who have been approved
+router.get("/allApproved",rejectUnauthenticated, (req, res) => {
+  const queryText =
+    'SELECT * FROM "user" WHERE approved = true;';
+  pool
+    .query(queryText)
+    .then((results) => res.send(results.rows))
+    .catch((error) => {
+      console.log("Error making GET for all approved users:", error);
+      res.sendStatus(500);
+    });
+});
+
 // Handles POST request with new user data
 // The only thing different from this and every other post we've seen
 // is that the password gets encrypted before being inserted
@@ -40,6 +66,7 @@ router.post('/register', (req, res, next) => {
 // this middleware will run our POST if successful
 // this middleware will send a 404 if not successful
 router.post('/login', userStrategy.authenticate('local'), (req, res) => {
+  console.log('login attempted')
   res.sendStatus(200);
 });
 
