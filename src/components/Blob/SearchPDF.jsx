@@ -1,18 +1,20 @@
 import { useState } from "react";
 import React from "react";
 import { showOpenFilePicker, showSaveFilePicker } from 'native-file-system-adapter';
-const [searchKeyword, setSearchKeyword] = useState('');
-const [searchResults, setSearchResults] = useState([]);
 
 
 export default function SearchPDF(){
-
+    const [noSearch, setNoSearch] = useState('')
+    const [searchKeyword, setSearchKeyword] = useState('');
+    const [searchResults, setSearchResults] = useState([]);
+  
     const searchHandler = async () => {
         try {
           const response = await fetch(`http://localhost:5001/api/files/search?keyword=${searchKeyword}`);
           if (response.ok) {
             const results = await response.json();
             setSearchResults(results);
+            setNoSearch('No Results')
           } else {
             alert('Error Searching for Files!');
           }
@@ -63,19 +65,34 @@ export default function SearchPDF(){
                 />
                 <button onClick={searchHandler}>Search PDF Files</button>
             </div>
-            <div>
-                <h2>Search Results:</h2>
-                    <ul>
-                    {searchResults.length > 0 ? (
-                    searchResults.map((result) => (
-                        <li key={result.id}>
-                        {result.filename} <button onClick={() => downloadFileHandler(result.filename)}>Download PDF</button>
-                        </li>
-                    ))
-                    ) : (
-                    <p>No results found</p>
-                    )}
-                    </ul>
-            </div>
+
+            {searchResults.length > 0 ? 
+            (
+
+              <div>
+                <h3>Search Results:</h3>
+                <ul>
+                  
+                    {searchResults.map((result) => (
+                      <li key={result.id}>
+                      {result.filename} <button onClick={() => downloadFileHandler(result.filename)}>Download PDF</button>
+                      </li>
+                  ))}
+                  
+
+                </ul>
+
+              </div>
+                
+
+
+
+            ) : (<h3>{noSearch}</h3>)}
+            
+            
+
+
+              
+            
         </div>
     )};
