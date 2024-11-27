@@ -4,7 +4,7 @@ const router = express.Router();
 
 // GET All Article Titles and URLs
 router.get("/", (req, res) => {
-  const queryText = `SELECT * FROM articles`;
+  const queryText = `SELECT * FROM articles ORDER BY "title" ASC`;
 
   pool
     .query(queryText)

@@ -97,7 +97,7 @@ function Nav() {
                 <Link to="/am-i-eligible">Am I eligible</Link>
                 <Link to="/forms-to-should-start-with">Forms to should start with</Link>
                 <Link to="/faqs">FAQs</Link>
-                <Link to="/formsAndArticles">Forms and Documents</Link>
+                <Link to="/formsAndArticles">Forms and Articles</Link>
               </div>
             </div>
             
