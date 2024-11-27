@@ -1,6 +1,66 @@
 const express = require("express");
 const pool = require("../modules/pool");
 const router = express.Router();
+const nodemailer = require("nodemailer");
+require ('dotenv').config(); // ensure your env variables are loaded 
+
+
+
+//set up the nodemailer transporter using Gmail 
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.GMAIL_USER,
+    pass: process.env.GMAIL_PASS,
+  },
+});
+
+// Email notification function
+function sendAdminNotification(question, userId) {
+  // Query to fetch admin's email 
+  const queryText = 'SELECT email FROM "user" WHERE "role" = 2'; // '2' is the admin role
+  pool.query(queryText)
+    .then(result => {
+      const admins = result.rows;
+      if (admins.length > 0) {
+        const mailOptions = {
+          from: `"Support Team" <${process.env.GMAIL_USER}>`, // Sender address
+          to: admins.map(admin => admin.email).join(','), // Send to all admins
+          subject: "New User Question", // Subject line
+          text: `Hello,
+
+A new question has been posted by user ID ${userId}:
+
+Question: ${question.question}
+
+Please review and respond as needed.
+
+Best regards,
+Support Team`, // Plain text body
+          html: `<p>Hello,</p>
+                 <p>A new question has been posted by user ID <strong>${userId}</strong>:</p>
+                 <p><strong>Question:</strong> ${question.question}</p>
+                 <p>Please review and respond as needed.</p>
+                 <p>Best regards,<br>Support Team</p>`, // HTML body
+        };
+
+        // Send email to the admins
+        transporter.sendMail(mailOptions)
+          .then(info => {
+            console.log('Email sent: ' + info.response);
+          })
+          .catch(error => {
+            console.error('Error sending email:', error);
+          });
+      } else {
+        console.log('No admins found');
+      }
+    })
+    .catch(error => {
+      console.error('Error fetching admin emails:', error);
+    });
+}
+
 
 // Get all unanswered questions for the specific user - ordered by date
 router.get("/user-unanswered-questions", (req, res) => {
@@ -85,7 +145,14 @@ router.post("/new-question-without-article", async (req, res) => {
       false,
       userId,
     ];
-    await pool.query(insertQuery, insertParams);
+    const result = await pool.query(insertQuery, insertParams);
+    
+
+    const newQuestion = result.rows[0];
+    console.log('New question added:', newQuestion);
+
+    // Send email notification to admins about the new question
+    sendAdminNotification(newQuestion, userId);
 
     res.sendStatus(201); // Created
   } catch (error) {
@@ -122,8 +189,15 @@ router.post("/new-question-with-article", async (req, res) => {
       false,
       userId,
     ];
-    await pool.query(insertQuery, insertParams);
+    const result = await pool.query(insertQuery, insertParams);
 
+    const newQuestion = result.rows[0];
+    console.log('New question added:', newQuestion);
+
+
+     // Send email notification to admins about the new question
+     sendAdminNotification(newQuestion, userId);
+     
     res.sendStatus(201); // Created
   } catch (error) {
     console.log(

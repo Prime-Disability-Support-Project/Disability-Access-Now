@@ -27,6 +27,7 @@ import FormsAndArticles from '../FormsAndArticles/FormsAndArticles';
 import Article from '../Article/Article';
 import UploadDownload from '../UploadDownload/UploadDownload';
 import AdminManageLogins from '../Admin/AdminManageLogins/AdminManageLogins.jsx';
+import FAQ from '../FAQs/FAQs.jsx';
 
 import './App.css';
 
@@ -120,6 +121,12 @@ function App() {
           >
             <SavedResources />
           </ProtectedRoute>
+          <ProtectedRoute exact path="/faqs">
+            <FAQ />
+          
+          </ProtectedRoute>
+         
+
 
           <Route
             exact
