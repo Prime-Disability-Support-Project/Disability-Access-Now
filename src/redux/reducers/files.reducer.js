@@ -18,7 +18,17 @@ const specificFile = (state = [], action) => {
   }
 };
 
+const associatedFiles = (state = [], action) => {
+    switch (action.type) {
+      case "SET_ASSOCIATED_FILES":
+        return action.payload;
+      default:
+        return state;
+    }
+  };
+
 export default combineReducers({
   allFiles,
   specificFile,
+  associatedFiles,
 });
