@@ -1,5 +1,5 @@
 .forms-and-articles a:hover,
-a:focus {
+.forms-and-articles a:focus {
   color: #007bff;
   cursor: pointer;
 }

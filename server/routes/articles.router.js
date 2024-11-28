@@ -17,6 +17,26 @@ router.get("/", (req, res) => {
     });
 });
 
+// GET article with title LIKE FAQ
+router.get("/faq", (req, res) => {
+  const queryText = `SELECT * FROM articles WHERE "title" ILIKE $1`;
+  const params = ['%FAQ%'];
+
+  pool
+    .query(queryText, params)
+    .then((results) => {
+      if (results.rows.length === 0) {
+        res.status(404).send("Article Not Found");
+      } else {
+        res.send(results.rows[0]);
+      }
+    })
+    .catch((error) => {
+      console.log("Error fetching FAQ:", error);
+      res.sendStatus(500);
+    });
+});
+
 // GET Specific Article
 router.get("/:articleId", (req, res) => {
   const { articleId } = req.params;
@@ -37,6 +57,7 @@ router.get("/:articleId", (req, res) => {
       res.sendStatus(500);
     });
 });
+
 
 // POST New Article (Also Update Junction Table if Files are Provided)
 router.post("/", (req, res) => {
