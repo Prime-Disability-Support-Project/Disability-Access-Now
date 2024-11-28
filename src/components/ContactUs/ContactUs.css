@@ -1,11 +1,11 @@
-* {
+.contact  {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body {
-    font-family: Arial, sans-serif;
+.contact body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f4f7f9;
     color: #333;
     line-height: 1.6;
@@ -21,32 +21,32 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow */
 }
 
-h1 {
+.contact h1 {
     font-size: 2rem;
     margin-bottom: 10px;
 }
 
-h2 {
+.contact h2 {
     font-size: 1.5rem;
     margin-bottom: 10px;
 }
 
-h3 {
+.contact h3 {
     font-size: 1.2rem;
     margin-top: 20px;
 }
 
-p {
+.contact p {
     margin-bottom: 10px;
 }
 
-a {
+.contact a {
     color: #0275d8;
     text-decoration: none;
     font-weight: 600;
 }
 
-a:focus, a:hover {
+.contact a:focus, .contact a:hover {
     text-decoration: underline;
 }
 
@@ -55,15 +55,15 @@ a:focus, a:hover {
         padding: 15px;
     }
 
-    h1 {
+    .contact h1 {
         font-size: 1.8rem;
     }
 
-    h2 {
+    .contact h2 {
         font-size: 1.3rem;
     }
 
-    p {
+    .contact p {
         font-size: 0.95rem;
     }
 }

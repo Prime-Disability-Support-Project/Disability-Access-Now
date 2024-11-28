@@ -1,4 +1,4 @@
-.footer html, body {
+.footer html, .footer body {
   margin: 0;
   padding: 0;
   height: 100%;
@@ -17,7 +17,7 @@
 }
 
 .footer a:hover,
-a:focus {
+.footer a:focus {
   color: #007bff;
   cursor: pointer;
 }

@@ -29,7 +29,6 @@ export default function SavedResources() {
           return (
             <>
               <li key={article.id}>
-                <p>{article.title}</p>
                 <a href={`http://localhost:5173/#/articlePage/${article.id}`} >{article.title}</a>
               </li>
               <button onClick={() => removeArticle(article.id)}>Remove From Saved</button>
