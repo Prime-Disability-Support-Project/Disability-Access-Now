@@ -3,16 +3,18 @@ import React from "react";
 import { showOpenFilePicker, showSaveFilePicker } from 'native-file-system-adapter';
 
 
-export default function SearchPDF(userSearch){
+export default function SearchPDF({onSearch}){
     const [noSearch, setNoSearch] = useState('')
     const [searchKeyword, setSearchKeyword] = useState('');
     const [searchResults, setSearchResults] = useState([]);
-  
+    const [searchTerm, setSearchTerm] = useState('');
+
+    
     const searchHandler = async () => {
 
-        if(userSearch){
-          searchKeyword(userSearch);
-        }
+          if(onSearch){
+        onSearch(searchTerm);
+      }
 
         try {
           const response = await fetch(`http://localhost:5001/api/files/search?keyword=${searchKeyword}`);
