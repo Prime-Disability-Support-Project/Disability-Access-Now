@@ -80,8 +80,7 @@ router.post("/", (req, res) => {
     });
 });
 
-
-// PUT Update an Article
+// PUT Update an article's contents
 router.put("/:articleId", (req, res) => {
   const { articleId } = req.params;
   const { title, subtitle, body } = req.body;
@@ -103,6 +102,29 @@ router.put("/:articleId", (req, res) => {
     });
 });
 
+// PUT Update an article's associated files list
+router.put("/files/:articleId", (req, res) => {
+  const { articleId } = req.params;
+  const { fileIds } = req.body;
+  // First empty out any existing relationships with files
+  const queryText = "DELETE FROM articles_files WHERE article_id = $1";
+  pool.query(queryText, [articleId]);
+  // Then insert new article - file relationships
+  const fileQueries = fileIds.map((fileId) => {
+    const insertFileQuery = `INSERT INTO articles_files (article_id, file_id) VALUES ($1, $2)`;
+    const insertFileParams = [articleId, fileId];
+    return pool.query(insertFileQuery, insertFileParams);
+  });
+
+  Promise.all(fileQueries)
+    .then(() => {
+      res.status(201).json({ articleId });
+    })
+    .catch((error) => {
+      console.log("Error associating files with article:", error);
+      res.sendStatus(500);
+    });
+});
 
 // DELETE an Article
 router.delete("/:articleId", (req, res) => {

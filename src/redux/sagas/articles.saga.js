@@ -48,6 +48,16 @@ function* editArticle(action) {
     }
   }
 
+  // Update an article's associated files
+function* editAssociated(action) {
+    try {
+      yield axios.put(`/api/articles/files/${action.payload.articleId}`, action.payload);
+      yield put({ type: "FETCH_ALL_ARTICLES" });
+    } catch (error) {
+      console.error("editAssociated error in articles.saga", error);
+    }
+  }
+
 // DELETE the selected article, then call a GET to refresh
 function* removeArticle(action) {
     try {
@@ -64,6 +74,7 @@ function* articlesSaga() {
   yield takeLatest("FETCH_SPECIFIC_ARTICLE", fetchSpecificArticle);
   yield takeLatest("REMOVE_ARTICLE", removeArticle);
   yield takeLatest("EDIT_ARTICLE", editArticle);
+  yield takeLatest("EDIT_ASSOCIATED", editAssociated);
   yield takeLatest("ADD_ARTICLE", addArticle);
 }
 
