@@ -107,7 +107,6 @@ export default function AdminAddArticle() {
           id="files"
           multiple={true}
         >
-          <option hidden>---</option>
           {allFiles.map((file) => {
             return <option value={file.id}>{file.filename}</option>;
           })}

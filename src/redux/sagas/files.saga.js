@@ -42,26 +42,6 @@ function* fetchAssociatedFiles(action) {
     }
   }
 
-// POST a new article, then call a GET to refresh
-// function* addArticle(action) {
-//     try {
-//       yield axios.post("/api/articles", action.payload);
-//       yield put({ type: "FETCH_ALL_ARTICLES" });
-//     } catch (error) {
-//       console.error("addArticle error in articles.saga", error);
-//     }
-//   }
-
-// Update an article's content
-// function* editArticle(action) {
-//     try {
-//       yield axios.put(`/api/articles/${action.payload.articleId}`, action.payload);
-//       yield put({ type: "FETCH_ALL_ARTICLES" });
-//     } catch (error) {
-//       console.error("editArticle error in articles.saga", error);
-//     }
-//   }
-
 // DELETE the selected file, then call a GET to refresh
 function* removeFile(action) {
   try {
