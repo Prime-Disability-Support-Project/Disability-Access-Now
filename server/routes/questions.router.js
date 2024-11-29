@@ -16,7 +16,7 @@ const transporter = nodemailer.createTransport({
 });
 
 // Email notification function
-function sendAdminNotification(question, userId) {
+function sendAdminNotification(question, username) {
   // Query to fetch admin's email 
   const queryText = 'SELECT email FROM "user" WHERE "role" = 2'; // '2' is the admin role
   pool.query(queryText)
@@ -29,7 +29,7 @@ function sendAdminNotification(question, userId) {
           subject: "New User Question", // Subject line
           text: `Hello,
 
-A new question has been posted by user ID ${userId}:
+A new question has been posted by  ${username}:
 
 Question: ${question.question}
 
@@ -38,7 +38,7 @@ Please review and respond as needed.
 Best regards,
 Support Team`, // Plain text body
           html: `<p>Hello,</p>
-                 <p>A new question has been posted by user ID <strong>${userId}</strong>:</p>
+                 <p>A new question has been posted by <strong>${username}</strong>:</p>
                  <p><strong>Question:</strong> ${question.question}</p>
                  <p>Please review and respond as needed.</p>
                  <p>Best regards,<br>Support Team</p>`, // HTML body
@@ -130,10 +130,11 @@ router.post("/new-question-without-article", async (req, res) => {
   const question_date = req.body.questionDate;
   // flagged = false
   const userId = req.user.id;
+  const username = req.user.name;
 
   try {
     const insertQuery = `INSERT INTO questions ("question", "answer", "answered", "unread", "associated_article_url", "question_date", "flagged", "user_id") 
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8);`;
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *; `;
     const insertParams = [
       question,
       null,
@@ -147,11 +148,11 @@ router.post("/new-question-without-article", async (req, res) => {
     const result = await pool.query(insertQuery, insertParams);
     
 
-    const newQuestion = result.rows[0];
+    const newQuestion = result.rows[0]; // This will now have the inserted question
     console.log('New question added:', newQuestion);
 
     // Send email notification to admins about the new question
-    sendAdminNotification(newQuestion, userId);
+    sendAdminNotification(newQuestion, username);
 
     res.sendStatus(201); // Created
   } catch (error) {
@@ -174,6 +175,7 @@ router.post("/new-question-with-article", async (req, res) => {
   // flagged = false
 
   const userId = req.user.id;
+  const username = req.user.name;
 
   try {
     const insertQuery = `INSERT INTO questions ("question", "answer", "answered", "unread", "associated_article_url", "question_date", "flagged", "user_id") 
@@ -195,7 +197,7 @@ router.post("/new-question-with-article", async (req, res) => {
 
 
      // Send email notification to admins about the new question
-     sendAdminNotification(newQuestion, userId);
+     sendAdminNotification(newQuestion, username);
      
     res.sendStatus(201); // Created
   } catch (error) {
