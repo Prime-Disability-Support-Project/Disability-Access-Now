@@ -25,7 +25,7 @@ const AskQuestion = () => {
 
         try {
             // Sends POST request to submit user question
-             const response = axios.post("/api/questions/new-question-without-article", {
+             const response = await axios.post("/api/questions/new-question-without-article", {
                 question,
                 questionDate: new Date().toISOString(),
             });
