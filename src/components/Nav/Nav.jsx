@@ -68,6 +68,9 @@ function Nav() {
       {user.id && (
         <>
           <div className="nav-links">
+            <div className="nav-left">
+              <p>Welcome, {user.name}</p>
+            </div>
             <div className="nav-right">
               {/* Search Form */}
               <form onSubmit={handleSearch}>

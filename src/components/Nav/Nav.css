@@ -20,6 +20,12 @@
   align-items: flex-end;
 }
 
+.nav-left {
+  display: flex;
+  color: white;
+  font-size:larger;
+}
+
 .search-form {
   display: flex;
   align-items: center;
