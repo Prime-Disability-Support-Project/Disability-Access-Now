@@ -32,7 +32,7 @@ export default function Home() {
           <Link className="homeLink" to="/faqs">
             Frequently asked questions
           </Link>
-          <Link className="homeLink" to="/forms-to-should-start-with">
+          <Link className="homeLink" to="/formsYouShouldStartWith">
             Start with these forms
           </Link>
         </div>
