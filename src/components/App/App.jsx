@@ -25,6 +25,7 @@ import './App.css';
 import SearchResults from '../SearchResults/SearchResults.jsx';
 import AmIEligible from '../AmIEligible(stretch)/AmIEligible.jsx';
 import Home from '../Home/Home.jsx';
+import FormsYouShouldStartWith from '../FormsYouShouldStartWith(stretch)/FormsYouShouldStartWith.jsx';
 
 function App() {
   const dispatch = useDispatch();
@@ -48,6 +49,7 @@ function App() {
           <ProtectedRoute exact path="/userQuestions"> <AskAQuestionPage /> </ProtectedRoute>
           <ProtectedRoute exact path="/contact"> <Contact /> </ProtectedRoute>
           <ProtectedRoute exact path="/formsAndArticles"> <FormsAndArticles /> </ProtectedRoute>
+          <ProtectedRoute exact path="/formsYouShouldStartWith"> <FormsYouShouldStartWith /> </ProtectedRoute>
           <ProtectedRoute exact path="/adminManage"> <AdminManageLogins /> </ProtectedRoute>
           <ProtectedRoute exact path="/adminManageResources"> <AdminManageResources /> </ProtectedRoute>
           <ProtectedRoute exact path="/adminAddArticle"> <AdminAddArticle /> </ProtectedRoute>

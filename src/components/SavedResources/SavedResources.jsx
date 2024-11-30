@@ -11,14 +11,13 @@ export default function SavedResources() {
     dispatch({ type: "FETCH_SAVED_FILES" });
   }, [dispatch]);
 
-
   const removeArticle = (articleId) => {
-    dispatch({type: "REMOVE_SAVED_ARTICLE", payload: articleId})
-  }
+    dispatch({ type: "REMOVE_SAVED_ARTICLE", payload: articleId });
+  };
 
   const removeFile = (fileId) => {
-    dispatch({type: "REMOVE_SAVED_FILE", payload: fileId})
-  }
+    dispatch({ type: "REMOVE_SAVED_FILE", payload: fileId });
+  };
 
   return (
     <div>
@@ -27,12 +26,14 @@ export default function SavedResources() {
       <ul>
         {savedArticles.map((article) => {
           return (
-            <>
-              <li key={article.id}>
-                <a href={`http://localhost:5173/#/articlePage/${article.id}`} >{article.title}</a>
-              </li>
-              <button onClick={() => removeArticle(article.id)}>Remove From Saved</button>
-            </>
+            <li key={article.id}>
+              <a href={`http://localhost:5173/#/articlePage/${article.id}`}>
+                {article.title}
+              </a>
+              <button onClick={() => removeArticle(article.id)}>
+                Remove From Saved
+              </button>
+            </li>
           );
         })}
       </ul>
@@ -40,12 +41,12 @@ export default function SavedResources() {
       <ul>
         {savedFiles.map((file) => {
           return (
-            <>
             <li key={file.id}>
               <p>{file.filename}</p>
+              <button onClick={() => removeFile(file.id)}>
+                Remove From Saved
+              </button>
             </li>
-            <button onClick={() => removeFile(file.id)}>Remove From Saved</button>
-            </>
           );
         })}
       </ul>

@@ -99,9 +99,10 @@ function Nav() {
 
                 {/* // TODO: Update Link */}
                 <Link className="navLink" to="/adminQuestions">
-                You Have {unreadQuestions > 0 ? unreadQuestions : 0} Unread Question
-                {unreadQuestions > 0 && unreadQuestions < 2 ? "" : "s"}
-              </Link>
+                  You Have {unreadQuestions > 0 ? unreadQuestions : 0} Unread
+                  Question
+                  {unreadQuestions > 0 && unreadQuestions < 2 ? "" : "s"}
+                </Link>
               </>
             )}
 
@@ -112,9 +113,11 @@ function Nav() {
               </Link>
             )}
 
-            <Link className="navLink" to="/userQuestions">
-              Ask a Question
-            </Link>
+            {user.role === 1 && (
+              <Link className="navLink" to="/userQuestions">
+                Ask a Question
+              </Link>
+            )}
 
             <div className="dropdown">
               <span className="dropbtn" role="button" tabIndex={0}>
@@ -122,7 +125,7 @@ function Nav() {
               </span>
               <div className="dropdown-content">
                 <Link to="/eligible">Am I eligible</Link>
-                <Link to="/forms-to-should-start-with">
+                <Link to="/formsYouShouldStartWith">
                   Forms you should start with
                 </Link>
                 <Link to="/faqs">FAQs</Link>
