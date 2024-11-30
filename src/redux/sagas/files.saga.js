@@ -38,7 +38,7 @@ function* fetchAssociatedFiles(action) {
         payload: filesResponse.data,
       });
     } catch (error) {
-      console.log("fetchSpecificFile error in saga:", error);
+      console.log("fetchAssociatedFiles error in saga:", error);
     }
   }
 

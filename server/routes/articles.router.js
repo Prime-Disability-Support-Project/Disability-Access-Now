@@ -57,6 +57,26 @@ router.get("/eligible", (req, res) => {
     });
 });
 
+// GET article with title LIKE Forms You Should Start With
+router.get("/forms", (req, res) => {
+  const queryText = `SELECT * FROM articles WHERE "title" ILIKE $1`;
+  const params = ['%Forms You Should Start With%'];
+
+  pool
+    .query(queryText, params)
+    .then((results) => {
+      if (results.rows.length === 0) {
+        res.status(404).send("Article Not Found");
+      } else {
+        res.send(results.rows[0]);
+      }
+    })
+    .catch((error) => {
+      console.log("Error fetching eligibility:", error);
+      res.sendStatus(500);
+    });
+});
+
 // GET Specific Article
 router.get("/:articleId", (req, res) => {
   const { articleId } = req.params;
