@@ -23,6 +23,7 @@ import AdminArticleEdit from '../Admin/AdminArticleEdit/AdminArticleEdit.jsx';
 import AdminAddArticle from '../Admin/AdminAddArticle/AdminAddArticle.jsx';
 import './App.css';
 import SearchResults from '../SearchResults/SearchResults.jsx';
+import AmIEligible from '../AmIEligible(stretch)/AmIEligible.jsx';
 
 function App() {
   const dispatch = useDispatch();
@@ -49,6 +50,7 @@ function App() {
           <ProtectedRoute exact path="/adminManage"> <AdminManageLogins /> </ProtectedRoute>
           <ProtectedRoute exact path="/adminManageResources"> <AdminManageResources /> </ProtectedRoute>
           <ProtectedRoute exact path="/adminAddArticle"> <AdminAddArticle /> </ProtectedRoute>
+          <ProtectedRoute exact path="/eligible"> <AmIEligible /> </ProtectedRoute>
           <ProtectedRoute path="/articlePage"> <Article /> </ProtectedRoute>
           <ProtectedRoute path="/editArticle"> <AdminArticleEdit /> </ProtectedRoute>
           <ProtectedRoute exact path="/savedResources"> <SavedResources /> </ProtectedRoute>
