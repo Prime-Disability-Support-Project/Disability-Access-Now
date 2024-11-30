@@ -9,7 +9,7 @@ import SearchPDF from "../Blob/SearchPDF";
 function Nav() {
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
-  const unreadAnswersCount = useSelector((store) => store.unreadAnswersCount);
+  const [unreadAnswers, setUnreadAnswers] = useState();
   const [searchTerm, setSearchTerm] = useState("");
   const history = useHistory();
 
@@ -24,16 +24,9 @@ function Nav() {
       const response = await axios.get(
         "/api/questions/user-answered-questions-count"
       );
-      dispatch({
-        type: "SET_UNREAD_ANSWERS_COUNT",
-        payload: response.data[0].unread_answered_questions,
-      });
+      setUnreadAnswers(response.data[0].unread_answered_questions);
     } catch (error) {
       console.error("Error fetching unread answer count:", error);
-      dispatch({
-        type: "SET_UNREAD_ANSWERS_COUNT",
-        payload: 0,
-      });
     }
   };
 
@@ -90,9 +83,9 @@ function Nav() {
               </>
             )}
 
-            <Link className="navLink" to="/user-unread">
-              Unread Answers{" "}
-              {unreadAnswersCount > 0 && `(${unreadAnswersCount})`}
+            <Link className="navLink" to="/userQuestions">
+              You Have {unreadAnswers > 0 ? unreadAnswers : 0} Unread Answer
+              {unreadAnswers > 0 && unreadAnswers < 2 ? "" : "s"}
             </Link>
 
             <Link className="navLink" to="/userQuestions">
