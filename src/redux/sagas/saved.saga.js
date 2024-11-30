@@ -30,8 +30,8 @@ function* fetchSavedFiles() {
 // POST a new saved article for the user, then call a GET to refresh
 function* saveArticle(action) {
   try {
-    // action.payload is the article ID
-    yield axios.post("/api/saved/save-article", action.payload);
+    const data = {articleId: action.payload}
+    yield axios.post("/api/saved/save-article", data);
     yield put({ type: "FETCH_SAVED_ARTICLES" });
   } catch (error) {
     console.error("saveArticle error in saved.saga", error);
@@ -50,7 +50,7 @@ function* saveFile(action) {
 }
 
 // DELETE the selected article from their list of saved articles, then call a GET to refresh
-function* removeArticle(action) {
+function* removeSavedArticle(action) {
   try {
     // action.payload is the article ID
     yield axios.delete(`/api/saved/article/${action.payload}`);
@@ -61,7 +61,7 @@ function* removeArticle(action) {
 }
 
 // DELETE the selected file from their list of saved files, then call a GET to refresh
-function* removeFile(action) {
+function* removeSavedFile(action) {
   try {
     // action.payload is the file ID
     yield axios.delete(`/api/saved/file/${action.payload}`);
@@ -76,8 +76,8 @@ function* savedSaga() {
   yield takeLatest("FETCH_SAVED_FILES", fetchSavedFiles);
   yield takeLatest("SAVE_ARTICLE", saveArticle);
   yield takeLatest("SAVE_FILE", saveFile);
-  yield takeLatest("REMOVE_ARTICLE", removeArticle);
-  yield takeLatest("REMOVE_FILE", removeFile);
+  yield takeLatest("REMOVE_SAVED_ARTICLE", removeSavedArticle);
+  yield takeLatest("REMOVE_SAVED_FILE", removeSavedFile);
 }
 
 export default savedSaga;

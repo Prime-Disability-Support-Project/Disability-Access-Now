@@ -6,7 +6,6 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import SearchPDF from "../Blob/SearchPDF";
 
-
 function Nav() {
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
@@ -41,9 +40,8 @@ function Nav() {
   // Handles search form submission
   const handleSearch = (event) => {
     event.preventDefault();
-    history.push(`search-results?query=${searchTerm}`)
+    history.push(`search-results?query=${searchTerm}`);
   };
-
 
   return (
     <div className="nav">
@@ -64,18 +62,18 @@ function Nav() {
       {user.id && (
         <>
           <div className="nav-links">
-          <div className="nav-right">
-                {/* Search Form */}
-                <form onSubmit={handleSearch}>
-                  <input
-                    type="text"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    placeholder="Search for PDFs"
-                  />
-                  <button type="submit">Search</button>
-                </form>
-              </div>
+            <div className="nav-right">
+              {/* Search Form */}
+              <form onSubmit={handleSearch}>
+                <input
+                  type="text"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  placeholder="Search for PDFs"
+                />
+                <button type="submit">Search</button>
+              </form>
+            </div>
             <Link className="navLink" to="/user">
               Home
             </Link>
@@ -102,9 +100,11 @@ function Nav() {
             </Link>
 
             <div className="dropdown">
-              <Link className="dropbtn">Resources</Link>
+              <span className="dropbtn" role="button" tabIndex={0}>
+                Resources
+              </span>
               <div className="dropdown-content">
-                <Link to="/am-i-eligible">Am I eligible</Link>
+                <Link to="/eligible">Am I eligible</Link>
                 <Link to="/forms-to-should-start-with">
                   Forms to should start with
                 </Link>

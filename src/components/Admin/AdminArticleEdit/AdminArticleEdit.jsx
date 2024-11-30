@@ -2,6 +2,7 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Markdown from "react-markdown";
+import remarkGfm from 'remark-gfm'
 import "./AdminArticleEdit.css";
 
 export default function AdminArticleEdit() {
@@ -169,7 +170,7 @@ export default function AdminArticleEdit() {
       </div>
       <div className="preview">
         <h1>Preview:</h1>
-        <Markdown>{body}</Markdown>
+        <Markdown remarkPlugins={[remarkGfm]}>{body}</Markdown>
       </div>
     </div>
   );
