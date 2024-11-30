@@ -13,11 +13,11 @@ export default function SavedResources() {
 
 
   const removeArticle = (articleId) => {
-    dispatch({type: "REMOVE_ARTICLE", payload: articleId})
+    dispatch({type: "REMOVE_SAVED_ARTICLE", payload: articleId})
   }
 
   const removeFile = (fileId) => {
-    dispatch({type: "REMOVE_FILE", payload: fileId})
+    dispatch({type: "REMOVE_SAVED_FILE", payload: fileId})
   }
 
   return (
