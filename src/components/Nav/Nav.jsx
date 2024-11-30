@@ -10,12 +10,14 @@ function Nav() {
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
   const [unreadAnswers, setUnreadAnswers] = useState();
+  const [unreadQuestions, setUnreadQuestions] = useState();
   const [searchTerm, setSearchTerm] = useState("");
   const history = useHistory();
 
   useEffect(() => {
     if (user.id) {
       fetchUnreadAnswerCount();
+      fetchUnreadQuestionCount();
     }
   }, [user.id]);
 
@@ -27,6 +29,17 @@ function Nav() {
       setUnreadAnswers(response.data[0].unread_answered_questions);
     } catch (error) {
       console.error("Error fetching unread answer count:", error);
+    }
+  };
+
+  const fetchUnreadQuestionCount = async () => {
+    try {
+      const response = await axios.get(
+        "/api/questions/admin-unanswered-questions-count"
+      );
+      setUnreadQuestions(response.data[0].unread_unanswered_questions);
+    } catch (error) {
+      console.error("Error fetching unread question count:", error);
     }
   };
 
@@ -80,13 +93,21 @@ function Nav() {
                 <Link className="navLink" to="/adminManageResources">
                   Manage Resources
                 </Link>
+
+                {/* // TODO: Update Link */}
+                <Link className="navLink" to="/adminQuestions">
+                You Have {unreadQuestions > 0 ? unreadQuestions : 0} Unread Question
+                {unreadQuestions > 0 && unreadQuestions < 2 ? "" : "s"}
+              </Link>
               </>
             )}
 
-            <Link className="navLink" to="/userQuestions">
-              You Have {unreadAnswers > 0 ? unreadAnswers : 0} Unread Answer
-              {unreadAnswers > 0 && unreadAnswers < 2 ? "" : "s"}
-            </Link>
+            {user.role === 1 && (
+              <Link className="navLink" to="/userQuestions">
+                You Have {unreadAnswers > 0 ? unreadAnswers : 0} Unread Answer
+                {unreadAnswers > 0 && unreadAnswers < 2 ? "" : "s"}
+              </Link>
+            )}
 
             <Link className="navLink" to="/userQuestions">
               Ask a Question
