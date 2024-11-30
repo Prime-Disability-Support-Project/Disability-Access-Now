@@ -83,7 +83,7 @@ function Nav() {
                 <button type="submit">Search</button>
               </form>
             </div>
-            <Link className="navLink" to="/user">
+            <Link className="navLink" to="/home">
               Home
             </Link>
 
@@ -123,7 +123,7 @@ function Nav() {
               <div className="dropdown-content">
                 <Link to="/eligible">Am I eligible</Link>
                 <Link to="/forms-to-should-start-with">
-                  Forms to should start with
+                  Forms you should start with
                 </Link>
                 <Link to="/faqs">FAQs</Link>
                 <Link to="/formsAndArticles">Forms and Articles</Link>

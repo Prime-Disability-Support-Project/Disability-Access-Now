@@ -24,6 +24,7 @@ import AdminAddArticle from '../Admin/AdminAddArticle/AdminAddArticle.jsx';
 import './App.css';
 import SearchResults from '../SearchResults/SearchResults.jsx';
 import AmIEligible from '../AmIEligible(stretch)/AmIEligible.jsx';
+import Home from '../Home/Home.jsx';
 
 function App() {
   const dispatch = useDispatch();
@@ -42,7 +43,7 @@ function App() {
           <Redirect exact from="/" to="/home" />
           <Route exact path="/about"> <AboutPage /> </Route>
 
-          <ProtectedRoute exact path="/user"> <UploadDownload /> </ProtectedRoute>
+          <ProtectedRoute exact path="/home"> <Home /> </ProtectedRoute>
           <ProtectedRoute exact path="/info"> <InfoPage /> </ProtectedRoute>
           <ProtectedRoute exact path="/userQuestions"> <AskAQuestionPage /> </ProtectedRoute>
           <ProtectedRoute exact path="/contact"> <Contact /> </ProtectedRoute>
@@ -57,9 +58,9 @@ function App() {
           <ProtectedRoute exact path="/faqs"> <FAQ /> </ProtectedRoute>
           <ProtectedRoute exact path="/search-results" component={SearchResults} />  
           
-          <Route exact path="/login"> {user.id ? <Redirect to="/user" /> : <LoginPage />} </Route>
-          <Route exact path="/registration"> {user.id ? <Redirect to="/user" /> : <RegisterPage />} </Route>
-          <Route exact path="/home"> {user.id ? <Redirect to="/user" /> : <LandingPage /> } </Route>
+          <Route exact path="/login"> {user.id ? <Redirect to="/home" /> : <LoginPage />} </Route>
+          <Route exact path="/registration"> {user.id ? <Redirect to="/home" /> : <RegisterPage />} </Route>
+          <Route exact path="/home"> {user.id ? <Redirect to="/home" /> : <LandingPage /> } </Route>
           
           {/* If none of the other routes matched, we will show a 404. */}
           <Route> <h1>404</h1> </Route>
