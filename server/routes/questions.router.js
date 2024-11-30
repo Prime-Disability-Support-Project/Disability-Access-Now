@@ -209,31 +209,31 @@ router.post("/new-question-with-article", async (req, res) => {
   }
 });
 
-// TODO: Change to a toggle for an unread button
 
-// Update unread to false when a user views the answers
+// Toggle unread between true and false for user's viewing admin answers
 router.put("/user-unread", (req, res) => {
-  // unread = false
   const questionId = req.body.questionId;
 
-  const params = [false, questionId];
+  const params = [questionId];
 
   const queryText = `
       UPDATE "questions"
       SET 
-      "unread" = $1
-      WHERE "id" = $2;`;
+      "unread" = NOT "unread"
+      WHERE "id" = $1;`;
 
+      console.log(params)
   pool
     .query(queryText, params)
     .then((result) => {
       res.sendStatus(200);
     })
     .catch((error) => {
-      console.log("Error with updating user-unread", error);
+      console.error("Error toggling user-unread status", error);
       res.sendStatus(500);
     });
 });
+
 
 // Update unread to false when an admin views the questions
 router.put("/admin-unread", (req, res) => {

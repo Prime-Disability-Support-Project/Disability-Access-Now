@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import axios from "axios";
 
 export default function UserAnsweredQuestions() {
   const dispatch = useDispatch();
@@ -10,6 +11,13 @@ export default function UserAnsweredQuestions() {
   useEffect(() => {
     dispatch({ type: "FETCH_USER_ANSWERED" });
   }, [dispatch]);
+
+  const handleRead = (questionId) => {
+    const data = { questionId: questionId };
+    axios.put("/api/questions/user-unread", data).then(() => {
+      dispatch({ type: "FETCH_USER_ANSWERED" });
+    });
+  };
 
   return (
     <div>
@@ -32,6 +40,15 @@ export default function UserAnsweredQuestions() {
                     "No article was associated with this question"
                   )}
                 </p>
+                {question.unread === true ? (
+                  <button onClick={() => handleRead(question.id)}>
+                    Mark as Read
+                  </button>
+                ) : (
+                  <button onClick={() => handleRead(question.id)}>
+                    Mark as Unread
+                  </button>
+                )}
               </li>
             </div>
           );
