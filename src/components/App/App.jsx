@@ -27,6 +27,7 @@ import AmIEligible from '../AmIEligible(stretch)/AmIEligible.jsx';
 import Home from '../Home/Home.jsx';
 import FormsYouShouldStartWith from '../FormsYouShouldStartWith(stretch)/FormsYouShouldStartWith.jsx';
 import AboutUs from '../AboutUs (stretch)/AboutUs.jsx';
+import PendingApproval from '../PendingApproval/PendingApproval.jsx';
 
 function App() {
   const dispatch = useDispatch();
@@ -44,6 +45,8 @@ function App() {
         <Switch>
           <Redirect exact from="/" to="/home" />
           <Route exact path="/about"> <AboutPage /> </Route>
+          <Route exact path="/pending"> <PendingApproval /> </Route>
+
 
           <ProtectedRoute exact path="/home"> <Home /> </ProtectedRoute>
           <ProtectedRoute exact path="/info"> <InfoPage /> </ProtectedRoute>

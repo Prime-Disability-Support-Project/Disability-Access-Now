@@ -1,26 +1,34 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import {useSelector} from 'react-redux';
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 function LoginForm() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const errors = useSelector(store => store.errors);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const errors = useSelector((store) => store.errors);
+  const user = useSelector((store) => store.user);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const login = (event) => {
     event.preventDefault();
+    console.log(user)
 
     if (email && password) {
-      dispatch({
-        type: 'LOGIN',
-        payload: {
-          email: email,
-          password: password,
-        },
-      });
+      if (user.approved) {
+        dispatch({
+          type: "LOGIN",
+          payload: {
+            email: email,
+            password: password,
+          },
+        });
+      } else {
+        history.push("/pending");
+      }
     } else {
-      dispatch({ type: 'LOGIN_INPUT_ERROR' });
+      dispatch({ type: "LOGIN_INPUT_ERROR" });
     }
   }; // end login
 

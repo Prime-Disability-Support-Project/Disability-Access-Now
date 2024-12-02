@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 function RegisterForm() {
   const [name, setName] = useState('');
@@ -7,6 +8,7 @@ function RegisterForm() {
   const [password, setPassword] = useState('');
   const errors = useSelector((store) => store.errors);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const registerUser = (event) => {
     event.preventDefault();
@@ -19,6 +21,7 @@ function RegisterForm() {
         password: password
       },
     });
+    history.push('/pending')
   }; // end registerUser
 
   return (

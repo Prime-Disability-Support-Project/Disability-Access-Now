@@ -16,6 +16,7 @@ const articlesRouter = require('./routes/articles.router');  // importing articl
 const savedRouter = require('./routes/saved.router') // importing files routes
 const filesRouter = require('./routes/files.router'); // importing files routes
 const aboutRouter = require('./routes/about.router');
+const pendingRouter = require('./routes/pending.router')
 
 // Express Middleware
 app.use(bodyParser.json({ limit: '100mb' }));
@@ -39,6 +40,7 @@ app.use('/api/articles', articlesRouter)  // articles
 app.use('/api/saved', savedRouter) // saved articles & files
 app.use('/api/files', filesRouter) // files
 app.use('/api/about', aboutRouter) // routes for About Us page (content and bios)
+app.use('/api/pending', pendingRouter) // routes for Pending Approval page
 
 // Listen Server & Port
 app.listen(PORT, () => {
