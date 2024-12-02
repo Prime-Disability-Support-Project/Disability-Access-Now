@@ -41,8 +41,8 @@ function* saveArticle(action) {
 // POST a new saved file for the user, then call a GET to refresh
 function* saveFile(action) {
   try {
-    // action.payload is the file ID
-    yield axios.post("/api/saved/save-file", action.payload);
+    const data = {fileId: action.payload}
+    yield axios.post("/api/saved/save-file", data);
     yield put({ type: "FETCH_SAVED_FILES" });
   } catch (error) {
     console.error("saveFile error in saved.saga", error);

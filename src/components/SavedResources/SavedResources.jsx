@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { downloadFileHandler } from "../Blob/downloadFile"; // util function for downloading pdf files
 
 export default function SavedResources() {
   const dispatch = useDispatch();
@@ -31,7 +32,7 @@ export default function SavedResources() {
                 {article.title}
               </a>
               <button onClick={() => removeArticle(article.id)}>
-                Remove From Saved
+                Remove From Bookmarks
               </button>
             </li>
           );
@@ -43,8 +44,11 @@ export default function SavedResources() {
           return (
             <li key={file.id}>
               <p>{file.filename}</p>
+              <button onClick={() => downloadFileHandler(file.filename)}>
+                Download PDF
+              </button>
               <button onClick={() => removeFile(file.id)}>
-                Remove From Saved
+                Remove From Bookmarks
               </button>
             </li>
           );
