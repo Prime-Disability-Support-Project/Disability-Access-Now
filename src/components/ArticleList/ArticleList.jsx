@@ -19,11 +19,17 @@ export default function ArticleList() {
     <div>
       <ul>
         {allArticles.map((article) => {
-          return (
-            <li key={article.id} onClick={() => handleClick(article.id)}>
-              <a>{article.title}</a>
-            </li>
-          );
+          // don't post these two in the main articles list
+          if (
+            article.title != "FAQs" &&
+            article.title != "Forms You Should Start With"
+          ) {
+            return (
+              <li key={article.id} onClick={() => handleClick(article.id)}>
+                <a>{article.title}</a>
+              </li>
+            );
+          }
         })}
       </ul>
     </div>
