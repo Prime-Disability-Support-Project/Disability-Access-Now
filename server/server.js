@@ -15,6 +15,7 @@ const questionsRouter = require('./routes/questions.router'); // importing quest
 const articlesRouter = require('./routes/articles.router');  // importing article routes
 const savedRouter = require('./routes/saved.router') // importing files routes
 const filesRouter = require('./routes/files.router'); // importing files routes
+const aboutRouter = require('./routes/about.router');
 
 // Express Middleware
 app.use(bodyParser.json({ limit: '100mb' }));
@@ -37,6 +38,7 @@ app.use('/api/questions', questionsRouter) // questions
 app.use('/api/articles', articlesRouter)  // articles 
 app.use('/api/saved', savedRouter) // saved articles & files
 app.use('/api/files', filesRouter) // files
+app.use('/api/about', aboutRouter) // routes for About Us page (content and bios)
 
 // Listen Server & Port
 app.listen(PORT, () => {

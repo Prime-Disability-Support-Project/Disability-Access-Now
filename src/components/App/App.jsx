@@ -26,6 +26,7 @@ import SearchResults from '../SearchResults/SearchResults.jsx';
 import AmIEligible from '../AmIEligible(stretch)/AmIEligible.jsx';
 import Home from '../Home/Home.jsx';
 import FormsYouShouldStartWith from '../FormsYouShouldStartWith(stretch)/FormsYouShouldStartWith.jsx';
+import AboutUs from '../AboutUs (stretch)/AboutUs.jsx';
 
 function App() {
   const dispatch = useDispatch();
@@ -46,6 +47,7 @@ function App() {
 
           <ProtectedRoute exact path="/home"> <Home /> </ProtectedRoute>
           <ProtectedRoute exact path="/info"> <InfoPage /> </ProtectedRoute>
+          <ProtectedRoute exact path="/aboutUs"> <AboutUs /> </ProtectedRoute>
           <ProtectedRoute exact path="/userQuestions"> <AskAQuestionPage /> </ProtectedRoute>
           <ProtectedRoute exact path="/contact"> <Contact /> </ProtectedRoute>
           <ProtectedRoute exact path="/formsAndArticles"> <FormsAndArticles /> </ProtectedRoute>

@@ -53,6 +53,20 @@ CREATE TABLE "articles_files" (
     "file_id" INTEGER REFERENCES "files"("id") ON DELETE CASCADE         -- foreign key referencing files.id
 );
 
+CREATE TABLE "aboutUs" (
+    "id" SERIAL PRIMARY KEY,               
+    "title" VARCHAR(255),        -- title of the About Us page
+    "founderText" TEXT,          -- content about the founder
+    "devText" TEXT               -- content about the dev team
+);
+
+CREATE TABLE "bios" (
+	"id" SERIAL PRIMARY KEY,
+	"name" VARCHAR (100),         -- name of the person
+	"bio" VARCHAR (500),          -- bio for the person (optional)
+	"link" VARCHAR(100),          -- url link (like their linkedIn)
+	"type" INTEGER                -- 1 = Rozalyn, 2 = Prime students
+);
 
 
 -- ## CLEAN COPY USE THIS IN POSTICO
@@ -108,3 +122,18 @@ CREATE TABLE "articles_files" (
     "article_id" INTEGER REFERENCES "articles"("id") ON DELETE CASCADE,
     "file_id" INTEGER REFERENCES "files"("id") ON DELETE CASCADE
     );
+
+CREATE TABLE "aboutUs" (
+    "id" SERIAL PRIMARY KEY,               
+    "title" VARCHAR(255),        -- title of the About Us page
+    "founderText" TEXT,          -- content about the founder
+    "devText" TEXT               -- content about the dev team
+);
+
+CREATE TABLE "bios" (
+	"id" SERIAL PRIMARY KEY,
+	"name" VARCHAR (100),         -- name of the person
+	"bio" VARCHAR (500),          -- bio for the person (optional)
+	"link" VARCHAR(100),          -- url link (like their linkedIn)
+	"type" INTEGER                -- 1 = Rozalyn, 2 = Prime students
+);
