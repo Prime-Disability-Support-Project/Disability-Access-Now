@@ -2,21 +2,20 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { useEffect } from "react";
 
 function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const errors = useSelector((store) => store.errors);
-  const user = useSelector((store) => store.user);
+  const nav = useSelector(store => store.pending)
   const dispatch = useDispatch();
   const history = useHistory();
 
   const login = (event) => {
     event.preventDefault();
-    console.log(user)
 
     if (email && password) {
-      if (user.approved) {
         dispatch({
           type: "LOGIN",
           payload: {
@@ -24,13 +23,20 @@ function LoginForm() {
             password: password,
           },
         });
-      } else {
-        history.push("/pending");
-      }
     } else {
       dispatch({ type: "LOGIN_INPUT_ERROR" });
     }
   }; // end login
+
+
+  // When a user logs in, nav is set to '/pending' if the user isn't approved
+  // The user is logged out, then pushed to the Pending Approval page
+  useEffect(() => {
+    if(nav === '/pending'){
+    history.push(nav)
+    dispatch({ type: 'CLEAR_NAV' });
+    }
+  }, [nav]);
 
   return (
     <form className="formPanel" onSubmit={login}>
