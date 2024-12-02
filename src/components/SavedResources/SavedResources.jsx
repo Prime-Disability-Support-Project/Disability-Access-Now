@@ -32,7 +32,7 @@ export default function SavedResources() {
                 {article.title}
               </a>
               <button onClick={() => removeArticle(article.id)}>
-                Remove From Saved
+                Remove From Bookmarks
               </button>
             </li>
           );
@@ -48,7 +48,7 @@ export default function SavedResources() {
                 Download PDF
               </button>
               <button onClick={() => removeFile(file.id)}>
-                Remove From Saved
+                Remove From Bookmarks
               </button>
             </li>
           );

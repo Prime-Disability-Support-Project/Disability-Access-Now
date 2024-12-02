@@ -2,7 +2,7 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Markdown from "react-markdown";
-import remarkGfm from 'remark-gfm'
+import remarkGfm from "remark-gfm";
 import "./Article.css";
 
 export default function Article() {
@@ -18,6 +18,10 @@ export default function Article() {
   const handleBookmark = (e) => {
     e.preventDefault();
     dispatch({ type: "SAVE_ARTICLE", payload: specificArticle.id });
+  };
+
+  const removeArticle = (articleId) => {
+    dispatch({ type: "REMOVE_SAVED_ARTICLE", payload: articleId });
   };
 
   useEffect(() => {
@@ -38,7 +42,9 @@ export default function Article() {
       {savedArticles.some(
         (article) => article["id"] === specificArticle["id"]
       ) ? (
-        <p>Article is Bookmarked</p>
+        <button onClick={() => removeArticle(specificArticle.id)}>
+          Remove From Bookmarks
+        </button>
       ) : (
         <button onClick={handleBookmark}>Bookmark this Article</button>
       )}
@@ -46,7 +52,9 @@ export default function Article() {
       <h2>
         <em>{specificArticle.subtitle}</em>
       </h2>
-      <Markdown className="article" remarkPlugins={[remarkGfm]}>{specificArticle.body}</Markdown>
+      <Markdown className="article" remarkPlugins={[remarkGfm]}>
+        {specificArticle.body}
+      </Markdown>
       <h2>Associated Files:</h2>
       <ul>
         {associatedFiles.length > 0 ? (
