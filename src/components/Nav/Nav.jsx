@@ -46,7 +46,16 @@ function Nav() {
   // Handles search form submission
   const handleSearch = (event) => {
     event.preventDefault();
-    history.push(`search-results?query=${searchTerm}`);
+    // check to see if they are currently on the search results page, if not, push them there
+    if (!history.location.pathname.includes("search-results")) {
+      history.push(`search-results?query=${searchTerm}`);
+      setSearchTerm('')
+    }
+    // if they are on the search results page, just replace the url
+    else {
+      history.replace(`search-results?query=${searchTerm}`);
+      setSearchTerm('')
+    }
   };
 
   return (
@@ -78,7 +87,7 @@ function Nav() {
                   type="text"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  placeholder="Search for PDFs"
+                  placeholder="Search files & articles"
                 />
                 <button type="submit">Search</button>
               </form>
