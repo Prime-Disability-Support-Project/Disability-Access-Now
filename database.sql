@@ -137,3 +137,9 @@ CREATE TABLE "bios" (
 	"link" VARCHAR(100),          -- url link (like their linkedIn)
 	"type" INTEGER                -- 1 = Rozalyn, 2 = Prime students
 );
+
+CREATE TABLE "pending" (
+    "id" SERIAL PRIMARY KEY,               
+    "body" VARCHAR(500),              -- content of the Pending Approval page
+    "email" VARCHAR(200) NOT NULL   -- contact email for Pending Approval page
+);
