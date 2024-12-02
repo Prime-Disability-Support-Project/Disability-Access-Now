@@ -9,7 +9,6 @@ export default function AdminManageResources() {
   const allArticles = useSelector((store) => store.articles.allArticles);
   const allFiles = useSelector((store) => store.files.allFiles);
 
-
   useEffect(() => {
     dispatch({ type: "FETCH_ALL_ARTICLES" });
   }, [dispatch]);
@@ -34,7 +33,9 @@ export default function AdminManageResources() {
     <div>
       <h1>Manage Resources</h1>
       <h2>Add New Resources</h2>
-      <button onClick={() => history.push("/adminAddArticle")}>Add a New Article</button>
+      <button onClick={() => history.push("/adminAddArticle")}>
+        Add a New Article
+      </button>
       <UploadPDF />
       <h2>Choose an Article to Edit</h2>
       <ul>
@@ -59,6 +60,9 @@ export default function AdminManageResources() {
           );
         })}
       </ul>
+      <h2>Edit the About Us Page</h2>
+      <button>Edit the Content</button>
+      <button>Edit the Bios</button>
     </div>
   );
 }
