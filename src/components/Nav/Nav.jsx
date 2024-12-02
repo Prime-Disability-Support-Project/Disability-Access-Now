@@ -146,6 +146,10 @@ function Nav() {
               Saved Resources
             </Link>
 
+            <Link className="navLink" to="/aboutUs">
+              About Us
+            </Link>
+
             <LogOutButton className="navLink" />
           </div>
         </>
