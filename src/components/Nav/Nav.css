@@ -109,3 +109,15 @@
 .navLink:hover {
   background-color: #008183;
 }
+
+.navLink:focus,
+.dropbtn:focus,
+.dropdown-content a:focus {
+  outline: 2px solid #005fcc; 
+  outline-offset: 2px;
+}
+/* note for above css we can definitely change hover color */
+
+ul{
+  list-style: none;
+}

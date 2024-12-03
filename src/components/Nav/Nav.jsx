@@ -13,6 +13,20 @@ function Nav() {
   const [unreadQuestions, setUnreadQuestions] = useState();
   const [searchTerm, setSearchTerm] = useState("");
   const history = useHistory();
+  const [dropDownMenu, setDropDownMenu] = useState(false);
+
+  const handleDropdownToggle = () => {
+    setDropDownMenu(!dropDownMenu);
+  }
+
+  const handleKeyboard = (event) => {
+    if(event.key === 'Enter' || event.key === ' '){
+      event.preventDefault();
+      handleDropdownToggle();
+  } else if(event.key === 'Escape') {
+    setDropDownMenu(false)
+  }
+};
 
   useEffect(() => {
     if (user.id) {
@@ -54,11 +68,13 @@ function Nav() {
     }
   };
 
+
   return (
-    <div aria-label="navigation links" className="nav">
+    <div>
+      <div aria-label="header" className="nav">
       {/*links to homepage and navigation title*/}
       {/* Link should be called home and title should maybe get reworked? */}
-      <Link aria-label="Link to Disability Access Now Home" to="/home"> <h2 className="nav-title">Disability Access Now</h2> </Link>
+      <Link aria-label="home link" to="/home"> <h2 className="nav-title">Disability Access Now</h2> </Link>
 
       {/* If no user is logged in, show these links */}
       {!user.id && (
@@ -69,20 +85,49 @@ function Nav() {
       {/* If a user is logged in, show these links */}
       {user.id && (
         <>
-          <div className="nav-links">
 
-            <div aria-label="Welcome" className="nav-left">
-              <p>Welcome, {user.name}</p>
-            </div>
+            <div aria-label="Welcome" className="nav-left"> <p>Welcome, {user.name}</p> </div>
 
-            <div className="nav-right">
-              <form aria-label="Search Files and Articles Input" onSubmit={handleSearch}>
-                <input type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} placeholder="Search files & articles"/>
-                <button role="button" aria-label="Search Button" type="submit">Search</button>
-              </form>
-            </div>
+           
+                <form aria-label="Search Files and Articles Input" onSubmit={handleSearch}>
+                  <input type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} placeholder="Search files & articles"/>
+                  <button role="button" aria-label="Search Button" type="submit">Search</button>
+                </form>
+        </>
+      )}
+    </div>
 
-            <Link className="navLink" to="/home" aria-label="Link to Home"> Home</Link>
+      <ul aria-label="navigation" style={{display: "flex", justifyContent: "space-evenly"}}>
+        <li><Link className="navLink" to="/home">Home</Link></li>
+        {user.role === 1 && (
+          <li>
+            <Link className="navLink" to="/userQuestions">
+              You Have {unreadAnswers > 0 ? unreadAnswers : 0} Unread Answer{unreadAnswers !== 1 ? "s" : ""}
+            </Link>
+          </li>
+        )}
+        {user.role === 1 && (
+          <li><Link className="navLink" to="/userQuestions">Ask a Question</Link></li>
+        )}
+        <li>
+          <div className="dropdown">
+            <button className="dropbtn" id="menubutton" aria-haspopup="true" aria-controls="menu" aria-expanded={dropDownMenu} onClick={handleDropdownToggle} tabIndex={0}>
+              Resources
+            </button>
+            <ul className="dropdown-content" id="menu" style={{display: dropDownMenu ? 'block' : 'none' }}>
+              <li><Link to="/eligible" >Am I eligible</Link></li>
+              <li><Link to="/formsYouShouldStartWith">Forms you should start with</Link></li>
+              <li><Link to="/faqs" >FAQs</Link></li>
+              <li><Link to="/formsAndArticles">Forms and Articles</Link></li>
+            </ul>
+          </div>
+        </li>
+        <li><Link className="navLink" to="/savedResources">Saved Resources</Link></li>
+        <li><Link className="navLink" to="/aboutUs">About Us</Link></li>
+        <li><LogOutButton role="button" className="navLink" /></li>
+      </ul>
+            
+            
 
             {/* admin links - only show up if a user is logged in and their role is "2" */}
             {user.role === 2 && (
@@ -92,34 +137,10 @@ function Nav() {
                 <Link className="navLink" to="/adminQuestions"> You Have {unreadQuestions > 0 ? unreadQuestions : 0} Unread Question {unreadQuestions > 0 && unreadQuestions < 2 ? "s" : ""} </Link>
               </>
             )}
-
-            {user.role === 1 && (
-              <Link aria-label="Link to Unread Questions" className="navLink" to="/userQuestions"> You Have {unreadAnswers > 0 ? unreadAnswers : 0} Unread Answer {unreadAnswers > 0 && unreadAnswers < 2 ? "s" : ""} </Link>
-              )}
-
-            {user.role === 1 && (
-              <Link aria-label="Link to Ask A Question" className="navLink" to="/userQuestions"> Ask a Question </Link>
-            )}
-
-            <div className="dropdown">
-              <span className="dropbtn" id="menubutton" aria-haspopup="true" aria-controls="menu"  tabIndex={0}> Resources</span>
-              <div className="dropdown-content" role="presentation">
-                <Link to="/eligible" role="menuitem">Am I eligible</Link>
-                <Link to="/formsYouShouldStartWith" role="menuitem">Forms you should start with</Link>
-                <Link to="/faqs" role="menuitem">FAQs</Link>
-                <Link to="/formsAndArticles" role="menuitem">Forms and Articles</Link>
-              </div>
-            </div>
-
-            <Link aria-label="Link to Saved Resources" className="navLink" to="/savedResources">Saved Resources</Link>
-
-            <Link aria-label="Link to About Us" className="navLink" to="/aboutUs">About Us</Link>
-
-            <LogOutButton aria-label="Log Out Button" role="button" className="navLink" />
-          </div>
-        </>
-      )}
     </div>
+    
+
+    
   );
 }
 
