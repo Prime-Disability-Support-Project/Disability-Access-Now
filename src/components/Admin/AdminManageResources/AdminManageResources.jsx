@@ -65,7 +65,7 @@ export default function AdminManageResources() {
       <button onClick={() => history.push('/editAbout')}>Edit Text</button>
       <button onClick={() => history.push('/editBios')}>Edit Bios</button>
       <h3>Home Page</h3>
-      <button>Edit Content</button>
+      <button onClick={() => history.push('/editHome')}>Edit Content</button>
       <h3>Pending Approval</h3>
       <button onClick={() => history.push('/editPending')}>Edit Content & Email</button>
     </div>
