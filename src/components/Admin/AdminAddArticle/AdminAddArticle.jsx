@@ -90,7 +90,7 @@ export default function AdminAddArticle() {
             />
           </div>
           <div>
-            <label htmlFor="body">Body:</label>
+            <label htmlFor="body">Body {`(markdown)`}:</label>
             <textarea
               rows="20"
               cols="75"
