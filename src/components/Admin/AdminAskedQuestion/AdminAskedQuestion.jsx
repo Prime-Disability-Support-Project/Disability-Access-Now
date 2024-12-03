@@ -25,7 +25,7 @@ export default function AdminUnansweredQuestions({ onAnswerQuestion }) {
                 <p>Question: {question.question}</p>
                 <p>Date Submitted: {question.question_date}</p>
                 <p>
-                  Associated Article:{""}
+                  Associated Article: {""}
                   {question.associated_article_url ? (
                     <a href={question.associated_article_url}>
                       {question.associated_article_url}
