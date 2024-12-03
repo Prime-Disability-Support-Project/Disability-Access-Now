@@ -1,0 +1,45 @@
+.unanswered-questions-section {
+    padding: 20px;
+}
+
+.unanswered-questions-list {
+max-height: 500px;
+overflow-y: auto;
+padding-right: 10px;
+}
+
+.unanswered-question {
+    background-color: #f1f1f1;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+}
+
+.unanswered-question p {
+    margin: 0 0 10px 0;
+}
+
+.unanswered-question a {
+    color: #939393;
+    text-decoration: none;
+}
+
+.unanswered-question a:hover {
+    text-decoration: underline;
+}       
+
+.unanswered-question button {
+    background-color: #939393;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.unanswered-question button:hover {
+    background-color: #939393;
+}
