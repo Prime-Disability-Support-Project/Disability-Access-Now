@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import axios from "axios";
 import "./AdminAskedQuestion.css"
 
 export default function AdminUnansweredQuestions({ onAnswerQuestion }) {
@@ -11,6 +12,13 @@ export default function AdminUnansweredQuestions({ onAnswerQuestion }) {
   useEffect(() => {
     dispatch({ type: "FETCH_ADMIN_UNANSWERED" });
   }, [dispatch]);
+
+  const handleRead = (questionId) => {
+    const data = { questionId: questionId };
+    axios.put("/api/questions/user-unread", data).then(() => {
+      dispatch({ type: "FETCH_ADMIN_UNANSWERED" });
+    });
+  };
 
   return (
     <div className="unanswered-questions-section">
@@ -37,6 +45,15 @@ export default function AdminUnansweredQuestions({ onAnswerQuestion }) {
                 <button onClick={() => onAnswerQuestion(question)}>
                   Answer Question
                 </button>
+                {question.unread === true ? (
+                  <button onClick={() => handleRead(question.id)}>
+                    Mark as Read
+                  </button>
+                ) : (
+                  <button onClick={() => handleRead(question.id)}>
+                    Mark as Unread
+                  </button>
+                )}
               </li>
             </div>
           ))}
