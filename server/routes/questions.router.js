@@ -376,17 +376,14 @@ router.put("/admin-answer", (req, res) => {
 });
 
 
-// Allows users to delete questions
+// Allows admins to delete answered questions from the history
 router.delete("/:id", (req, res) => {
   const questionId = req.params.id;
 
-  const userId = req.user.id;
-
-
   pool
-    .query(`DELETE FROM "questions" WHERE id = $1 AND user_id= $2`, [
+    .query(`DELETE FROM "questions" WHERE id = $1`, [
       questionId,
-      userId,
+     
     ])
     .then((result) => {
       res.status(200).send("Question successfully deleted");
