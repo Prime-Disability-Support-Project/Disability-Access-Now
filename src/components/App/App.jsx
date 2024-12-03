@@ -27,6 +27,15 @@ import AmIEligible from '../AmIEligible(stretch)/AmIEligible.jsx';
 import Home from '../Home/Home.jsx';
 import FormsYouShouldStartWith from '../FormsYouShouldStartWith(stretch)/FormsYouShouldStartWith.jsx';
 import AboutUs from '../AboutUs (stretch)/AboutUs.jsx';
+import PendingApproval from '../PendingApproval/PendingApproval.jsx';
+import AdminAboutUsEdit from '../Admin/AdminAboutUsEdit/AdminAboutUsEdit.jsx';
+import AdminBiosEdit from '../Admin/AdminBiosEdit/AdminBiosEdit.jsx';
+import AdminPendingEdit from '../Admin/AdminPendingEdit/AdminPendingEdit.jsx';
+import AdminHomePageEdit from '../Admin/AdminHomePageEdit/AdminHomePageEdit.jsx';
+import AdminQuestions from '../AdminQuestions/AdminQuestions.jsx';
+import AdminUnansweredQuestions from '../Admin/AdminAskedQuestion/AdminAskedQuestion.jsx';
+import AdminAnsweredQuestions from '../Admin/AdminAnsweredQuestion/AdminAnsweredQuestion.jsx';
+import AdminAnswerInput from '../Admin/AdminAnswerInput/AdminAnswerInput.jsx';
 
 function App() {
   const dispatch = useDispatch();
@@ -44,6 +53,8 @@ function App() {
         <Switch>
           <Redirect exact from="/" to="/home" />
           <Route exact path="/about"> <AboutPage /> </Route>
+          <Route exact path="/pending"> <PendingApproval /> </Route>
+
 
           <ProtectedRoute exact path="/home"> <Home /> </ProtectedRoute>
           <ProtectedRoute exact path="/info"> <InfoPage /> </ProtectedRoute>
@@ -58,10 +69,17 @@ function App() {
           <ProtectedRoute exact path="/eligible"> <AmIEligible /> </ProtectedRoute>
           <ProtectedRoute path="/articlePage"> <Article /> </ProtectedRoute>
           <ProtectedRoute path="/editArticle"> <AdminArticleEdit /> </ProtectedRoute>
+          <ProtectedRoute exact path="/editAbout"> <AdminAboutUsEdit /> </ProtectedRoute>
+          <ProtectedRoute exact path="/editHome"> <AdminHomePageEdit /> </ProtectedRoute>
+          <ProtectedRoute exact path="/editBios"> <AdminBiosEdit /> </ProtectedRoute>
+          <ProtectedRoute exact path="/editPending"> <AdminPendingEdit /> </ProtectedRoute>
           <ProtectedRoute exact path="/savedResources"> <SavedResources /> </ProtectedRoute>
           <ProtectedRoute exact path="/faqs"> <FAQ /> </ProtectedRoute>
           <ProtectedRoute exact path="/search-results" component={SearchResults} />  
-          
+          <ProtectedRoute exact path="/adminQuestions" component={AdminQuestions} />
+          <ProtectedRoute exact path="/adminUnansweredQuestions" component={AdminUnansweredQuestions} />
+          <ProtectedRoute exact path="/adminAnsweredQuestions" component={AdminAnsweredQuestions} />
+          <ProtectedRoute exact path="/AdminAnswerInput" component={AdminAnswerInput} />
           <Route exact path="/login"> {user.id ? <Redirect to="/home" /> : <LoginPage />} </Route>
           <Route exact path="/registration"> {user.id ? <Redirect to="/home" /> : <RegisterPage />} </Route>
           <Route exact path="/home"> {user.id ? <Redirect to="/home" /> : <LandingPage /> } </Route>
