@@ -58,7 +58,7 @@ function Nav() {
     <div aria-label="navigation links" className="nav">
       {/*links to homepage and navigation title*/}
       {/* Link should be called home and title should maybe get reworked? */}
-      <Link aria-label="Link to Home" to="/home"> <h2 className="nav-title">Disability Access Now</h2> </Link>
+      <Link aria-label="Link to Disability Access Now Home" to="/home"> <h2 className="nav-title">Disability Access Now</h2> </Link>
 
       {/* If no user is logged in, show these links */}
       {!user.id && (
@@ -71,14 +71,14 @@ function Nav() {
         <>
           <div className="nav-links">
 
-            <div className="nav-left">
+            <div aria-label="Welcome" className="nav-left">
               <p>Welcome, {user.name}</p>
             </div>
 
             <div className="nav-right">
-              <form aria-label="Search" onSubmit={handleSearch}>
+              <form aria-label="Search Files and Articles Input" onSubmit={handleSearch}>
                 <input type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} placeholder="Search files & articles"/>
-                <button role="button" type="submit">Search</button>
+                <button role="button" aria-label="Search Button" type="submit">Search</button>
               </form>
             </div>
 
@@ -94,33 +94,28 @@ function Nav() {
             )}
 
             {user.role === 1 && (
-              <Link className="navLink" to="/userQuestions">
-                You Have {unreadAnswers > 0 ? unreadAnswers : 0} Unread Answer
-                {unreadAnswers > 0 && unreadAnswers < 2 ? "" : "s"}
-              </Link>
-            )}
+              <Link aria-label="Link to Unread Questions" className="navLink" to="/userQuestions"> You Have {unreadAnswers > 0 ? unreadAnswers : 0} Unread Answer {unreadAnswers > 0 && unreadAnswers < 2 ? "s" : ""} </Link>
+              )}
 
             {user.role === 1 && (
-              <Link className="navLink" to="/userQuestions">
-                Ask a Question
-              </Link>
+              <Link aria-label="Link to Ask A Question" className="navLink" to="/userQuestions"> Ask a Question </Link>
             )}
 
             <div className="dropdown">
-              <span className="dropbtn" role="button" tabIndex={0}> Resources</span>
-              <div className="dropdown-content">
-                <Link to="/eligible" aria-label="Link to Am I eligible Page">Am I eligible</Link>
-                <Link to="/formsYouShouldStartWith" aria-label="Link to Am I eligible Page">Forms you should start with</Link>
-                <Link to="/faqs">FAQs</Link>
-                <Link to="/formsAndArticles">Forms and Articles</Link>
+              <span className="dropbtn" id="menubutton" aria-haspopup="true" aria-controls="menu"  tabIndex={0}> Resources</span>
+              <div className="dropdown-content" role="presentation">
+                <Link to="/eligible" role="menuitem">Am I eligible</Link>
+                <Link to="/formsYouShouldStartWith" role="menuitem">Forms you should start with</Link>
+                <Link to="/faqs" role="menuitem">FAQs</Link>
+                <Link to="/formsAndArticles" role="menuitem">Forms and Articles</Link>
               </div>
             </div>
 
-            <Link className="navLink" to="/savedResources">Saved Resources</Link>
+            <Link aria-label="Link to Saved Resources" className="navLink" to="/savedResources">Saved Resources</Link>
 
-            <Link className="navLink" to="/aboutUs">About Us</Link>
+            <Link aria-label="Link to About Us" className="navLink" to="/aboutUs">About Us</Link>
 
-            <LogOutButton className="navLink" />
+            <LogOutButton aria-label="Log Out Button" role="button" className="navLink" />
           </div>
         </>
       )}
