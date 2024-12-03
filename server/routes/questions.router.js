@@ -15,7 +15,7 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-// Email notification function
+// Email notification function to admin team
 function sendAdminNotification(question, username) {
   // Query to fetch admin's email 
   const queryText = 'SELECT email FROM "user" WHERE "role" = 2'; // '2' is the admin role
@@ -41,6 +41,54 @@ Support Team`, // Plain text body
                  <p>A new question has been posted by <strong>${username}</strong>:</p>
                  <p><strong>Question:</strong> ${question.question}</p>
                  <p>Please review and respond as needed.</p>
+                 <p>Best regards,<br>Support Team</p>`, // HTML body
+        };
+
+        // Send email to the admins
+        transporter.sendMail(mailOptions)
+          .then(info => {
+            console.log('Email sent: ' + info.response);
+          })
+          .catch(error => {
+            console.error('Error sending email:', error);
+          });
+      } else {
+        console.log('No admins found');
+      }
+    })
+    .catch(error => {
+      console.error('Error fetching admin emails:', error);
+    });
+}
+
+// Email notification function to user
+function sendUserNotification(question, name) {
+  // Query to fetch admin's email 
+  const queryText = 'SELECT email FROM "user" WHERE id = $1'; 
+  const userId = req.user.id;
+  const params = [userId]
+  pool.query(queryText, params)
+    .then(result => {
+      const user = result.rows
+      console.log('user', user)
+      if (user) {
+        const mailOptions = {
+          from: `"Support Team" <primedisabilitysupp@gmail.com>`, // Admin email
+          to: user[0].email, // user email
+          subject: "New Admin Answer", // Subject line
+          text: `Hello ${name},
+
+A new answer has been posted:
+
+Question: ${question.question}
+Answer: ${question.answer}
+
+Best regards,
+Support Team`, // Plain text body
+          html: `<p>Hello ${name},</p>
+                 <p>A new response has been posted by the admins:</p>
+                 <p><strong>Question:</strong> ${question.question}</p>
+                 <p><strong>Answer:</strong> ${question.answer}</p>
                  <p>Best regards,<br>Support Team</p>`, // HTML body
         };
 
@@ -302,12 +350,12 @@ router.get("/admin-unanswered-questions-count", (req, res) => {
 
 // Update when an answer is submitted by the admin
 router.put("/admin-answer", (req, res) => {
-  const answer = req.body.answer;
+  const question = {question: req.body.question, answer: req.body.answer, questionId: req.body.questionId}
   // answered = true
   // unread = true
-  const questionId = req.body.questionId;
+  const name = req.user.name
 
-  const params = [answer, true, true, questionId];
+  const params = [question.answer, true, true, question.questionId];
 
   const queryText = `
       UPDATE "questions"
@@ -319,6 +367,7 @@ router.put("/admin-answer", (req, res) => {
     .query(queryText, params)
     .then((result) => {
       res.sendStatus(200);
+      sendUserNotification(question, name)
     })
     .catch((error) => {
       console.log("Error with updating admin-answer", error);

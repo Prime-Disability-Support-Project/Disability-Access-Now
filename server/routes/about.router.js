@@ -51,9 +51,10 @@ router.post("/bio", (req, res) => {
 
 // PUT AboutUs content
 router.put("/", (req, res) => {
-  const { title, body } = req.body;
-  const queryText = `UPDATE "aboutUs" SET "title" = $1, "body" = $2 WHERE "id" = 1`;
-  const params = [title, body];
+  console.log(req.body)
+  const { title, founderText, devText, id } = req.body;
+  const queryText = `UPDATE "aboutUs" SET "title" = $1, "founderText" = $2, "devText" = $3 WHERE "id" = $4`;
+  const params = [title, founderText, devText, id];
 
   pool
     .query(queryText, params)
@@ -67,8 +68,9 @@ router.put("/", (req, res) => {
 });
 
 // PUT a bio
-router.put("/bios", (req, res) => {
-  const { name, bio, link, type, bioId } = req.body;
+router.put("/bios/:id", (req, res) => {
+  const { name, bio, link, type } = req.body;
+  const bioId = req.params.id
   const queryText = `UPDATE "bios" SET "name" = $1, "bio" = $2, "link" = $3, "type" = $4 WHERE "id" = $5`;
   const params = [name, bio, link, type, bioId];
 

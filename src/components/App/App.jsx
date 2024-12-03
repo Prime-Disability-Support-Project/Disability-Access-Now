@@ -27,6 +27,11 @@ import AmIEligible from '../AmIEligible(stretch)/AmIEligible.jsx';
 import Home from '../Home/Home.jsx';
 import FormsYouShouldStartWith from '../FormsYouShouldStartWith(stretch)/FormsYouShouldStartWith.jsx';
 import AboutUs from '../AboutUs (stretch)/AboutUs.jsx';
+import PendingApproval from '../PendingApproval/PendingApproval.jsx';
+import AdminAboutUsEdit from '../Admin/AdminAboutUsEdit/AdminAboutUsEdit.jsx';
+import AdminBiosEdit from '../Admin/AdminBiosEdit/AdminBiosEdit.jsx';
+import AdminPendingEdit from '../Admin/AdminPendingEdit/AdminPendingEdit.jsx';
+import AdminHomePageEdit from '../Admin/AdminHomePageEdit/AdminHomePageEdit.jsx';
 import AdminQuestions from '../AdminQuestions/AdminQuestions.jsx';
 import AdminUnansweredQuestions from '../Admin/AdminAskedQuestion/AdminAskedQuestion.jsx';
 import AdminAnsweredQuestions from '../Admin/AdminAnsweredQuestion/AdminAnsweredQuestion.jsx';
@@ -48,6 +53,8 @@ function App() {
         <Switch>
           <Redirect exact from="/" to="/home" />
           <Route exact path="/about"> <AboutPage /> </Route>
+          <Route exact path="/pending"> <PendingApproval /> </Route>
+
 
           <ProtectedRoute exact path="/home"> <Home /> </ProtectedRoute>
           <ProtectedRoute exact path="/info"> <InfoPage /> </ProtectedRoute>
@@ -62,6 +69,10 @@ function App() {
           <ProtectedRoute exact path="/eligible"> <AmIEligible /> </ProtectedRoute>
           <ProtectedRoute path="/articlePage"> <Article /> </ProtectedRoute>
           <ProtectedRoute path="/editArticle"> <AdminArticleEdit /> </ProtectedRoute>
+          <ProtectedRoute exact path="/editAbout"> <AdminAboutUsEdit /> </ProtectedRoute>
+          <ProtectedRoute exact path="/editHome"> <AdminHomePageEdit /> </ProtectedRoute>
+          <ProtectedRoute exact path="/editBios"> <AdminBiosEdit /> </ProtectedRoute>
+          <ProtectedRoute exact path="/editPending"> <AdminPendingEdit /> </ProtectedRoute>
           <ProtectedRoute exact path="/savedResources"> <SavedResources /> </ProtectedRoute>
           <ProtectedRoute exact path="/faqs"> <FAQ /> </ProtectedRoute>
           <ProtectedRoute exact path="/search-results" component={SearchResults} />  
