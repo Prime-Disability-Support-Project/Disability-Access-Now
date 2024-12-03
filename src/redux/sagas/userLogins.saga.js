@@ -23,7 +23,8 @@ function* fetchAllUsers() {
 function* approveLogin(action) {
   try {
     // action.payload is the user ID
-    yield axios.put(`/api/user/${action.payload}`);
+    console.log('action', action.payload)
+    yield axios.put(`/api/user/${action.payload.id}`, action.payload);
     yield put({ type: "FETCH_ALL_USERS" });
   } catch (error) {
     console.error("approveLogin error in userLogins.saga", error);

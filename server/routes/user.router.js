@@ -5,6 +5,8 @@ const {
 const encryptLib = require("../modules/encryption");
 const pool = require("../modules/pool");
 const userStrategy = require("../strategies/user.strategy");
+const nodemailer = require("nodemailer");
+require ('dotenv').config(); // ensure your env variables are loaded 
 
 const router = express.Router();
 
@@ -17,7 +19,7 @@ router.get("/", rejectUnauthenticated, (req, res) => {
 // Gets all users that have not been approved
 router.get("/allPending", rejectUnauthenticated, (req, res) => {
   const queryText =
-    'SELECT * FROM "user" WHERE approved = false ORDER BY "name" ASC;';
+    'SELECT * FROM "user" WHERE approved = false ORDER BY "id" ASC;';
   pool
     .query(queryText)
     .then((results) => res.send(results.rows))
@@ -43,6 +45,8 @@ router.get("/allApproved", rejectUnauthenticated, (req, res) => {
 // set approved to true for the selected user
 router.put("/:id", (req, res) => {
   const userId = req.params.id;
+  console.log('req.body', req.body)
+  const email = req.body.email
   const queryText = `
     UPDATE "user"
     SET "approved" = true
@@ -51,6 +55,7 @@ router.put("/:id", (req, res) => {
 
   const params = [userId];
 
+  sendApprovalNotification(email)
   pool
     .query(queryText, params)
     .then(() => {
@@ -110,6 +115,94 @@ router.delete("/:id", (req, res) => {
     });
 });
 
+//set up the nodemailer transporter using Gmail 
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.GMAIL_USER,
+    pass: process.env.GMAIL_PASS,
+  },
+});
+
+// Email notification function to admin team
+function sendRegistrationNotification(email) {
+  // Query to fetch admin's email 
+  
+        const mailOptions = {
+          from: `"Support Team" <${process.env.GMAIL_USER}>`, // Sender address
+          to: email,
+          subject: "Disability Access Now - Registration Received", // Subject line
+          text: `Hello,
+
+
+
+Your registration has been received and is currently pending approval. 
+Our admin team will review your request and respond back as soon as possible. 
+You will receive an email notification once the review is finished. 
+Please note that you will not be able to log in until you are approved.
+
+
+
+
+
+
+Best regards,
+Support Team`, // Plain text body
+          html: `<p>Hello,</p>
+                 <p>Your registration has been received and is currently pending approval.</p>
+                 <p>Our admin team will review your request and respond back as soon as possible.</p>
+                 <p>You will receive an email notification once the review is finished.</p>
+                 <p>Please note that you will not be able to log in until you are approved.</p>
+                 <p>Best regards,<br>Support Team</p>`, // HTML body
+        };
+
+        // Send email to the admins
+        transporter.sendMail(mailOptions)
+          .then(info => {
+            console.log('Email sent: ' + info.response);
+          })
+          .catch(error => {
+            console.error('Error sending email:', error);
+          });
+    
+    }
+    
+// Email notification function to admin team
+function sendApprovalNotification(email) {
+  // Query to fetch admin's email 
+  
+        const mailOptions = {
+          from: `"Support Team" <${process.env.GMAIL_USER}>`, // Sender address
+          to: email,
+          subject: "Disability Access Now - Registration Approved!", // Subject line
+          text: `Hello,
+
+
+
+Your registration has been approved, and you are now able to log in. 
+
+
+Best regards,
+Support Team`, // Plain text body
+          html: `<p>Hello,</p>
+                 <p>Your registration has been approved, and you are now able to log in.</p>
+                 <p>Best regards,<br>Support Team</p>`, // HTML body
+        };
+
+        // Send email to the admins
+        transporter.sendMail(mailOptions)
+          .then(info => {
+            console.log('Email sent: ' + info.response);
+          })
+          .catch(error => {
+            console.error('Error sending email:', error);
+          });
+    
+    }
+
+
+
+
 // Handles POST request with new user data
 // The only thing different from this and every other post we've seen
 // is that the password gets encrypted before being inserted
@@ -120,6 +213,7 @@ router.post("/register", (req, res, next) => {
   // role = 1
   const password = encryptLib.encryptPassword(req.body.password);
 
+sendRegistrationNotification(email);
   const queryText = `INSERT INTO "user" (name, password, email, role, approved)
     VALUES ($1, $2, $3, $4, $5) RETURNING id`;
   pool
