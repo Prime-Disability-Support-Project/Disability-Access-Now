@@ -2,13 +2,11 @@ const express = require("express");
 const pool = require("../modules/pool");
 const router = express.Router();
 const nodemailer = require("nodemailer");
-require ('dotenv').config(); // ensure your env variables are loaded 
+require("dotenv").config(); // ensure your env variables are loaded
 
-
-
-//set up the nodemailer transporter using Gmail 
+//set up the nodemailer transporter using Gmail
 const transporter = nodemailer.createTransport({
-  service: 'gmail',
+  service: "gmail",
   auth: {
     user: process.env.GMAIL_USER,
     pass: process.env.GMAIL_PASS,
@@ -17,15 +15,16 @@ const transporter = nodemailer.createTransport({
 
 // Email notification function to admin team
 function sendAdminNotification(question, username) {
-  // Query to fetch admin's email 
+  // Query to fetch admin's email
   const queryText = 'SELECT email FROM "user" WHERE "role" = 2'; // '2' is the admin role
-  pool.query(queryText)
-    .then(result => {
+  pool
+    .query(queryText)
+    .then((result) => {
       const admins = result.rows;
       if (admins.length > 0) {
         const mailOptions = {
           from: `"Support Team" <${process.env.GMAIL_USER}>`, // Sender address
-          to: admins.map(admin => admin.email).join(','), // Send to all admins
+          to: admins.map((admin) => admin.email).join(","), // Send to all admins
           subject: "New User Question", // Subject line
           text: `Hello,
 
@@ -45,70 +44,56 @@ Support Team`, // Plain text body
         };
 
         // Send email to the admins
-        transporter.sendMail(mailOptions)
-          .then(info => {
-            console.log('Email sent: ' + info.response);
+        transporter
+          .sendMail(mailOptions)
+          .then((info) => {
+            console.log("Email sent: " + info.response);
           })
-          .catch(error => {
-            console.error('Error sending email:', error);
+          .catch((error) => {
+            console.error("Error sending email:", error);
           });
       } else {
-        console.log('No admins found');
+        console.log("No admins found");
       }
     })
-    .catch(error => {
-      console.error('Error fetching admin emails:', error);
+    .catch((error) => {
+      console.error("Error fetching admin emails:", error);
     });
 }
 
 // Email notification function to user
-function sendUserNotification(question, name) {
-  // Query to fetch admin's email 
-  const queryText = 'SELECT email FROM "user" WHERE id = $1'; 
-  const userId = req.user.id;
-  const params = [userId]
-  pool.query(queryText, params)
-    .then(result => {
-      const user = result.rows
-      console.log('user', user)
-      if (user) {
-        const mailOptions = {
-          from: `"Support Team" <primedisabilitysupp@gmail.com>`, // Admin email
-          to: user[0].email, // user email
-          subject: "New Admin Answer", // Subject line
-          text: `Hello ${name},
+function sendUserNotification(question, email) {
 
-A new answer has been posted:
+        const mailOptions = {
+          from: `"Support Team" <${process.env.GMAIL_USER}>`, // Sender address
+          to: email, // user email
+          subject: "Disability Access Now - New Admin Answer", // Subject line
+          text: `Hello,
+
+A new answer has been posted for one of your questions:
 
 Question: ${question.question}
 Answer: ${question.answer}
 
 Best regards,
 Support Team`, // Plain text body
-          html: `<p>Hello ${name},</p>
-                 <p>A new response has been posted by the admins:</p>
+          html: `<p>Hello,</p>
+                 <p>A new response has been posted for one of your questions:</p>
                  <p><strong>Question:</strong> ${question.question}</p>
                  <p><strong>Answer:</strong> ${question.answer}</p>
                  <p>Best regards,<br>Support Team</p>`, // HTML body
         };
 
         // Send email to the admins
-        transporter.sendMail(mailOptions)
-          .then(info => {
-            console.log('Email sent: ' + info.response);
+        transporter
+          .sendMail(mailOptions)
+          .then((info) => {
+            console.log("Email sent: " + info.response);
           })
-          .catch(error => {
-            console.error('Error sending email:', error);
+          .catch((error) => {
+            console.error("Error sending email:", error);
           });
-      } else {
-        console.log('No admins found');
-      }
-    })
-    .catch(error => {
-      console.error('Error fetching admin emails:', error);
-    });
 }
-
 
 // Get all unanswered questions for the specific user - ordered by date
 router.get("/user-unanswered-questions", (req, res) => {
@@ -168,6 +153,31 @@ router.get("/admin-answered-questions", (req, res) => {
     });
 });
 
+// Get user and associated article information
+router.get("/details/:id", (req, res) => {
+  const queryText = `
+    SELECT 
+      q.associated_article_url,
+      u.*
+    FROM 
+      questions q
+    JOIN 
+      "user" u ON q.user_id = u.id
+    WHERE 
+      q.id = $1;`;
+  const params = [req.params.id];
+  pool
+    .query(queryText, params)
+    .then((results) => res.send(results.rows))
+    .catch((error) => {
+      console.log(
+        "Error making GET for associated article information:",
+        error
+      );
+      res.sendStatus(500);
+    });
+});
+
 // POST a new question without an associated article
 router.post("/new-question-without-article", async (req, res) => {
   const question = req.body.question;
@@ -194,10 +204,9 @@ router.post("/new-question-without-article", async (req, res) => {
       userId,
     ];
     const result = await pool.query(insertQuery, insertParams);
-    
 
     const newQuestion = result.rows[0]; // This will now have the inserted question
-    console.log('New question added:', newQuestion);
+    console.log("New question added:", newQuestion);
 
     // Send email notification to admins about the new question
     sendAdminNotification(newQuestion, username);
@@ -241,12 +250,11 @@ router.post("/new-question-with-article", async (req, res) => {
     const result = await pool.query(insertQuery, insertParams);
 
     const newQuestion = result.rows[0];
-    console.log('New question added:', newQuestion);
+    console.log("New question added:", newQuestion);
 
+    // Send email notification to admins about the new question
+    sendAdminNotification(newQuestion, username);
 
-     // Send email notification to admins about the new question
-     sendAdminNotification(newQuestion, username);
-     
     res.sendStatus(201); // Created
   } catch (error) {
     console.log(
@@ -256,7 +264,6 @@ router.post("/new-question-with-article", async (req, res) => {
     res.sendStatus(500); // Internal server error
   }
 });
-
 
 // Toggle unread between true and false for user's viewing admin answers
 router.put("/user-unread", (req, res) => {
@@ -270,7 +277,7 @@ router.put("/user-unread", (req, res) => {
       "unread" = NOT "unread"
       WHERE "id" = $1;`;
 
-      console.log(params)
+  console.log(params);
   pool
     .query(queryText, params)
     .then((result) => {
@@ -281,7 +288,6 @@ router.put("/user-unread", (req, res) => {
       res.sendStatus(500);
     });
 });
-
 
 // Update unread to false when an admin views the questions
 router.put("/admin-unread", (req, res) => {
@@ -311,7 +317,6 @@ router.put("/admin-unread", (req, res) => {
 router.get("/user-answered-questions-count", (req, res) => {
   const userId = req.user.id;
 
-
   const queryText = `
     SELECT COUNT(*) AS unread_answered_questions
     FROM "questions"
@@ -331,29 +336,38 @@ router.get("/user-answered-questions-count", (req, res) => {
 
 // Get the count of unanswered questions that are unread for the admins (used to show the number of notifications)
 router.get("/admin-unanswered-questions-count", (req, res) => {
-
-    const queryText = `
+  const queryText = `
       SELECT COUNT(*) AS unread_unanswered_questions
       FROM "questions"
       WHERE "unread" = $1 
       AND "answered" = $2;`;
 
-    const params = [true, false];
-    pool
-      .query(queryText, params)
-      .then((results) => res.send(results.rows))
-      .catch((error) => {
-        console.log("Error making GET for admin unanswered questions count:", error);
-        res.sendStatus(500);
-      });
-  });
+  const params = [true, false];
+  pool
+    .query(queryText, params)
+    .then((results) => res.send(results.rows))
+    .catch((error) => {
+      console.log(
+        "Error making GET for admin unanswered questions count:",
+        error
+      );
+      res.sendStatus(500);
+    });
+});
 
 // Update when an answer is submitted by the admin
 router.put("/admin-answer", (req, res) => {
-  const question = {question: req.body.question, answer: req.body.answer, questionId: req.body.questionId}
+  const question = {
+    question: req.body.question,
+    answer: req.body.answer,
+    questionId: req.body.questionId,
+    email: req.body.email
+  };
   // answered = true
   // unread = true
-  const name = req.user.name
+
+  const email = question.email
+  console.log('email', email)
 
   const params = [question.answer, true, true, question.questionId];
 
@@ -363,11 +377,12 @@ router.put("/admin-answer", (req, res) => {
       "answer" = $1, "answered" = $2, "unread" = $3
       WHERE "id" = $4;`;
 
+  sendUserNotification(question, email);
+
   pool
     .query(queryText, params)
     .then((result) => {
       res.sendStatus(200);
-      sendUserNotification(question, name)
     })
     .catch((error) => {
       console.log("Error with updating admin-answer", error);
@@ -375,16 +390,12 @@ router.put("/admin-answer", (req, res) => {
     });
 });
 
-
 // Allows admins to delete answered questions from the history
 router.delete("/:id", (req, res) => {
   const questionId = req.params.id;
 
   pool
-    .query(`DELETE FROM "questions" WHERE id = $1`, [
-      questionId,
-     
-    ])
+    .query(`DELETE FROM "questions" WHERE id = $1`, [questionId])
     .then((result) => {
       res.status(200).send("Question successfully deleted");
     })

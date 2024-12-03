@@ -14,12 +14,6 @@ export default function AdminAnsweredQuestions() {
     dispatch({ type: "FETCH_ADMIN_ANSWERED" });
   }, [dispatch]);
 
-  const handleAdminRead = (questionId) => {
-    const data = { questionId: questionId };
-    axios.put("/api/questions/admin-unread", data).then(() => {
-      dispatch({ type: "FETCH_ADMIN_ANSWERED" });
-    });
-  };
 
   const handleDeleteQuestion = (questionId) => {
     axios.delete(`/api/questions/${questionId}`).then(() => {
@@ -52,9 +46,6 @@ export default function AdminAnsweredQuestions() {
                 </p>
                 <button onClick={() => handleDeleteQuestion(question.id)}>
                   Delete Question
-                </button>
-                <button onClick={() => handleAdminRead(question.id)}>
-                  Mark as Unread
                 </button>
               </li>
             </div>

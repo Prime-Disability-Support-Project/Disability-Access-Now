@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import axios from "axios";
 import "./AdminAskedQuestion.css"
 
 export default function AdminUnansweredQuestions({ onAnswerQuestion }) {
@@ -12,8 +13,15 @@ export default function AdminUnansweredQuestions({ onAnswerQuestion }) {
     dispatch({ type: "FETCH_ADMIN_UNANSWERED" });
   }, [dispatch]);
 
+  const handleRead = (questionId) => {
+    const data = { questionId: questionId };
+    axios.put("/api/questions/user-unread", data).then(() => {
+      dispatch({ type: "FETCH_ADMIN_UNANSWERED" });
+    });
+  };
+
   return (
-    <div className="unanswered-quetions-section">
+    <div className="unanswered-questions-section">
       <h2>Unanswered Questions</h2>
       {unansweredQuestions.length === 0 ? (
         <p>No unanswered questions found.</p>
@@ -25,7 +33,7 @@ export default function AdminUnansweredQuestions({ onAnswerQuestion }) {
                 <p>Question: {question.question}</p>
                 <p>Date Submitted: {question.question_date}</p>
                 <p>
-                  Associated Article:{""}
+                  Associated Article: {""}
                   {question.associated_article_url ? (
                     <a href={question.associated_article_url}>
                       {question.associated_article_url}
@@ -37,6 +45,15 @@ export default function AdminUnansweredQuestions({ onAnswerQuestion }) {
                 <button onClick={() => onAnswerQuestion(question)}>
                   Answer Question
                 </button>
+                {question.unread === true ? (
+                  <button onClick={() => handleRead(question.id)}>
+                    Mark as Read
+                  </button>
+                ) : (
+                  <button onClick={() => handleRead(question.id)}>
+                    Mark as Unread
+                  </button>
+                )}
               </li>
             </div>
           ))}
