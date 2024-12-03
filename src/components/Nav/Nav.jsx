@@ -82,7 +82,7 @@ function Nav() {
         <Link className="navLink" to="/login" aria-label="Link to Login or Register"> Login / Register </Link>
       )}
 
-      {/* If a user is logged in, show these links */}
+      {/* If a user is logged in, show the links */}
       {user.id && (
         <>
 
