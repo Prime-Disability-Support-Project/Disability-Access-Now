@@ -59,7 +59,7 @@ function Nav() {
   };
 
   return (
-    <div className="nav">
+    <div aria-label="navigation links" className="nav">
       {/*links to homepage and navigation title*/}
       <Link to="/home">
         <h2 className="nav-title">Disability Access Now</h2>
@@ -89,7 +89,7 @@ function Nav() {
                   onChange={(e) => setSearchTerm(e.target.value)}
                   placeholder="Search files & articles"
                 />
-                <button type="submit">Search</button>
+                <button aria-label="Search" type="submit">Search</button>
               </form>
             </div>
             <Link className="navLink" to="/home">
