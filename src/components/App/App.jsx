@@ -30,6 +30,7 @@ import AboutUs from '../AboutUs (stretch)/AboutUs.jsx';
 import PendingApproval from '../PendingApproval/PendingApproval.jsx';
 import AdminAboutUsEdit from '../Admin/AdminAboutUsEdit/AdminAboutUsEdit.jsx';
 import AdminBiosEdit from '../Admin/AdminBiosEdit/AdminBiosEdit.jsx';
+import AdminPendingEdit from '../Admin/AdminPendingEdit/AdminPendingEdit.jsx';
 
 function App() {
   const dispatch = useDispatch();
@@ -65,6 +66,7 @@ function App() {
           <ProtectedRoute path="/editArticle"> <AdminArticleEdit /> </ProtectedRoute>
           <ProtectedRoute exact path="/editAbout"> <AdminAboutUsEdit /> </ProtectedRoute>
           <ProtectedRoute exact path="/editBios"> <AdminBiosEdit /> </ProtectedRoute>
+          <ProtectedRoute exact path="/editPending"> <AdminPendingEdit /> </ProtectedRoute>
           <ProtectedRoute exact path="/savedResources"> <SavedResources /> </ProtectedRoute>
           <ProtectedRoute exact path="/faqs"> <FAQ /> </ProtectedRoute>
           <ProtectedRoute exact path="/search-results" component={SearchResults} />  

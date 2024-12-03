@@ -77,7 +77,7 @@ export default function AdminAboutUsEdit() {
             />
           </div>
           <div>
-            <label htmlFor="founder">Text about the Founder:</label>
+            <label htmlFor="founder">Text about the Founder {`(markdown)`}:</label>
             <textarea
               rows="15"
               cols="75"
@@ -88,7 +88,7 @@ export default function AdminAboutUsEdit() {
             />
           </div>
           <div>
-            <label htmlFor="dev">Text about the Dev Team:</label>
+            <label htmlFor="dev">Text about the Dev Team {`(markdown)`}:</label>
             <textarea
               rows="15"
               cols="75"

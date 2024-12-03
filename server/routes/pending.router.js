@@ -17,51 +17,20 @@ router.get("/", (req, res) => {
     });
 });
 
-// GET bios
-router.get("/bios", (req, res) => {
-  const queryText = `SELECT * FROM "bios" ORDER BY "name" ASC`;
-
-  pool
-    .query(queryText)
-    .then((results) => {
-      res.send(results.rows);
-    })
-    .catch((error) => {
-      console.log("Error fetching bios:", error);
-      res.sendStatus(500);
-    });
-});
-
-// POST a new bio
-router.post("/bio", (req, res) => {
-  const { name, bio, link, type } = req.body;
-  const insertQuery = `INSERT INTO "bios" ("name", "bio", "link", "type") 
-            VALUES ($1, $2, $3, $4);`;
-  const insertParams = [name, bio, link, type];
-
-  pool
-    .query(insertQuery, insertParams)
-
-    .then((results) => res.sendStatus(201))
-    .catch((error) => {
-      console.log("Error making POST for new bio:", error);
-      res.sendStatus(500);
-    });
-});
-
-// PUT AboutUs content
-router.put("/", (req, res) => {
-  const { title, body } = req.body;
-  const queryText = `UPDATE "aboutUs" SET "title" = $1, "body" = $2 WHERE "id" = 1`;
-  const params = [title, body];
+// PUT Pending Content
+router.put("/:id", (req, res) => {
+  const { body, email } = req.body;
+  const id = req.params.id
+  const queryText = `UPDATE "pending" SET "body" = $1, "email" = $2 WHERE "id" = $3`;
+  const params = [body, email, id];
 
   pool
     .query(queryText, params)
     .then((result) => {
-      res.status(200).send("AboutUs updated");
+      res.status(200).send("Pending updated");
     })
     .catch((error) => {
-      console.log("Error updating AboutUs:", error);
+      console.log("Error updating Pending:", error);
       res.sendStatus(500);
     });
 });

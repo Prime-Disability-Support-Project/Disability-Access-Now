@@ -68,8 +68,7 @@ export default function AdminManageResources() {
       <button>Edit Header</button>
       <button>Edit Text</button>
       <h3>Pending Approval</h3>
-      <button>Edit Text</button>
-      <button>Edit Contact Email</button>
+      <button onClick={() => history.push('/editPending')}>Edit Content & Email</button>
     </div>
   );
 }
