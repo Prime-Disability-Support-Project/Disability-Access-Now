@@ -73,7 +73,7 @@ export default function AdminBiosEdit() {
                   />
                 </div>
                 <div>
-                  <label htmlFor="bio">Bio:</label>
+                  <label htmlFor="bio">Bio {`(optional)`}:</label>
                   <textarea
                     rows="15"
                     cols="75"
@@ -85,7 +85,7 @@ export default function AdminBiosEdit() {
                   />
                 </div>
                 <div>
-                  <label htmlFor="link">Link:</label>
+                  <label htmlFor="link">Link {`(optional)`}:</label>
                   <textarea
                     rows="2"
                     cols="75"
