@@ -20,8 +20,9 @@ export default function AdminManageLogins() {
     dispatch({ type: "FETCH_ALL_USERS" });
   }, []);
 
-  const handleApprove = (userId) => {
-    dispatch({ type: "APPROVE_LOGIN", payload: userId });
+  const handleApprove = (userId, email) => {
+    const data = {id: userId, email: email}
+    dispatch({ type: "APPROVE_LOGIN", payload: data });
   };
 
   const handleAdmin = (userId) => {
@@ -45,7 +46,7 @@ export default function AdminManageLogins() {
             <li>
               <strong>Email Address:</strong> {user.email}
             </li>
-            <button onClick={() => handleApprove(user.id)}>Approve</button>
+            <button onClick={() => handleApprove(user.id, user.email)}>Approve</button>
             <button onClick={() => handleRemove(user.id)}>Remove User</button>
           </ul>
         );
