@@ -23,9 +23,7 @@ function Nav() {
 
   const fetchUnreadAnswerCount = async () => {
     try {
-      const response = await axios.get(
-        "/api/questions/user-answered-questions-count"
-      );
+      const response = await axios.get("/api/questions/user-answered-questions-count");
       setUnreadAnswers(response.data[0].unread_answered_questions);
     } catch (error) {
       console.error("Error fetching unread answer count:", error);
@@ -34,9 +32,7 @@ function Nav() {
 
   const fetchUnreadQuestionCount = async () => {
     try {
-      const response = await axios.get(
-        "/api/questions/admin-unanswered-questions-count"
-      );
+      const response = await axios.get("/api/questions/admin-unanswered-questions-count");
       setUnreadQuestions(response.data[0].unread_unanswered_questions);
     } catch (error) {
       console.error("Error fetching unread question count:", error);
@@ -61,57 +57,39 @@ function Nav() {
   return (
     <div aria-label="navigation links" className="nav">
       {/*links to homepage and navigation title*/}
-      <Link to="/home">
-        <h2 className="nav-title">Disability Access Now</h2>
-      </Link>
+      {/* Link should be called home and title should maybe get reworked? */}
+      <Link aria-label="Link to Home" to="/home"> <h2 className="nav-title">Disability Access Now</h2> </Link>
 
       {/* If no user is logged in, show these links */}
       {!user.id && (
         // If there's no user, show login/registration links
-        <Link className="navLink" to="/login">
-          Login / Register
-        </Link>
+        <Link className="navLink" to="/login" aria-label="Link to Login or Register"> Login / Register </Link>
       )}
 
       {/* If a user is logged in, show these links */}
       {user.id && (
         <>
           <div className="nav-links">
+
             <div className="nav-left">
               <p>Welcome, {user.name}</p>
             </div>
+
             <div className="nav-right">
-              {/* Search Form */}
-              <form onSubmit={handleSearch}>
-                <input
-                  type="text"
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  placeholder="Search files & articles"
-                />
-                <button aria-label="Search" type="submit">Search</button>
+              <form aria-label="Search" onSubmit={handleSearch}>
+                <input type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} placeholder="Search files & articles"/>
+                <button role="button" type="submit">Search</button>
               </form>
             </div>
-            <Link className="navLink" to="/home">
-              Home
-            </Link>
+
+            <Link className="navLink" to="/home" aria-label="Link to Home"> Home</Link>
 
             {/* admin links - only show up if a user is logged in and their role is "2" */}
             {user.role === 2 && (
               <>
-                <Link className="navLink" to="/adminManage">
-                  Manage Logins
-                </Link>
-                <Link className="navLink" to="/adminManageResources">
-                  Manage Resources
-                </Link>
-
-                {/* // TODO: Update Link */}
-                <Link className="navLink" to="/adminQuestions">
-                  You Have {unreadQuestions > 0 ? unreadQuestions : 0} Unread
-                  Question
-                  {unreadQuestions > 0 && unreadQuestions < 2 ? "" : "s"}
-                </Link>
+                <Link className="navLink" to="/adminManage"> Manage Logins</Link>
+                <Link className="navLink" to="/adminManageResources"> Manage Resources</Link>
+                <Link className="navLink" to="/adminQuestions"> You Have {unreadQuestions > 0 ? unreadQuestions : 0} Unread Question {unreadQuestions > 0 && unreadQuestions < 2 ? "s" : ""} </Link>
               </>
             )}
 
@@ -129,26 +107,18 @@ function Nav() {
             )}
 
             <div className="dropdown">
-              <span className="dropbtn" role="button" tabIndex={0}>
-                Resources
-              </span>
+              <span className="dropbtn" role="button" tabIndex={0}> Resources</span>
               <div className="dropdown-content">
-                <Link to="/eligible">Am I eligible</Link>
-                <Link to="/formsYouShouldStartWith">
-                  Forms you should start with
-                </Link>
+                <Link to="/eligible" aria-label="Link to Am I eligible Page">Am I eligible</Link>
+                <Link to="/formsYouShouldStartWith" aria-label="Link to Am I eligible Page">Forms you should start with</Link>
                 <Link to="/faqs">FAQs</Link>
                 <Link to="/formsAndArticles">Forms and Articles</Link>
               </div>
             </div>
 
-            <Link className="navLink" to="/savedResources">
-              Saved Resources
-            </Link>
+            <Link className="navLink" to="/savedResources">Saved Resources</Link>
 
-            <Link className="navLink" to="/aboutUs">
-              About Us
-            </Link>
+            <Link className="navLink" to="/aboutUs">About Us</Link>
 
             <LogOutButton className="navLink" />
           </div>
