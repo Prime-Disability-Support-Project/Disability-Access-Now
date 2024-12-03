@@ -97,6 +97,7 @@ function Nav() {
       )}
     </div>
 
+    {user.id && (
       <ul aria-label="navigation" style={{display: "flex", justifyContent: "space-evenly"}}>
         <li><Link className="navLink" to="/home">Home</Link></li>
         {user.role === 1 && (
@@ -126,6 +127,9 @@ function Nav() {
         <li><Link className="navLink" to="/aboutUs">About Us</Link></li>
         <li><LogOutButton role="button" className="navLink" /></li>
       </ul>
+    )}
+
+      
             
             
 
