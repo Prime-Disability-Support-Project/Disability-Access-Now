@@ -60,9 +60,16 @@ export default function AdminManageResources() {
           );
         })}
       </ul>
-      <h2>Edit the About Us Page</h2>
-      <button>Edit the Content</button>
-      <button>Edit the Bios</button>
+      <h2>Edit Site Pages</h2>
+      <h3>About Us</h3>
+      <button onClick={() => history.push('/editAbout')}>Edit Text</button>
+      <button onClick={() => history.push('/editBios')}>Edit Bios</button>
+      <h3>Home Page</h3>
+      <button>Edit Header</button>
+      <button>Edit Text</button>
+      <h3>Pending Approval</h3>
+      <button>Edit Text</button>
+      <button>Edit Contact Email</button>
     </div>
   );
 }

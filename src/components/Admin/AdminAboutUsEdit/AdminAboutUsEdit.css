@@ -1,0 +1,15 @@
+.preview {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+
+.editForm {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+
+.container {
+    display: flex;
+}
