@@ -13,7 +13,7 @@ export default function AdminUnansweredQuestions({ onAnswerQuestion }) {
   }, [dispatch]);
 
   return (
-    <div className="unanswered-quetions-section">
+    <div className="unanswered-questions-section">
       <h2>Unanswered Questions</h2>
       {unansweredQuestions.length === 0 ? (
         <p>No unanswered questions found.</p>

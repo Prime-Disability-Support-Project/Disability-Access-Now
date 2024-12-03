@@ -62,32 +62,23 @@ Support Team`, // Plain text body
 }
 
 // Email notification function to user
-function sendUserNotification(question, name) {
-  // Query to fetch admin's email
-  const queryText = 'SELECT email FROM "user" WHERE id = $1';
-  const userId = req.user.id;
-  const params = [userId];
-  pool
-    .query(queryText, params)
-    .then((result) => {
-      const user = result.rows;
-      console.log("user", user);
-      if (user) {
-        const mailOptions = {
-          from: `"Support Team" <primedisabilitysupp@gmail.com>`, // Admin email
-          to: user[0].email, // user email
-          subject: "New Admin Answer", // Subject line
-          text: `Hello ${name},
+function sendUserNotification(question, email) {
 
-A new answer has been posted:
+        const mailOptions = {
+          from: `"Support Team" <${process.env.GMAIL_USER}>`, // Sender address
+          to: email, // user email
+          subject: "Disability Access Now - New Admin Answer", // Subject line
+          text: `Hello,
+
+A new answer has been posted for one of your questions:
 
 Question: ${question.question}
 Answer: ${question.answer}
 
 Best regards,
 Support Team`, // Plain text body
-          html: `<p>Hello ${name},</p>
-                 <p>A new response has been posted by the admins:</p>
+          html: `<p>Hello,</p>
+                 <p>A new response has been posted for one of your questions:</p>
                  <p><strong>Question:</strong> ${question.question}</p>
                  <p><strong>Answer:</strong> ${question.answer}</p>
                  <p>Best regards,<br>Support Team</p>`, // HTML body
@@ -102,13 +93,6 @@ Support Team`, // Plain text body
           .catch((error) => {
             console.error("Error sending email:", error);
           });
-      } else {
-        console.log("No admins found");
-      }
-    })
-    .catch((error) => {
-      console.error("Error fetching admin emails:", error);
-    });
 }
 
 // Get all unanswered questions for the specific user - ordered by date
@@ -186,7 +170,10 @@ router.get("/details/:id", (req, res) => {
     .query(queryText, params)
     .then((results) => res.send(results.rows))
     .catch((error) => {
-      console.log("Error making GET for associated article information:", error);
+      console.log(
+        "Error making GET for associated article information:",
+        error
+      );
       res.sendStatus(500);
     });
 });
@@ -374,10 +361,13 @@ router.put("/admin-answer", (req, res) => {
     question: req.body.question,
     answer: req.body.answer,
     questionId: req.body.questionId,
+    email: req.body.email
   };
   // answered = true
   // unread = true
-  const name = req.user.name;
+
+  const email = question.email
+  console.log('email', email)
 
   const params = [question.answer, true, true, question.questionId];
 
@@ -387,11 +377,12 @@ router.put("/admin-answer", (req, res) => {
       "answer" = $1, "answered" = $2, "unread" = $3
       WHERE "id" = $4;`;
 
+  sendUserNotification(question, email);
+
   pool
     .query(queryText, params)
     .then((result) => {
       res.sendStatus(200);
-      sendUserNotification(question, name);
     })
     .catch((error) => {
       console.log("Error with updating admin-answer", error);

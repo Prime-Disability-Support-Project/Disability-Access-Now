@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import axios from "axios";
 import "./AdminAnswerInput.css";
 
@@ -6,6 +7,8 @@ export default function AdminAnswerInput({ question, onClose, onSubmit }) {
   const [answer, setAnswer] = useState("");
   const [user, setUser] = useState(null);
   const [article, setArticle] = useState(null);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     axios
@@ -21,15 +24,17 @@ export default function AdminAnswerInput({ question, onClose, onSubmit }) {
 
   const handleSubmitAnswer = () => {
     if (answer.trim()) {
-      axios
-        .post("/api/questions/answer", {
-          questionId: question.id,
-          answer: answer,
-        })
-        .then(() => {
-          onSubmit();
-          onClose();
-        });
+      const data = {
+        questionId: question.id,
+        answer: answer,
+        question: question.question,
+        email: user.email
+      };
+      axios.put("/api/questions/admin-answer", data).then((response) => {
+        dispatch({ type: "FETCH_ADMIN_UNANSWERED" });
+        dispatch({ type: "FETCH_ADMIN_ANSWERED" });
+        onClose();
+      });
     }
   };
 
