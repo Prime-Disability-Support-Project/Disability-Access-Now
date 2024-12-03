@@ -3,7 +3,7 @@ import axios from "axios";
 
 function* fetchAdminUnanswered() {
   try {
-    const questionsResponse = yield axios.get("/api/questions/user-unanswered-questions");
+    const questionsResponse = yield axios.get("/api/questions/admin-unanswered-questions");
     yield put({
       type: "SET_ADMIN_UNANSWERED",
       payload: questionsResponse.data,
@@ -15,7 +15,7 @@ function* fetchAdminUnanswered() {
 
 function* fetchAdminAnswered() {
   try {
-    const questionsResponse = yield axios.get("/api/questions/user-answered-questions");
+    const questionsResponse = yield axios.get("/api/questions/admin-answered-questions");
     yield put({
       type: "SET_ADMIN_ANSWERED",
       payload: questionsResponse.data,
