@@ -1,10 +1,8 @@
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function AdminManageLogins() {
   const dispatch = useDispatch();
-  const history = useHistory();
 
   // this store contains all users still pending approval
   const allPendingUsers = useSelector(

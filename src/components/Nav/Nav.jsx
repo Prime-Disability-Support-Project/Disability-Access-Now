@@ -4,7 +4,6 @@ import "./Nav.css";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import SearchPDF from "../Blob/SearchPDF";
 
 function Nav() {
   const dispatch = useDispatch();
