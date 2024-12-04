@@ -31,52 +31,36 @@ export default function Home() {
         <p>{body}</p>
       </header>
 
-      <main>
-        <section aria-labelledby="frequently-used-links">
-          <h2 id="frequently-used-links">{linkHeader}</h2>
+      
+        
+          <h3 id="Not Sure where to start?">{linkHeader}</h3>
 
-          <nav aria-label="Frequently used links">
-            <ul className="frequentlyUsed">
+          
+            <ul className="frequentlyUsed" aria-label="Frequently Used Links">
               <li>
-                <Link
-                  className="homeLink"
-                  to="/userQuestions"
-                  aria-label="Ask the admins a question"
-                >
+                <Link className="homeLink" to="/userQuestions">
                   Ask the admins a question
                 </Link>
               </li>
               <li>
-                <Link
-                  className="homeLink"
-                  to="/eligible"
-                  aria-label="See if you're eligible"
-                >
+                <Link className="homeLink" to="/eligible">
                   See if you're eligible
                 </Link>
               </li>
               <li>
-                <Link
-                  className="homeLink"
-                  to="/faqs"
-                  aria-label="Frequently asked questions"
-                >
+                <Link className="homeLink" to="/faqs">
                   Frequently asked questions
                 </Link>
               </li>
               <li>
-                <Link
-                  className="homeLink"
-                  to="/formsYouShouldStartWith"
-                  aria-label="Start with these forms"
-                >
+                <Link className="homeLink" to="/formsYouShouldStartWith">
                   Start with these forms
                 </Link>
               </li>
             </ul>
-          </nav>
-        </section>
-      </main>
+          
+        
+      
     </div>
   );
 }
