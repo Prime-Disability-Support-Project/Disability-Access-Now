@@ -12,6 +12,7 @@ export default function Article() {
   const dispatch = useDispatch();
 
   const [showPopup, setShowPopup] = useState(false);
+  const [url, setUrl] = useState();
 
   const close = () => {
     setShowPopup(!showPopup);
@@ -34,6 +35,7 @@ export default function Article() {
 
   useEffect(() => {
     const url = window.location.href;
+    setUrl(url)
     const articleId = url.split("/").pop();
     dispatch({
       type: "FETCH_SPECIFIC_ARTICLE",
