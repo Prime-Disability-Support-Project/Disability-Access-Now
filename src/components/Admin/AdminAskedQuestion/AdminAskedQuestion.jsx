@@ -30,6 +30,7 @@ export default function AdminUnansweredQuestions({ onAnswerQuestion }) {
           {unansweredQuestions.map((question) => ( 
             <div key={question.id} className="unanswered-question">
               <li>
+                {question.flagged && <p><strong>Help Requested!</strong></p>}
                 <p>Question: {question.question}</p>
                 <p>Date Submitted: {question.question_date}</p>
                 <p>

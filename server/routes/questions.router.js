@@ -158,7 +158,8 @@ router.get("/details/:id", (req, res) => {
   const queryText = `
     SELECT 
       q.associated_article_url,
-      u.*
+      u.*,
+      q.flagged
     FROM 
       questions q
     JOIN 
@@ -309,6 +310,32 @@ router.put("/admin-unread", (req, res) => {
     })
     .catch((error) => {
       console.log("Error with updating admin-unread", error);
+      res.sendStatus(500);
+    });
+});
+
+// Toggle flagged in questions
+router.put("/flag", (req, res) => {
+  // unread = false
+  const questionId = req.body.questionId;
+
+  const params = [questionId];
+
+  console.log(questionId)
+
+  const queryText = `
+    UPDATE "questions"
+    SET 
+    "flagged" = NOT "flagged"
+    WHERE "id" = $1;`;
+
+  pool
+    .query(queryText, params)
+    .then((result) => {
+      res.sendStatus(200);
+    })
+    .catch((error) => {
+      console.log("Error with updating flagged", error);
       res.sendStatus(500);
     });
 });
