@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import AdminUnansweredQuestions from "../Admin/AdminAskedQuestion/AdminAskedQuestion";
 import AdminAnsweredQuestions from "../Admin/AdminAnsweredQuestion/AdminAnsweredQuestion";
 import AdminAnswerInput from "../Admin/AdminAnswerInput/AdminAnswerInput";
