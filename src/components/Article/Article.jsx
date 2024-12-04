@@ -1,13 +1,21 @@
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import AskQuestion from "../AskAQuestion/AskAQuestion";
 import "./Article.css";
 
 export default function Article() {
   const history = useHistory();
   const dispatch = useDispatch();
+
+  const [showPopup, setShowPopup] = useState(false);
+
+  const close = () => {
+    setShowPopup(!showPopup);
+  };
 
   const specificArticle = useSelector(
     (store) => store.articles.specificArticle
@@ -37,6 +45,19 @@ export default function Article() {
 
   return (
     <div>
+      <div className="ask-title">
+        <button className="ask-button" onClick={close}>
+          Click here to ask a question about this article
+        </button>
+      </div>
+      {/* Pop-up for asking a question */}
+      {showPopup && (
+        <div className="popup-container">
+          <div className="popup-content">
+            <AskQuestion articleId={specificArticle.id} close={close} />
+          </div>
+        </div>
+      )}
       <button onClick={() => history.goBack()}>Back</button>
       {/* Conditionally render Bookmark button if the article isn't already bookmarked */}
       {savedArticles.some(
