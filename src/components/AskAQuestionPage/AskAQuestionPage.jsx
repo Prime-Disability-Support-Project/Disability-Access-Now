@@ -39,7 +39,7 @@ export default function AskAQuestionPage() {
         {showPopup && (
             <div className="popup-container">
             <div className="popup-content">
-                <AskQuestion />
+                <AskQuestion close={togglePopup} />
                 <button className="close-button" onClick={togglePopup}>
                     Close
                     </button>   
