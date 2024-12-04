@@ -37,7 +37,7 @@ export default function AboutUs() {
   }
 
   return (
-    <div>
+    <div id="content">
       <h1>{aboutUs.title}</h1>
       <Markdown>{aboutUs.founderText}</Markdown>
       <div>
