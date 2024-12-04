@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { downloadFileHandler } from "../Blob/downloadFile";
 import axios from "axios";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -34,7 +35,14 @@ export default function FormsYouShouldStartWith() {
       <ul>
         {associatedFiles.length > 0 ? (
           associatedFiles.map((file) => {
-            return <li key={file.id}>{file.filename}</li>;
+            return (
+              <li key={file.id}>
+                {file.filename}
+                <button onClick={() => downloadFileHandler(file.filename)}>
+                  Download PDF
+                </button>
+              </li>
+            );
           })
         ) : (
           <p>No Associated Files</p>

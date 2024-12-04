@@ -2,6 +2,7 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
+import { downloadFileHandler } from "../Blob/downloadFile";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import AskQuestion from "../AskAQuestion/AskAQuestion";
@@ -82,7 +83,14 @@ export default function Article() {
       <ul>
         {associatedFiles.length > 0 ? (
           associatedFiles.map((file) => {
-            return <li>{file.filename}</li>;
+            return (
+              <li>
+                {file.filename}{" "}
+                <button onClick={() => downloadFileHandler(file.filename)}>
+                  Download PDF
+                </button>
+              </li>
+            );
           })
         ) : (
           <p>No Associated Files</p>
