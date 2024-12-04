@@ -3,7 +3,7 @@ import LogOutButton from "../LogOutButton/LogOutButton";
 import "./Nav.css";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 function Nav() {
   const dispatch = useDispatch();
@@ -13,6 +13,7 @@ function Nav() {
   const [searchTerm, setSearchTerm] = useState("");
   const history = useHistory();
   const [dropDownMenu, setDropDownMenu] = useState(false);
+  const dropDownRef = useRef(null);
 
   const handleDropdownToggle = () => {
     setDropDownMenu(!dropDownMenu);
@@ -27,12 +28,36 @@ function Nav() {
   }
 };
 
+  const handleMouseEnter = () => {
+    setDropDownMenu(true);
+  }
+
+  const handleMouseLeave = () => {
+    setDropDownMenu(false);
+  }
+
+  const handleFocus = () => {
+    setDropDownMenu(true);
+  }
+
+  const handleBlur = (event) => {
+    if(!dropDownRef.current.contains(event.relatedTarget)){
+      dropDownMenu(false);
+    }
+  }
+
   useEffect(() => {
     if (user.id) {
       fetchUnreadAnswerCount();
       fetchUnreadQuestionCount();
     }
   }, [user.id]);
+
+  useEffect(() => {
+    return history.listen(() => {
+      setDropDownMenu(false);
+    })
+  }, [history])
 
   const fetchUnreadAnswerCount = async () => {
     try {
@@ -71,25 +96,22 @@ function Nav() {
   return (
     <div>
       <div aria-label="header" className="nav">
-      {/*links to homepage and navigation title*/}
-      {/* Link should be called home and title should maybe get reworked? */}
       <Link aria-label="home link" to="/home"> <h2 className="nav-title">Disability Access Now</h2> </Link>
 
-      {/* If no user is logged in, show these links */}
       {!user.id && (
-        // If there's no user, show login/registration links
         <Link className="navLink" to="/login" aria-label="Link to Login or Register"> Login / Register </Link>
       )}
 
-      {/* If a user is logged in, show the links */}
       {user.id && (
         <>
-
             <div aria-label="Welcome" className="nav-left"> <p>Welcome, {user.name}</p> </div>
-
-           
                 <form aria-label="Search Files and Articles Input" onSubmit={handleSearch}>
-                  <input type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} placeholder="Search files & articles"/>
+                  <input 
+                  type="text" 
+                  value={searchTerm} 
+                  onChange={(e) => setSearchTerm(e.target.value)} 
+                  placeholder="Search files & articles"
+                  aria-label="Search files and articles"/>
                   <button role="button" aria-label="Search Button" type="submit">Search</button>
                 </form>
         </>
@@ -110,8 +132,24 @@ function Nav() {
           <li><Link className="navLink" to="/userQuestions">Ask a Question</Link></li>
         )}
         <li>
-          <div className="dropdown">
-            <button className="dropbtn" id="menubutton" aria-haspopup="true" aria-controls="menu" aria-expanded={dropDownMenu} onClick={handleDropdownToggle} tabIndex={0}>
+          <div 
+          className="dropdown"
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
+          ref={dropDownRef}
+          >
+            <button 
+              className="dropbtn" 
+              id="menubutton" 
+              aria-haspopup="true" 
+              aria-controls="menu" 
+              aria-expanded={dropDownMenu} 
+              onClick={handleDropdownToggle}
+              onKeyDown={handleKeyboard} 
+              tabIndex={0}
+              >
               Resources
             </button>
             <ul className="dropdown-content" id="menu" style={{display: dropDownMenu ? 'block' : 'none' }}>
