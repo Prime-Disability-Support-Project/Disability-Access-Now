@@ -25,9 +25,10 @@ export default function ArticleList() {
             article.title !== "Forms You Should Start With"
           ) {
             return (
-              <li key={article.id}>
-                <a href="#" aria-label={`Read more about${article.title}`} 
-                onClick={() => handleClick(article.id)}>{article.title}</a>
+              <li key={article.id} onClick={() => handleClick(article.id)}>
+                <a aria-label={`Read more about${article.title}`}>
+                  {article.title}
+                </a>
               </li>
             );
           }
