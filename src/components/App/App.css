@@ -5,14 +5,58 @@ body,
 }
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
-  margin: 0px;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+  color: #333;
 }
 
-img {
-  display: inline-block;
-  max-width: 100%;
+header {
+  color: black;
+  padding: 1rem 2rem;
+  text-align: center;
 }
+
+header h1 {
+  font-size: 2rem;
+  margin: 0;
+}
+
+main {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+section {
+  margin-bottom: 2rem;
+}
+
+section h2 {
+  font-size: 1.75rem;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+section p {
+  font-size: 1rem;
+  margin: 0 0 1rem 0;
+  color: #555;
+}
+
+input[type="text"],
+input[type="search"],
+textarea {
+  width: 100%;
+  padding: 0.5rem;
+  margin: 0.5rem 0;
+  border: 1px solid #ccc;
+  border-radius: 0.25rem;
+}
+
+
 
 /* --------------------------------------------------------------------------------
 Container
