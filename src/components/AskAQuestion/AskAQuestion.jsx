@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 
@@ -9,18 +10,24 @@ const AskQuestion = ({ articleId, close }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [successMessage, setSuccessMessage] = useState("");
+  const [url, setUrl] = useState();
   const dispatch = useDispatch();
 
   const handleQuestionChange = (event) => {
     setQuestion(event.target.value);
   };
 
+  useEffect(() => {
+    const urlResponse = window.location.href;
+    setUrl(urlResponse)
+  }, []);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     setIsLoading(true);
     if (articleId) {
       try {
-        const associatedArticleUrl = `http://localhost:5173/#/articlePage/${articleId}`;
+        const associatedArticleUrl = `${url}`;
         console.log(associatedArticleUrl);
         const response = await axios.post(
           "/api/questions/new-question-with-article",
