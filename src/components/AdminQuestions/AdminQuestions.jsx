@@ -21,7 +21,8 @@ export default function AdminQuestions() {
   //handler for close answer popup
   const handleClosePopup = () => {
     setSelectedQuestion(null);
-
+    dispatch({ type: "FETCH_ADMIN_UNANSWERED" });
+    dispatch({ type: "FETCH_ADMIN_ANSWERED" });
   };
   //handler for submit answer
   const handleSubmitAnswer = () => {
