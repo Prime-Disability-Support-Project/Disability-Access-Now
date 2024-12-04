@@ -25,7 +25,7 @@ export default function FilesList() {
 
   return (
     <div>
-      <ul>
+      <ul aria-label="List of Files">
         {allFiles.map((file) => {
           return (
             <li key={file.id}>
@@ -39,7 +39,7 @@ export default function FilesList() {
                   Remove From Bookmarks
                 </button>
               ) : (
-                <button onClick={() => handleBookmark(file.id, event)}>
+                <button onClick={(event) => handleBookmark(file.id, event)}>
                   Bookmark this File
                 </button>
               )}
