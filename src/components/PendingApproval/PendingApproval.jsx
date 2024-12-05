@@ -21,11 +21,14 @@ export default function PendingApproval() {
   }
 
   return (
-    <div>
+    <main>
       <h1>Registration Pending Approval</h1>
       <p>{pending.body}</p>
       <p>Thank you for your patience!</p>
-      <p>Questions? Please contact us at <a href={`mailto:` + pending.email}>{pending.email}</a></p>
-    </div>
+      <p>
+        Questions? Please contact us at{" "}
+        <a href={`mailto:` + pending.email}>{pending.email}</a>
+      </p>
+    </main>
   );
 }

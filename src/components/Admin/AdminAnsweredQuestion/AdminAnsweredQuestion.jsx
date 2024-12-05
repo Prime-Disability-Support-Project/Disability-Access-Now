@@ -23,14 +23,14 @@ export default function AdminAnsweredQuestions() {
   };
 
   return (
-    <div className="answered-questions-section">
+    <div>
       <h2>Answered Questions</h2>
       {answeredQuestions.length === 0 ? (
         <p>No answered questions found.</p>
       ) : (
         <ul>
           {answeredQuestions.map((question) => (
-            <div key={question.id} className="answered-question">
+            <div key={question.id} className="questions-list">
               <li>
                 <p>Question: {question.question}</p>
                 <p>Answer: {question.answer}</p>

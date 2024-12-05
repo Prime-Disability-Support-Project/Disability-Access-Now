@@ -13,7 +13,7 @@ export default function UserUnansweredQuestions() {
 
   return (
     <div>
-      <h1>Unanswered Questions</h1>
+      <h2>Unanswered Questions</h2>
       <ul>
         {unansweredQuestions.map((question) => {
           return (

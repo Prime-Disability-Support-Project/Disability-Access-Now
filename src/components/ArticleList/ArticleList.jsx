@@ -16,7 +16,7 @@ export default function ArticleList() {
   };
 
   return (
-    <div>
+    <main>
       <ul aria-label="List of Articles">
         {allArticles.map((article) => {
           // don't post these two in the main articles list
@@ -34,6 +34,6 @@ export default function ArticleList() {
           }
         })}
       </ul>
-    </div>
+    </main>
   );
 }

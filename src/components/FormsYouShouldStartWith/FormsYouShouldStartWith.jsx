@@ -29,7 +29,7 @@ export default function FormsYouShouldStartWith() {
   }, []);
 
   return (
-    <div>
+    <main>
       <h1>Forms You Should Start With</h1>
       <h2>Just getting started? We recommend checking out these forms first:</h2>
       <ul>
@@ -48,6 +48,6 @@ export default function FormsYouShouldStartWith() {
           <p>No Associated Files</p>
         )}
       </ul>
-    </div>
+    </main>
   );
 }

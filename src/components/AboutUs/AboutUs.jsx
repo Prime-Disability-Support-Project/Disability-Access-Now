@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Markdown from "react-markdown";
+import './AboutUs.css'
 
 export default function AboutUs() {
   const [aboutUs, setAboutUs] = useState();
@@ -37,36 +38,39 @@ export default function AboutUs() {
   }
 
   return (
-    <div id="content">
+    <main id="content">
       <h1>{aboutUs.title}</h1>
       <Markdown>{aboutUs.founderText}</Markdown>
-      <div>
+      <section aria-label="Founder's Bio">
         <ul key={founderBio.id}>
-          {founderBio.name}
+          <li className="founder-name">{founderBio.name}</li>
           <li>{founderBio.bio}</li>
           {founderBio.link && (
-            <li>
+            <li className="founder-link">
               Connect with {founderBio.name} at {founderBio.link}
             </li>
           )}
         </ul>
-      </div>
+      </section>
       <Markdown>{aboutUs.devText}</Markdown>
-      <div>
+      <section aria-label="Dev Team Bios">
         {studentBios.map((bio) => {
           return (
             <ul key={bio.id}>
-              {bio.name}
+              <li className="student-name">{bio.name}</li>
               {bio.bio && <li>{bio.bio}</li>}
               {bio.link && (
-                <li>
-                  Connect with {bio.name} on <a href={bio.link} target="blank">LinkedIn</a>
+                <li className="student-link">
+                  Connect with {bio.name} on{" "}
+                  <a href={bio.link} target="blank">
+                    LinkedIn
+                  </a>
                 </li>
               )}
             </ul>
           );
         })}
-      </div>
-    </div>
+      </section>
+    </main>
   );
 }
