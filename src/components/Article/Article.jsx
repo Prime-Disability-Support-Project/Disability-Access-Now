@@ -72,10 +72,10 @@ export default function Article() {
       ) : (
         <button onClick={handleBookmark}>Bookmark this Article</button>
       )}
-      <h1>{specificArticle.title}</h1>
+      {/* <h1>{specificArticle.title}</h1>
       <h2>
         <em>{specificArticle.subtitle}</em>
-      </h2>
+      </h2> */}
       <Markdown className="article" remarkPlugins={[remarkGfm]}>
         {specificArticle.body}
       </Markdown>

@@ -28,6 +28,7 @@ export default function SavedResources() {
         {savedArticles.map((article) => {
           return (
             <li key={article.id}>
+              {/* Will need to update this to whatever the live web address ends up being */}
               <a href={`http://localhost:5173/#/articlePage/${article.id}`}>
                 {article.title}
               </a>

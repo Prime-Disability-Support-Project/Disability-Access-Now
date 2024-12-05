@@ -10,7 +10,7 @@ export default function AdminAddArticle() {
   const dispatch = useDispatch();
 
   const [title, setTitle] = useState();
-  const [subtitle, setSubtitle] = useState();
+  // const [subtitle, setSubtitle] = useState();
   const [body, setBody] = useState();
 
   const allFiles = useSelector((store) => store.files.allFiles);
@@ -33,9 +33,9 @@ export default function AdminAddArticle() {
     setTitle(event.target.value);
   };
 
-  const handleSubtitle = (event) => {
-    setSubtitle(event.target.value);
-  };
+  // const handleSubtitle = (event) => {
+  //   setSubtitle(event.target.value);
+  // };
 
   const handleBody = (event) => {
     setBody(event.target.value);
@@ -44,7 +44,7 @@ export default function AdminAddArticle() {
   const handleSave = () => {
     const articleData = {
       title: title,
-      subtitle: subtitle,
+      // subtitle: null,
       body: body,
       fileIds: selectedFiles,
     };
@@ -78,7 +78,7 @@ export default function AdminAddArticle() {
               onChange={handleTitle}
             />
           </div>
-          <div>
+          {/* <div>
             <label htmlFor="subtitle">Subtitle:</label>
             <textarea
               rows="2"
@@ -88,7 +88,7 @@ export default function AdminAddArticle() {
               value={subtitle}
               onChange={handleSubtitle}
             />
-          </div>
+          </div> */}
           <div>
             <label htmlFor="body">Body {`(markdown)`}:</label>
             <textarea

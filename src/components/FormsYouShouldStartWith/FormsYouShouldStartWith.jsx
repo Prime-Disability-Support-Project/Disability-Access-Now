@@ -29,9 +29,8 @@ export default function FormsYouShouldStartWith() {
 
   return (
     <div>
-      <h1>{article.title}</h1>
-      <h2>{article.subtitle}</h2>
-      <Markdown remarkPlugins={[remarkGfm]}>{article.body}</Markdown>
+      <h1>Forms You Should Start With</h1>
+      <h2>Just getting started? We recommend checking out these forms first:</h2>
       <ul>
         {associatedFiles.length > 0 ? (
           associatedFiles.map((file) => {

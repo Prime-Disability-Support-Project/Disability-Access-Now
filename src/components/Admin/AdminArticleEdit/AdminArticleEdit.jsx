@@ -36,16 +36,16 @@ export default function AdminArticleEdit() {
   };
 
   const [title, setTitle] = useState(specificArticle.title);
-  const [subtitle, setSubtitle] = useState(specificArticle.subtitle);
+  // const [subtitle, setSubtitle] = useState(specificArticle.subtitle);
   const [body, setBody] = useState(specificArticle.body);
 
   const handleTitle = (event) => {
     setTitle(event.target.value);
   };
 
-  const handleSubtitle = (event) => {
-    setSubtitle(event.target.value);
-  };
+  // const handleSubtitle = (event) => {
+  //   setSubtitle(event.target.value);
+  // };
 
   const handleBody = (event) => {
     setBody(event.target.value);
@@ -55,7 +55,7 @@ export default function AdminArticleEdit() {
     const articleData = {
       articleId: articleId,
       title: title,
-      subtitle: subtitle,
+      // subtitle: null,
       body: body,
     };
     dispatch({ type: "EDIT_ARTICLE", payload: articleData });
@@ -85,7 +85,7 @@ export default function AdminArticleEdit() {
   useEffect(() => {
     if (specificArticle) {
       setTitle(specificArticle.title);
-      setSubtitle(specificArticle.subtitle);
+      // setSubtitle(specificArticle.subtitle);
       setBody(specificArticle.body);
     }
   }, [specificArticle]);
@@ -111,7 +111,7 @@ export default function AdminArticleEdit() {
               onChange={handleTitle}
             />
           </div>
-          <div>
+          {/* <div>
             <label htmlFor="subtitle">Subtitle:</label>
             <textarea
               rows="2"
@@ -121,7 +121,7 @@ export default function AdminArticleEdit() {
               value={subtitle}
               onChange={handleSubtitle}
             />
-          </div>
+          </div> */}
           <div>
             <label htmlFor="body">Body {`(markdown)`}:</label>
             <textarea
