@@ -2,10 +2,10 @@ import UserUnansweredQuestions from "../UserUnansweredQuestions/UserUnansweredQu
 import UserAnsweredQuestions from "../UserAnsweredQuestions/UserAnsweredQuestions";
 import Button from "@mui/material/Button";
 import AskQuestion from "../AskAQuestion/AskAQuestion.jsx";
+import { Box, Typography, Container } from "@mui/material";
+import { useState } from "react";
 import "../AskAQuestionPage/AskAQuestionPage.css";
 import "../AskAQuestion/AskAQuestion.css";
-
-import { useState } from "react";
 
 export default function AskAQuestionPage() {
   const [view, setView] = useState("unanswered");
@@ -17,45 +17,62 @@ export default function AskAQuestionPage() {
 
   return (
     <main className="ask-a-question-page">
-      <h1>Ask A Question</h1>
-      <section aria-label="buttons">
-        <Button
-          className="ask-button"
-          onClick={togglePopup}
-          variant="contained"
+      <Container sx={{ padding: 4 }}>
+        <Typography
+          variant="h3"
+          component="h1"
+          sx={{ fontWeight: "bold", marginBottom: 2 }}
         >
-          Click here to ask a question
-        </Button>
-        <Button
-          onClick={() => setView("unanswered")}
-          aria-label="Toggle view to list of unanswered questions"
-          variant="contained"
-        >
-          Unanswered Questions
-        </Button>
-        <Button
-          onClick={() => setView("answered")}
-          aria-label="Toggle view to list of answered questions"
-          variant="contained"
-        >
-          Answered Questions
-        </Button>
-      </section>
-      <section className="questions-container" aria-label="Questions List">
-        {view === "unanswered" ? (
-          <UserUnansweredQuestions />
-        ) : (
-          <UserAnsweredQuestions />
-        )}
-      </section>
-      {/* Pop-up for asking a question */}
-      {showPopup && (
-        <div className="popup-container">
-          <div className="popup-content">
-            <AskQuestion close={togglePopup} />
+          Ask A Question
+        </Typography>
+        <Box sx={{ display: "flex", gap: 2, marginBottom: 3 }}>
+          <Button
+            onClick={togglePopup}
+            variant="contained"
+            sx={{
+              backgroundColor: "#1976d2",
+              "&:hover": { backgroundColor: "#1565c0" },
+            }}
+          >
+            Click here to ask a question
+          </Button>
+        </Box>
+        <Box sx={{ display: "flex", gap: 2, marginBottom: 3 }}>
+          <Button
+            onClick={() => setView("unanswered")}
+            variant={view === "unanswered" ? "contained" : "outlined"}
+            sx={{ flexGrow: 1 }}
+            aria-label="Toggles view of unanswered questions list"
+          >
+            Unanswered Questions
+          </Button>
+          <Button
+            onClick={() => setView("answered")}
+            variant={view === "answered" ? "contained" : "outlined"}
+            sx={{ flexGrow: 1 }}
+            aria-label="Toggles view of answered questions list"
+          >
+            Answered Questions
+          </Button>
+        </Box>
+
+        <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
+          {view === "unanswered" ? (
+            <UserUnansweredQuestions />
+          ) : (
+            <UserAnsweredQuestions />
+          )}
+        </Box>
+
+        {/* Pop-up for asking a question */}
+        {showPopup && (
+          <div className="popup-container">
+            <div className="popup-content">
+              <AskQuestion close={togglePopup} />
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </Container>
     </main>
   );
 }
