@@ -33,7 +33,7 @@ main {
     border-radius: 9px;
 }
 
-.user-info button {
+/* .user-info button {
     padding: 0.5rem 1rem;
     background-color: #007bff;
     color: white;
@@ -41,8 +41,8 @@ main {
     border-radius: 4px;
     cursor: pointer;
     
-}
-
+} */
+/* 
 .ask-button {
     display: flex;
     margin: 1rem;
@@ -54,7 +54,7 @@ main {
     border: none;
     border-radius: 9px;
     cursor: pointer;
-}
+} */
 
 .question-container {
     display: flex;
@@ -77,7 +77,7 @@ main {
     margin-left: 2rem;
 }
 
-.tabs button {
+/* .tabs button {
     width: 80%;
     padding: 0.5rem 1rem;
     margin-bottom: 0.5rem;
@@ -86,7 +86,7 @@ main {
     border-radius: 4px;
     cursor: pointer;
     margin-right: 1rem;
-}
+} */
 
 .questions-list {
     padding: 0.5rem 1rem;
@@ -137,7 +137,7 @@ box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
    
 }
 
-.question-form button{
+/* .question-form button{
     background-color: #007bff;
     margin-bottom: 3rem;
     color: white;
@@ -145,7 +145,7 @@ box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
     border: none;
     border-radius: 4px;
     cursor: pointer;
-}
+} */
 
 footer {
     text-align: center;

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import Button from '@mui/material/Button';
 
 export default function AdminPendingEdit() {
   const history = useHistory();
@@ -51,15 +52,16 @@ export default function AdminPendingEdit() {
     <div className="container">
       <div className="editForm">
         <form>
-          <button type="submit" onClick={() => handleSave(event)}>
+          <Button type="submit" onClick={() => handleSave(event)} variant="contained">
             Save Changes
-          </button>
-          <button
+          </Button>
+          <Button
             type="button"
             onClick={() => history.push("/adminManageResources")}
+            variant="outlined"
           >
             Cancel
-          </button>
+          </Button>
           <div>
             <label htmlFor="body">Pending Approval Text:</label>
             <textarea

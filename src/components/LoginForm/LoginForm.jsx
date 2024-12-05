@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect } from "react";
+import Button from '@mui/material/Button';
 
 function LoginForm() {
   const [email, setEmail] = useState("");
@@ -71,7 +72,8 @@ function LoginForm() {
         </label>
       </div>
       <div>
-        <input className="btn" type="submit" name="submit" value="Log In" />
+        <Button type="submit" name="submit" value="Log In" variant="contained">Login</Button>
+        {/* <input className="btn" type="submit" name="submit" value="Log In" /> */}
       </div>
     </form>
   );

@@ -2,6 +2,7 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { downloadFileHandler } from "../Blob/downloadFile"; // util function for downloading pdf files
+import Button from '@mui/material/Button';
 
 export default function FilesList() {
   const dispatch = useDispatch();
@@ -30,18 +31,18 @@ export default function FilesList() {
           return (
             <li key={file.id}>
               <p>{file.filename}</p>
-              <button onClick={() => downloadFileHandler(file.filename)}>
+              <Button onClick={() => downloadFileHandler(file.filename)} variant="contained">
                 Download PDF
-              </button>
+              </Button>
               {/* Conditionally render Bookmark button if the file isn't already bookmarked */}
               {savedFiles.some((savedFile) => savedFile["id"] === file.id) ? (
-                <button onClick={() => removeFile(file.id)}>
+                <Button onClick={() => removeFile(file.id)} variant="outlined">
                   Remove From Bookmarks
-                </button>
+                </Button>
               ) : (
-                <button onClick={(event) => handleBookmark(file.id, event)}>
+                <Button onClick={(event) => handleBookmark(file.id, event)} variant="outlined">
                   Bookmark this File
-                </button>
+                </Button>
               )}
             </li>
           );

@@ -1,6 +1,7 @@
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import Button from '@mui/material/Button';
 import UploadPDF from "../../Blob/UploadPDF";
 
 export default function AdminManageResources() {
@@ -33,9 +34,9 @@ export default function AdminManageResources() {
     <div>
       <h1>Manage Resources</h1>
       <h2>Add New Resources</h2>
-      <button onClick={() => history.push("/adminAddArticle")}>
+      <Button onClick={() => history.push("/adminAddArticle")} variant="contained">
         Add a New Article
-      </button>
+      </Button>
       <UploadPDF />
       <h2>Choose an Article to Edit</h2>
       <ul>
@@ -43,31 +44,31 @@ export default function AdminManageResources() {
           return (
             <li key={article.id}>
               {article.title}
-              <button onClick={() => handleEdit(article.id)}>Edit</button>
-              <button onClick={() => handleDelete(article.id)}>Delete</button>
+              <Button onClick={() => handleEdit(article.id)} variant="contained">Edit</Button>
+              <Button onClick={() => handleDelete(article.id)} variant="outlined">Delete</Button>
             </li>
           );
         })}
       </ul>
-      <h2>Choose a File to Edit</h2>
+      <h2>Delete a File</h2>
       <ul>
         {allFiles.map((file) => {
           return (
             <li key={file.id}>
               {file.filename}
-              <button onClick={() => handleDeleteFile(file.id)}>Delete</button>
+              <Button onClick={() => handleDeleteFile(file.id)} variant="outlined">Delete</Button>
             </li>
           );
         })}
       </ul>
       <h2>Edit Site Pages</h2>
       <h3>About Us</h3>
-      <button onClick={() => history.push('/editAbout')}>Edit Text</button>
-      <button onClick={() => history.push('/editBios')}>Edit Bios</button>
+      <Button onClick={() => history.push('/editAbout')} variant="contained">Edit Text</Button>
+      <Button onClick={() => history.push('/editBios')} variant="contained">Edit Bios</Button>
       <h3>Home Page</h3>
-      <button onClick={() => history.push('/editHome')}>Edit Content</button>
+      <Button onClick={() => history.push('/editHome')} variant="contained">Edit Content</Button>
       <h3>Pending Approval</h3>
-      <button onClick={() => history.push('/editPending')}>Edit Content & Email</button>
+      <Button onClick={() => history.push('/editPending')} variant="contained">Edit Content & Email</Button>
     </div>
   );
 }

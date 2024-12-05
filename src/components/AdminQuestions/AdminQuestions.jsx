@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
+import Button from '@mui/material/Button';
 import AdminUnansweredQuestions from "../Admin/AdminAskedQuestion/AdminAskedQuestion";
 import AdminAnsweredQuestions from "../Admin/AdminAnsweredQuestion/AdminAnsweredQuestion";
 import AdminAnswerInput from "../Admin/AdminAnswerInput/AdminAnswerInput";
@@ -33,10 +34,10 @@ export default function AdminQuestions() {
   return (
     <div className="admin-questions-container">
       <div className="tabs">
-        <button onClick={() => setView("unanswered")}>
+        <Button onClick={() => setView("unanswered")} variant="contained">
           Unanswered Questions
-        </button>
-        <button onClick={() => setView("answered")}>Answered Questions</button>
+        </Button>
+        <Button onClick={() => setView("answered")} variant="contained">Answered Questions</Button>
       </div>
       <div className="questions-list">
         {view === "unanswered" ? (

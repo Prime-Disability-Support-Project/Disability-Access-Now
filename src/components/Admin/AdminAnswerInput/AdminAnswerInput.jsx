@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
+import Button from '@mui/material/Button';
 import axios from "axios";
 import "./AdminAnswerInput.css";
 
@@ -57,9 +58,9 @@ export default function AdminAnswerInput({ question, onClose, onSubmit }) {
       <div className="popup-content">
         <div className="popup-header">
           <h3>Answer Question</h3>
-          <button className="close-button" onClick={onClose}>
+          <Button className="close-button" onClick={onClose} variant="contained">
             X
-          </button>
+          </Button>
         </div>
         <div className="question-details">
           <div className="question-info">
@@ -81,17 +82,17 @@ export default function AdminAnswerInput({ question, onClose, onSubmit }) {
           placeholder="Type your answer here"
         />
         <div className="popup-actions">
-          <button className="submit-button" onClick={handleSubmitAnswer}>
+          <Button className="submit-button" onClick={handleSubmitAnswer} variant="contained">
             Submit Answer
-          </button>
+          </Button>
           {flagged === false ? (
-            <button onClick={handleFlag}>Flag for help</button>
+            <Button onClick={handleFlag} variant="outlined">Flag for help</Button>
           ) : (
-            <button onClick={handleFlag}>Question has been flagged for help</button>
+            <Button onClick={handleFlag} variant="outlined">Question has been flagged for help</Button>
           )}
-          <button className="cancel-button" onClick={onClose}>
+          <Button className="cancel-button" onClick={onClose} variant="text">
             Cancel
-          </button>
+          </Button>
         </div>
       </div>
     </div>

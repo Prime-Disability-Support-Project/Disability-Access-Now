@@ -1,5 +1,6 @@
 import UserUnansweredQuestions from "../UserUnansweredQuestions/UserUnansweredQuestions";
 import UserAnsweredQuestions from "../UserAnsweredQuestions/UserAnsweredQuestions";
+import Button from '@mui/material/Button';
 import AskQuestion from "../AskAQuestion/AskAQuestion.jsx";
 import "../AskAQuestionPage/AskAQuestionPage.css"
 import '../AskAQuestion/AskAQuestion.css'
@@ -17,16 +18,16 @@ export default function AskAQuestionPage() {
   return (
     <>
         <div className="ask-a-question-page">
+        <h1>Ask A Question</h1>
         <div className="ask-title">
-            <h2>Ask A Question</h2>
-            <button className="ask-button" onClick={togglePopup}>
+            <Button className="ask-button" onClick={togglePopup} variant="contained">
                 Click here to ask a question
-                </button>
+                </Button>
             </div>
 
       <div className="tabs">
-        <button onClick={() => setView('unanswered')}>Unanswered Questions</button>
-        <button onClick={() => setView('answered')}>Answered Questions</button>
+        <Button onClick={() => setView('unanswered')} aria-label="Toggle view to list of unanswered questions" variant="outlined">Unanswered Questions</Button>
+        <Button onClick={() => setView('answered')} aria-label="Toggle view to list of answered questions" variant="outlined">Answered Questions</Button>
       </div>
       <div className="questions-list">
         {view === "unanswered" ? (
@@ -39,10 +40,7 @@ export default function AskAQuestionPage() {
         {showPopup && (
             <div className="popup-container">
             <div className="popup-content">
-                <AskQuestion close={togglePopup} />
-                <button className="close-button" onClick={togglePopup}>
-                    Close
-                    </button>   
+                <AskQuestion close={togglePopup} /> 
                 </div>
             </div>
         )}

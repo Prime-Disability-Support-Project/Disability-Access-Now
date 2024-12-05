@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import Button from '@mui/material/Button';
 import axios from "axios";
 import "./AdminAskedQuestion.css"
 
@@ -43,17 +44,17 @@ export default function AdminUnansweredQuestions({ onAnswerQuestion }) {
                     "No article was associated with this question"
                   )}
                 </p>
-                <button onClick={() => onAnswerQuestion(question)}>
+                <Button onClick={() => onAnswerQuestion(question)} variant="contained">
                   Answer Question
-                </button>
+                </Button>
                 {question.unread === true ? (
-                  <button onClick={() => handleRead(question.id)}>
+                  <Button onClick={() => handleRead(question.id)} variant="outlined">
                     Mark as Read
-                  </button>
+                  </Button>
                 ) : (
-                  <button onClick={() => handleRead(question.id)}>
+                  <Button onClick={() => handleRead(question.id)} variant="text">
                     Mark as Unread
-                  </button>
+                  </Button>
                 )}
               </li>
             </div>

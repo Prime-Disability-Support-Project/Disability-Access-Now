@@ -33,12 +33,12 @@
     margin: 0;
 }
 
-.close-button {
+/* .close-button {
     background-color: transparent;
     border: none;
     font-size: 20px;
     cursor: pointer;
-}
+} */
 
 .answer-textarea {
     width: 100%;
@@ -56,7 +56,7 @@
     justify-content: flex-end;
 }
 
-.submit-button,
+/* .submit-button,
 .cancel-button {
 background-color: #939393;
 color: #fff;
@@ -70,7 +70,7 @@ margin-left: 10px;
 .cancel-button {
 background-color: #ccc;
 color: #333;
-}
+} */
 
 .question-details {
 align-items: left;

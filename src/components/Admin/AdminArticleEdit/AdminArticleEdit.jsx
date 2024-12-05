@@ -1,6 +1,7 @@
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import Button from '@mui/material/Button';
 import Markdown from "react-markdown";
 import remarkGfm from 'remark-gfm'
 import "./AdminArticleEdit.css";
@@ -94,12 +95,12 @@ export default function AdminArticleEdit() {
     <div className="container">
       <div className="editForm">
         <form>
-          <button type="submit" onClick={() => handleSave(specificArticle.id)}>
+          <Button type="submit" onClick={() => handleSave(specificArticle.id)} variant="contained">
             Save Changes
-          </button>
-          <button type="button" onClick={handleCancel}>
+          </Button>
+          <Button type="button" onClick={handleCancel} variant="outlined">
             Cancel
-          </button>
+          </Button>
           <div>
             <label htmlFor="title">Title:</label>
             <textarea
@@ -158,15 +159,10 @@ export default function AdminArticleEdit() {
               return <option value={file.id}>{file.filename}</option>;
             })}
           </select>
-          <button onClick={handleAssociated} type="submit">
+          <Button onClick={handleAssociated} type="submit" variant="contained">
             Save Changes to Associated Files
-          </button>
+          </Button>
         </form>
-        <h3 className="note">
-          Note for my devs - use command click to select multiple options and
-          also to unselect options. We can swap this out with an npm package if
-          we want it to look nice 😺
-        </h3>
       </div>
       <div className="preview">
         <h1>Preview:</h1>

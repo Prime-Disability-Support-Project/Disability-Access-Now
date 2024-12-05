@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { downloadFileHandler } from "../Blob/downloadFile"; // util function for downloading pdf files
+import Button from '@mui/material/Button';
 
 export default function SavedResources() {
   const dispatch = useDispatch();
@@ -32,9 +33,9 @@ export default function SavedResources() {
               <a href={`http://localhost:5173/#/articlePage/${article.id}`}>
                 {article.title}
               </a>
-              <button onClick={() => removeArticle(article.id)}>
+              <Button onClick={() => removeArticle(article.id)} variant="outlined">
                 Remove From Bookmarks
-              </button>
+              </Button>
             </li>
           );
         })}
@@ -45,12 +46,12 @@ export default function SavedResources() {
           return (
             <li key={file.id}>
               <p>{file.filename}</p>
-              <button onClick={() => downloadFileHandler(file.filename)}>
+              <Button onClick={() => downloadFileHandler(file.filename)} variant="contained">
                 Download PDF
-              </button>
-              <button onClick={() => removeFile(file.id)}>
+              </Button>
+              <Button onClick={() => removeFile(file.id)} variant="outlined">
                 Remove From Bookmarks
-              </button>
+              </Button>
             </li>
           );
         })}
