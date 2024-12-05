@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { Button, Modal, Box, Typography, TextField } from "@mui/material"; // Material UI Modal and Button
+import { Button, Modal, Box, Typography, TextField } from "@mui/material"; 
 import axios from "axios";
 import "./AdminAnswerInput.css";
 
@@ -77,13 +77,12 @@ export default function AdminAnswerInput({
         open={onAnswerQuestion}
         onClose={onClose}
         aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
       >
-        <Box sx={{ ...style }}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
+        <Box component={"form"} sx={{ ...style }}>
+          <Typography id="modal-modal-title" variant="h6" component="h1" sx={{fontWeight: "bold"}}>
             Answer Question
           </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+          <Typography sx={{ mt: 2 }}>
             <p>Username: {user?.name}</p>
             <p>Date Asked: {question.question_date}</p>
             <p>
