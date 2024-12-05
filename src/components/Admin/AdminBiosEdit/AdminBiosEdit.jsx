@@ -1,7 +1,7 @@
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
-import Button from '@mui/material/Button';
+import { Box, Button, TextField, Typography } from "@mui/material";
 import axios from "axios";
 
 export default function AdminBiosEdit() {
@@ -15,9 +15,9 @@ export default function AdminBiosEdit() {
     window.scrollTo({
       top: 0,
       left: 0,
-      behavior: 'smooth' 
+      behavior: "smooth",
     });
-  }, [location.pathname]); 
+  }, [location.pathname]);
 
   useEffect(() => {
     axios
@@ -30,8 +30,6 @@ export default function AdminBiosEdit() {
       });
   }, []);
 
-  // sorts through the bios array to find the bio whose input got changed
-  // spreads and updates the specific column (name, bio, link)
   const handleInput = (id, column, value) => {
     setBios((oldBios) =>
       oldBios.map((bio) => (bio.id === id ? { ...bio, [column]: value } : bio))
@@ -39,12 +37,10 @@ export default function AdminBiosEdit() {
   };
 
   const handleSave = (id) => {
-    // find the bio that was clicked on
     const bioToUpdate = bios.find((bio) => bio.id === id);
     axios
       .put(`/api/about/bios/${id}`, bioToUpdate)
       .then(() => {
-        // resets the conditional
         setEditId(null);
       })
       .catch((error) => {
@@ -53,77 +49,133 @@ export default function AdminBiosEdit() {
   };
 
   return (
-    <div>
-      <Button
-        type="button"
-        onClick={() => history.push("/adminManageResources")}
-        variant="contained"
-      >
-        Back to Manage Resources
-      </Button>
-      <form>
+    <Box
+      component={"main"}
+      sx={{ display: "flex", flexDirection: "column", gap: 4, p: 4 }}
+    >
+      <Typography variant="h4" component={"h1"} gutterBottom>
+        Edit Bios
+      </Typography>
+      <Box sx={{ display: "flex", gap: 2, mb: 3 }}>
+        <Button
+          type="button"
+          onClick={() => history.push("/adminManageResources")}
+          variant="outlined"
+        >
+          Cancel
+        </Button>
+      </Box>
+      <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
         {bios.map((bio) => (
-          <div key={bio.id}>
+          <Box
+            key={bio.id}
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              gap: 4,
+              p: 2,
+              borderRadius: 2,
+              boxShadow: 1,
+              bgcolor: "background.paper",
+            }}
+          >
             {editId === bio.id ? (
-              <div>
-                <Button type="button" onClick={() => handleSave(bio.id)} variant="contained">
-                  Save Changes
-                </Button>
-                <Button type="button" onClick={() => setEditId(null)} variant="outlined">
-                  Cancel
-                </Button>
-                <div>
-                  <label htmlFor="name">Name:</label>
-                  <textarea
-                    rows="2"
-                    cols="75"
-                    name="name"
+              <Box sx={{ flex: 1 }}>
+                <Box sx={{ display: "flex", gap: 2, mb: 3 }}>
+                  <Button
+                    type="button"
+                    onClick={() => handleSave(bio.id)}
+                    variant="contained"
+                  >
+                    Save Changes
+                  </Button>
+                  <Button
+                    type="button"
+                    onClick={() => setEditId(null)}
+                    variant="outlined"
+                  >
+                    Cancel
+                  </Button>
+                </Box>
+
+                <Box sx={{ mb: 3 }}>
+                  <Typography variant="h6" gutterBottom>
+                    Name:
+                  </Typography>
+                  <TextField
+                    fullWidth
+                    multiline
+                    rows={2}
                     value={bio.name}
                     onChange={(e) =>
                       handleInput(bio.id, "name", e.target.value)
                     }
+                    variant="outlined"
+                    placeholder="Enter the name"
                   />
-                </div>
-                <div>
-                  <label htmlFor="bio">Bio {`(optional)`}:</label>
-                  <textarea
-                    rows="15"
-                    cols="75"
-                    name="bio"
+                </Box>
+
+                <Box sx={{ mb: 3 }}>
+                  <Typography variant="h6" gutterBottom>
+                    Bio (optional):
+                  </Typography>
+                  <TextField
+                    fullWidth
+                    multiline
+                    rows={10}
                     value={bio.bio}
-                    onChange={(e) =>
-                      handleInput(bio.id, "bio", e.target.value)
-                    }
+                    onChange={(e) => handleInput(bio.id, "bio", e.target.value)}
+                    variant="outlined"
+                    placeholder="Enter bio text"
                   />
-                </div>
-                <div>
-                  <label htmlFor="link">Link {`(optional)`}:</label>
-                  <textarea
-                    rows="2"
-                    cols="75"
-                    name="link"
+                </Box>
+
+                <Box sx={{ mb: 3 }}>
+                  <Typography variant="h6" gutterBottom>
+                    Link (optional):
+                  </Typography>
+                  <TextField
+                    fullWidth
+                    multiline
+                    rows={2}
                     value={bio.link}
                     onChange={(e) =>
                       handleInput(bio.id, "link", e.target.value)
                     }
+                    variant="outlined"
+                    placeholder="Enter link"
                   />
-                </div>
-              </div>
+                </Box>
+              </Box>
             ) : (
-              <div>
-                <h3>{bio.name}</h3>
-                <p>{bio.bio}</p>
-                <a href={bio.link} target="_blank" rel="noopener noreferrer">
-                  {bio.link}
-                </a>
-                <Button type="button" onClick={() => setEditId(bio.id)} variant="contained">
+              <Box sx={{ flex: 1 }}>
+                <Typography variant="h6">{bio.name}</Typography>
+                <Typography variant="body1" sx={{ mb: 1 }}>
+                  {bio.bio}
+                </Typography>
+                {bio.link && (
+                  <a
+                    href={bio.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ display: "block", color: "blue" }}
+                  >
+                    {bio.link}
+                  </a>
+                )}
+                <Button
+                  type="button"
+                  onClick={() => setEditId(bio.id)}
+                  variant="contained"
+                  sx={{ mt: 2 }}
+                >
                   Edit
                 </Button>
-              </div>
+              </Box>
             )}
-          </div>
+          </Box>
         ))}
-      </form>
-    </div>
+      </Box>
+    </Box>
   );
 }

@@ -27,11 +27,11 @@ main {
     margin: 0.5rem;
 }
 
-.user-info input {
+/* .user-info input {
     padding: 0.5rem;
     border: 1px solid #ccc;
     border-radius: 9px;
-}
+} */
 
 /* .user-info button {
     padding: 0.5rem 1rem;
@@ -56,7 +56,7 @@ main {
     cursor: pointer;
 } */
 
-.question-container {
+/* .question-container {
     display: flex;
     margin-top: 1rem;
     gap: 2rem;
@@ -75,7 +75,7 @@ main {
     width: 100%;
     margin-bottom: 0.2rem;
     margin-left: 2rem;
-}
+} */
 
 /* .tabs button {
     width: 80%;

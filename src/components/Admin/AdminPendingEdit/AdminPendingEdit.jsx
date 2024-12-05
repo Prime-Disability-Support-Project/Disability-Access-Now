@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
-import Button from '@mui/material/Button';
+import { Box, Button, TextField, Typography } from "@mui/material";
 import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
 
 export default function AdminPendingEdit() {
@@ -16,9 +16,9 @@ export default function AdminPendingEdit() {
     window.scrollTo({
       top: 0,
       left: 0,
-      behavior: 'smooth' 
+      behavior: 'smooth',
     });
-  }, [location.pathname]); 
+  }, [location.pathname]);
 
   useEffect(() => {
     axios
@@ -60,43 +60,64 @@ export default function AdminPendingEdit() {
   };
 
   return (
-    <div className="container">
-      <div className="editForm">
-        <form>
-          <Button type="submit" onClick={() => handleSave(event)} variant="contained">
-            Save Changes
-          </Button>
-          <Button
-            type="button"
-            onClick={() => history.push("/adminManageResources")}
-            variant="outlined"
-          >
-            Cancel
-          </Button>
-          <div>
-            <label htmlFor="body">Pending Approval Text:</label>
-            <textarea
-              rows="10"
-              cols="75"
-              type="text"
-              name="body"
-              value={body}
-              onChange={handleBody}
-            />
-          </div>
-          <div>
-            <label htmlFor="email">Contact Email Address:</label>
-            <textarea
-              rows="3"
-              cols="75"
-              type="text"
-              name="email"
-              value={email}
-              onChange={handleEmail}
-            />
-          </div>
-        </form>
-      </div>
-    </div>
+    <Box component={"main"} sx={{ display: "flex", flexDirection: "column", gap: 4, p: 4 }}>
+      <Box sx={{ display: "flex", gap: 4 }}>
+        <Box sx={{ flex: 1 }}>
+          <Typography variant="h4" component={"h1"} gutterBottom>
+            Edit Pending Approval
+          </Typography>
+          <form>
+            <Box sx={{ display: "flex", gap: 2, mb: 3 }}>
+              <Button
+                type="submit"
+                onClick={handleSave}
+                variant="contained"
+              >
+                Save Changes
+              </Button>
+              <Button
+                type="button"
+                onClick={() => history.push("/adminManageResources")}
+                variant="outlined"
+              >
+                Cancel
+              </Button>
+            </Box>
+
+            <Box sx={{ mb: 3 }}>
+              <Typography variant="h6" gutterBottom>
+                Pending Approval Text:
+              </Typography>
+              <TextField
+                fullWidth
+                multiline
+                rows={10}
+                value={body}
+                onChange={handleBody}
+                variant="outlined"
+                placeholder="Enter the pending approval content"
+                sx={{ bgcolor: "background.paper" }}
+              />
+            </Box>
+
+            <Box sx={{ mb: 3 }}>
+              <Typography variant="h6" gutterBottom>
+                Contact Email Address:
+              </Typography>
+              <TextField
+                fullWidth
+                multiline
+                rows={3}
+                value={email}
+                onChange={handleEmail}
+                variant="outlined"
+                placeholder="Enter the contact email"
+                sx={{ bgcolor: "background.paper" }}
+              />
+            </Box>
+          </form>
+        </Box>
+      </Box>
+    </Box>
   );
 }

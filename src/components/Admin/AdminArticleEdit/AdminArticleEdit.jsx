@@ -1,10 +1,21 @@
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Button from '@mui/material/Button';
+import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
+import {
+  Box,
+  Button,
+  Typography,
+  TextField,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  OutlinedInput,
+  Chip,
+} from "@mui/material";
 import Markdown from "react-markdown";
-import remarkGfm from 'remark-gfm'
-import "./AdminArticleEdit.css";
+import remarkGfm from "remark-gfm";
 
 export default function AdminArticleEdit() {
   const history = useHistory();
@@ -17,60 +28,20 @@ export default function AdminArticleEdit() {
   const associatedFiles = useSelector((store) => store.files.associatedFiles);
   const allFiles = useSelector((store) => store.files.allFiles);
 
-  const [selectedFiles, setSelectedFiles] = useState();
+  const [selectedFiles, setSelectedFiles] = useState([]);
+  const [title, setTitle] = useState(specificArticle?.title || "");
+  const [body, setBody] = useState(specificArticle?.body || "");
 
-  const handleSelection = (event) => {
-    const selectedValues = Array.from(
-      event.target.selectedOptions,
-      (option) => option.value
-    );
-    setSelectedFiles(selectedValues);
-  };
+  const location = useLocation();
 
-  const handleAssociated = (e) => {
-    e.preventDefault();
-    dispatch({
-      type: "EDIT_ASSOCIATED",
-      payload: { articleId: specificArticle.id, fileIds: selectedFiles },
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
     });
-    dispatch({ type: "FETCH_ASSOCIATED_FILES", payload: specificArticle.id });
-  };
+  }, [location.pathname]);
 
-  const [title, setTitle] = useState(specificArticle.title);
-  // const [subtitle, setSubtitle] = useState(specificArticle.subtitle);
-  const [body, setBody] = useState(specificArticle.body);
-
-  const handleTitle = (event) => {
-    setTitle(event.target.value);
-  };
-
-  // const handleSubtitle = (event) => {
-  //   setSubtitle(event.target.value);
-  // };
-
-  const handleBody = (event) => {
-    setBody(event.target.value);
-  };
-
-  const handleSave = (articleId) => {
-    const articleData = {
-      articleId: articleId,
-      title: title,
-      // subtitle: null,
-      body: body,
-    };
-    dispatch({ type: "EDIT_ARTICLE", payload: articleData });
-    dispatch({ type: "RESET_SPECIFIC_ARTICLE" });
-    history.push("/adminManageResources");
-  };
-
-  // resets the store after they leave the page
-  const handleCancel = () => {
-    dispatch({ type: "RESET_SPECIFIC_ARTICLE" });
-    history.goBack();
-  };
-
-  // fetches the specific article using the articleId in the url
   useEffect(() => {
     const url = window.location.href;
     const articleId = url.split("/").pop();
@@ -82,92 +53,154 @@ export default function AdminArticleEdit() {
     dispatch({ type: "FETCH_ALL_FILES" });
   }, []);
 
-  // waits for the specificArticle store to be filled, then sets initial values
   useEffect(() => {
     if (specificArticle) {
       setTitle(specificArticle.title);
-      // setSubtitle(specificArticle.subtitle);
       setBody(specificArticle.body);
     }
   }, [specificArticle]);
 
+  const handleSelection = (event) => {
+    setSelectedFiles(event.target.value);
+  };
+
+  const handleSave = (articleId) => {
+    const articleData = {
+      articleId: articleId,
+      title: title,
+      body: body,
+    };
+    dispatch({ type: "EDIT_ARTICLE", payload: articleData });
+    dispatch({ type: "RESET_SPECIFIC_ARTICLE" });
+    history.push("/adminManageResources");
+  };
+
+  const handleCancel = () => {
+    dispatch({ type: "RESET_SPECIFIC_ARTICLE" });
+    history.goBack();
+  };
+
+  const handleAssociated = (e) => {
+    e.preventDefault();
+    dispatch({
+      type: "EDIT_ASSOCIATED",
+      payload: { articleId: specificArticle.id, fileIds: selectedFiles },
+    });
+    dispatch({ type: "FETCH_ASSOCIATED_FILES", payload: specificArticle.id });
+  };
+
   return (
-    <div className="container">
-      <div className="editForm">
-        <form>
-          <Button type="submit" onClick={() => handleSave(specificArticle.id)} variant="contained">
+    <Box sx={{ display: "flex", flexDirection: "row", gap: 4, p: 4 }}>
+      {/* Main Content (Editing the Article) */}
+      <Box sx={{ flex: 1 }}>
+        <Typography variant="h4" component={"h1"} gutterBottom>
+          Edit Article
+        </Typography>
+        <Box sx={{ display: "flex", gap: 2, mb: 3 }}>
+          <Button onClick={() => handleSave(specificArticle.id)} variant="contained">
             Save Changes
           </Button>
-          <Button type="button" onClick={handleCancel} variant="outlined">
+          <Button onClick={handleCancel} variant="outlined">
             Cancel
           </Button>
-          <div>
-            <label htmlFor="title">Title:</label>
-            <textarea
-              rows="2"
-              cols="75"
-              type="text"
-              name="title"
-              value={title}
-              onChange={handleTitle}
-            />
-          </div>
-          {/* <div>
-            <label htmlFor="subtitle">Subtitle:</label>
-            <textarea
-              rows="2"
-              cols="75"
-              type="text"
-              name="subtitle"
-              value={subtitle}
-              onChange={handleSubtitle}
-            />
-          </div> */}
-          <div>
-            <label htmlFor="body">Body {`(markdown)`}:</label>
-            <textarea
-              rows="20"
-              cols="75"
-              type="text"
-              name="body"
-              value={body}
-              onChange={handleBody}
-            />
-          </div>
-        </form>
-        <h3>Current Associated Files:</h3>
-        <ul className="files">
-          {associatedFiles.map((file) => {
-            return <li key={file.id}>{file.filename}</li>;
-          })}
-        </ul>
-        <h3>
-          Choose New Files to Associate &#40;these will replace the current
-          associated files&#41;
-        </h3>
-        <form>
-          <label htmlFor="files">
-            Choose files to associate with this article:
-          </label>
-          <select
-            onChange={handleSelection}
-            name="files"
-            id="files"
-            multiple={true}
-          >
-            {allFiles.map((file) => {
-              return <option value={file.id}>{file.filename}</option>;
-            })}
-          </select>
-          <Button onClick={handleAssociated} type="submit" variant="contained">
-            Save Changes to Associated Files
-          </Button>
-        </form>
-      </div>
-      <div className="preview">
-        <h1>Preview:</h1>
+        </Box>
+
+        <Box sx={{ mb: 3 }}>
+          <Typography variant="h6" gutterBottom>
+            Title (name of the article):
+          </Typography>
+          <TextField
+            fullWidth
+            multiline
+            rows={2}
+            name="title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            variant="outlined"
+            placeholder="Enter the article title"
+            sx={{ bgcolor: "background.paper" }}
+          />
+        </Box>
+
+        <Box sx={{ mb: 3 }}>
+          <Typography variant="h6" gutterBottom>
+            Body (use markdown):
+          </Typography>
+          <TextField
+            fullWidth
+            multiline
+            rows={20}
+            name="body"
+            value={body}
+            onChange={(e) => setBody(e.target.value)}
+            variant="outlined"
+            placeholder="Enter the article body in Markdown format"
+            sx={{ bgcolor: "background.paper" }}
+          />
+        </Box>
+
+        <Box sx={{ mb: 3 }}>
+          <Typography variant="h6" gutterBottom>
+            Current Associated Files:
+          </Typography>
+          <Box>
+            {associatedFiles.map((file) => (
+              <Chip key={file.id} label={file.filename} sx={{ marginRight: 1, marginBottom: 1 }} />
+            ))}
+          </Box>
+        </Box>
+
+        <Box sx={{ mb: 3 }}>
+          <Typography variant="h6" gutterBottom>
+            Choose New Files to Associate (these will replace the current associated files)
+          </Typography>
+          <FormControl fullWidth>
+            <InputLabel id="files-label">Choose Files</InputLabel>
+            <Select
+              labelId="files-label"
+              multiple
+              value={selectedFiles}
+              onChange={handleSelection}
+              input={<OutlinedInput label="Choose Files" />}
+              sx={{ bgcolor: "background.paper" }}
+              renderValue={(selected) => (
+                <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+                  {selected.map((value) => {
+                    const file = allFiles.find((f) => f.id === value);
+                    return file ? <Chip key={value} label={file.filename} /> : null;
+                  })}
+                </Box>
+              )}
+            >
+              {allFiles.map((file) => (
+                <MenuItem key={file.id} value={file.id}>
+                  {file.filename}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Box>
+
+        <Button onClick={handleAssociated} variant="contained">
+          Save Changes to Associated Files
+        </Button>
+      </Box>
+
+      {/* Preview Section */}
+      <Box
+        sx={{
+          flex: 1,
+          bgcolor: "background.paper",
+          p: 3,
+          borderRadius: 2,
+          boxShadow: 2,
+        }}
+      >
+        <Typography variant="h5" gutterBottom>
+          Preview of the Article Body:
+        </Typography>
         <Markdown remarkPlugins={[remarkGfm]}>{body}</Markdown>
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 }
