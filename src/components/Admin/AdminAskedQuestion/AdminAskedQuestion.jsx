@@ -1,10 +1,16 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import Button from "@mui/material/Button";
+import Grid from "@mui/material/Grid";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
 import axios from "axios";
-import "./AdminAskedQuestion.css"
+import "./AdminAskedQuestion.css";
 
 export default function AdminUnansweredQuestions({ onAnswerQuestion }) {
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const unansweredQuestions = useSelector(
     (store) => store.adminQuestions.adminUnanswered || []
   );
@@ -21,45 +27,61 @@ export default function AdminUnansweredQuestions({ onAnswerQuestion }) {
   };
 
   return (
-    <div className="unanswered-questions-section">
-      <h2>Unanswered Questions</h2>
+    <Box sx={{ padding: 4 }}>
+      <Typography variant="h4" component={"h1"} sx={{ fontWeight: "bold" }} gutterBottom>
+        Unanswered Questions
+      </Typography>
       {unansweredQuestions.length === 0 ? (
-        <p>No unanswered questions found.</p>
+        <Typography variant="body1">No unanswered questions found.</Typography>
       ) : (
-        <ul>
-          {unansweredQuestions.map((question) => ( 
-            <div key={question.id} className="unanswered-question">
-              <li>
-                {question.flagged && <p><strong>Help Requested!</strong></p>}
-                <p>Question: {question.question}</p>
-                <p>Date Submitted: {question.question_date}</p>
-                <p>
-                  Associated Article: {""}
-                  {question.associated_article_url ? (
-                    <a href={question.associated_article_url}>
-                      {question.associated_article_url}
-                    </a>
-                  ) : (
-                    "No article was associated with this question"
+        <ul style={{ padding: 0, margin: 0 }}>
+          {unansweredQuestions.map((question) => (
+            <li key={question.id} style={{ marginBottom: 16 }}>
+              <Card
+                sx={{ display: "flex", flexDirection: "column", padding: 2 }}
+              >
+                <CardContent>
+                  {question.flagged && (
+                    <Typography variant="body1" color="error" fontWeight="bold">
+                      Help Requested!
+                    </Typography>
                   )}
-                </p>
-                <button onClick={() => onAnswerQuestion(question)}>
-                  Answer Question
-                </button>
-                {question.unread === true ? (
-                  <button onClick={() => handleRead(question.id)}>
-                    Mark as Read
-                  </button>
-                ) : (
-                  <button onClick={() => handleRead(question.id)}>
-                    Mark as Unread
-                  </button>
-                )}
-              </li>
-            </div>
+                  <Typography variant="body1" sx={{ marginBottom: 1 }}>
+                    <strong>Question:</strong> {question.question}
+                  </Typography>
+                  <Typography variant="body1" sx={{ marginBottom: 1 }}>
+                    <strong>Date Submitted:</strong> {question.question_date}
+                  </Typography>
+                  <Typography variant="body1" sx={{ marginBottom: 2 }}>
+                    <strong>Associated Article:</strong>{" "}
+                    {question.associated_article_url ? (
+                      <a href={question.associated_article_url}>
+                        {question.associated_article_url}
+                      </a>
+                    ) : (
+                      "No article was associated with this question"
+                    )}
+                  </Typography>
+                  <Box sx={{ display: "flex", gap: 2 }}>
+                    <Button
+                      onClick={() => onAnswerQuestion(question)}
+                      variant="contained"
+                    >
+                      Answer Question
+                    </Button>
+                    <Button
+                      onClick={() => handleRead(question.id)}
+                      variant={question.unread ? "outlined" : "text"}
+                    >
+                      {question.unread ? "Mark as Read" : "Mark as Unread"}
+                    </Button>
+                  </Box>
+                </CardContent>
+              </Card>
+            </li>
           ))}
-      </ul>
+        </ul>
       )}
-    </div>
+    </Box>
   );
 }

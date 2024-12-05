@@ -1,6 +1,14 @@
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import {
+  Box,
+  Grid,
+  Card,
+  CardContent,
+  Typography,
+  Button,
+} from "@mui/material";
 import UploadPDF from "../../Blob/UploadPDF";
 
 export default function AdminManageResources() {
@@ -30,44 +38,189 @@ export default function AdminManageResources() {
   };
 
   return (
-    <div>
-      <h1>Manage Resources</h1>
-      <h2>Add New Resources</h2>
-      <button onClick={() => history.push("/adminAddArticle")}>
-        Add a New Article
-      </button>
-      <UploadPDF />
-      <h2>Choose an Article to Edit</h2>
-      <ul>
-        {allArticles.map((article) => {
-          return (
-            <li key={article.id}>
-              {article.title}
-              <button onClick={() => handleEdit(article.id)}>Edit</button>
-              <button onClick={() => handleDelete(article.id)}>Delete</button>
+    <Box component="main" sx={{ padding: 4 }}>
+      <Typography
+        component="h1"
+        variant="h4"
+        gutterBottom
+        sx={{ fontWeight: "bold" }}
+      >
+        Manage Resources
+      </Typography>
+
+      <Card sx={{ marginBottom: 4 }}>
+        <CardContent>
+          <Typography
+            component="h2"
+            variant="h5"
+            gutterBottom
+            sx={{ fontWeight: "bold" }}
+          >
+            Add New Resources
+          </Typography>
+          <Grid container spacing={2}>
+            <Grid item>
+              <Button
+                onClick={() => history.push("/adminAddArticle")}
+                variant="contained"
+              >
+                Add a New Article
+              </Button>
+            </Grid>
+            <Grid item>
+              <UploadPDF />
+            </Grid>
+          </Grid>
+        </CardContent>
+      </Card>
+
+      <Card sx={{ marginBottom: 4 }}>
+        <CardContent>
+          <Typography
+            component="h2"
+            variant="h5"
+            gutterBottom
+            sx={{ fontWeight: "bold" }}
+          >
+            Choose an Article to Edit
+          </Typography>
+          <ul style={{ listStyle: "none", padding: 0 }}>
+            {allArticles.map((article) => (
+              <li key={article.id}>
+                <Grid
+                  container
+                  alignItems="center"
+                  justifyContent="space-between"
+                  sx={{ marginBottom: 2 }}
+                >
+                  <Typography component="p" variant="body1">
+                    {article.title}
+                  </Typography>
+                  <Box>
+                    <Button
+                      onClick={() => handleEdit(article.id)}
+                      variant="contained"
+                      sx={{ marginRight: 1 }}
+                    >
+                      Edit
+                    </Button>
+                    <Button
+                      onClick={() => handleDelete(article.id)}
+                      variant="outlined"
+                      color="error"
+                    >
+                      Delete
+                    </Button>
+                  </Box>
+                </Grid>
+              </li>
+            ))}
+          </ul>
+        </CardContent>
+      </Card>
+
+      <Card sx={{ marginBottom: 4 }}>
+        <CardContent>
+          <Typography
+            component="h2"
+            variant="h5"
+            gutterBottom
+            sx={{ fontWeight: "bold" }}
+          >
+            Delete a File
+          </Typography>
+          <ul style={{ listStyle: "none", padding: 0 }}>
+            {allFiles.map((file) => (
+              <li key={file.id}>
+                <Grid
+                  container
+                  alignItems="center"
+                  justifyContent="space-between"
+                  sx={{ marginBottom: 2 }}
+                >
+                  <Typography component="p" variant="body1">
+                    {file.filename}
+                  </Typography>
+                  <Button
+                    onClick={() => handleDeleteFile(file.id)}
+                    variant="outlined"
+                    color="error"
+                  >
+                    Delete
+                  </Button>
+                </Grid>
+              </li>
+            ))}
+          </ul>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardContent>
+          <Typography
+            component="h2"
+            variant="h5"
+            gutterBottom
+            sx={{ fontWeight: "bold" }}
+          >
+            Edit Site Pages
+          </Typography>
+          <Typography component="h3" variant="h6" sx={{ fontWeight: "bold" }}>
+            About Us
+          </Typography>
+          <ul style={{ listStyle: "none", padding: 0 }}>
+            <li>
+              <Button
+                onClick={() => history.push("/editAbout")}
+                variant="contained"
+                sx={{ marginRight: 1 }}
+              >
+                Edit Text
+              </Button>
+              <Button
+                onClick={() => history.push("/editBios")}
+                variant="contained"
+              >
+                Edit Bios
+              </Button>
             </li>
-          );
-        })}
-      </ul>
-      <h2>Choose a File to Edit</h2>
-      <ul>
-        {allFiles.map((file) => {
-          return (
-            <li key={file.id}>
-              {file.filename}
-              <button onClick={() => handleDeleteFile(file.id)}>Delete</button>
+          </ul>
+          <Typography
+            component="h3"
+            variant="h6"
+            sx={{ fontWeight: "bold", marginTop: 2 }}
+          >
+            Home Page
+          </Typography>
+          <ul style={{ listStyle: "none", padding: 0 }}>
+            <li>
+              <Button
+                onClick={() => history.push("/editHome")}
+                variant="contained"
+              >
+                Edit Content
+              </Button>
             </li>
-          );
-        })}
-      </ul>
-      <h2>Edit Site Pages</h2>
-      <h3>About Us</h3>
-      <button onClick={() => history.push('/editAbout')}>Edit Text</button>
-      <button onClick={() => history.push('/editBios')}>Edit Bios</button>
-      <h3>Home Page</h3>
-      <button onClick={() => history.push('/editHome')}>Edit Content</button>
-      <h3>Pending Approval</h3>
-      <button onClick={() => history.push('/editPending')}>Edit Content & Email</button>
-    </div>
+          </ul>
+          <Typography
+            component="h3"
+            variant="h6"
+            sx={{ fontWeight: "bold", marginTop: 2 }}
+          >
+            Pending Approval
+          </Typography>
+          <ul style={{ listStyle: "none", padding: 0 }}>
+            <li>
+              <Button
+                onClick={() => history.push("/editPending")}
+                variant="contained"
+              >
+                Edit Content & Email
+              </Button>
+            </li>
+          </ul>
+        </CardContent>
+      </Card>
+    </Box>
   );
 }

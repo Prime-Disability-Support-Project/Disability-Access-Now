@@ -25,42 +25,34 @@ export default function Home() {
   }, []);
 
   return (
-    <div>
-      <header>
-        <h1>{title}</h1>
-        <p>{body}</p>
-      </header>
+    <main id="content">
+      <h1>{title}</h1>
+      <p>{body}</p>
 
-      
-        
-          <h3 id="Not Sure where to start?">{linkHeader}</h3>
+      <h2 id="Not Sure where to start?">{linkHeader}</h2>
 
-          
-            <ul className="frequentlyUsed" aria-label="Frequently Used Links">
-              <li>
-                <Link className="homeLink" to="/userQuestions">
-                  Ask the admins a question
-                </Link>
-              </li>
-              <li>
-                <Link className="homeLink" to="/eligible">
-                  See if you're eligible
-                </Link>
-              </li>
-              <li>
-                <Link className="homeLink" to="/faqs">
-                  Frequently asked questions
-                </Link>
-              </li>
-              <li>
-                <Link className="homeLink" to="/formsYouShouldStartWith">
-                  Start with these forms
-                </Link>
-              </li>
-            </ul>
-          
-        
-      
-    </div>
+      <ul className="frequentlyUsed" aria-label="Frequently Used Links">
+        <li>
+          <Link className="homeLink" to="/userQuestions">
+            Ask the admins a question
+          </Link>
+        </li>
+        <li>
+          <Link className="homeLink" to="/eligible">
+            See if you're eligible
+          </Link>
+        </li>
+        <li>
+          <Link className="homeLink" to="/faqs">
+            Frequently asked questions
+          </Link>
+        </li>
+        <li>
+          <Link className="homeLink" to="/formsYouShouldStartWith">
+            Start with these forms
+          </Link>
+        </li>
+      </ul>
+    </main>
   );
 }

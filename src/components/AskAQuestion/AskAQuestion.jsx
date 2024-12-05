@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
+import Button from "@mui/material/Button";
 
 import "./AskAQuestion.css";
 
@@ -19,7 +20,7 @@ const AskQuestion = ({ articleId, close }) => {
 
   useEffect(() => {
     const urlResponse = window.location.href;
-    setUrl(urlResponse)
+    setUrl(urlResponse);
   }, []);
 
   const handleSubmit = async (event) => {
@@ -68,13 +69,13 @@ const AskQuestion = ({ articleId, close }) => {
 
   return (
     <>
-      <main>
+      <main id="content">
         <form onSubmit={handleSubmit} className="question-form">
-          <h2>Ask A Question!</h2>
-          <h3>
+          <h1>Ask A Question!</h1>
+          <p>
             Ask a question to our admins and they will respond as soon as
             possible. These questions and answers are private to you.{" "}
-          </h3>
+          </p>
           <textarea
             value={question}
             onChange={handleQuestionChange}
@@ -84,12 +85,12 @@ const AskQuestion = ({ articleId, close }) => {
           {successMessage && <div className="success">{successMessage}</div>}
           {error && <div className="error">{error}</div>}
 
-          <button type="submit" disabled={isLoading}>
+          <Button type="submit" disabled={isLoading} variant="contained">
             {isLoading ? "Submitting..." : "Submit Question"}
-          </button>
-          <button className="close-button" onClick={close}>
+          </Button>
+          <Button className="close-button" variant="outlined" onClick={close}>
             Close
-          </button>
+          </Button>
         </form>
       </main>
     </>

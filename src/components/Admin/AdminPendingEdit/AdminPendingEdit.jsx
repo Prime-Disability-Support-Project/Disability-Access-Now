@@ -1,12 +1,24 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import Button from '@mui/material/Button';
+import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
 
 export default function AdminPendingEdit() {
   const history = useHistory();
   const [pending, setPending] = useState();
   const [body, setBody] = useState();
   const [email, setEmail] = useState();
+
+  const location = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth' 
+    });
+  }, [location.pathname]); 
 
   useEffect(() => {
     axios
@@ -51,15 +63,16 @@ export default function AdminPendingEdit() {
     <div className="container">
       <div className="editForm">
         <form>
-          <button type="submit" onClick={() => handleSave(event)}>
+          <Button type="submit" onClick={() => handleSave(event)} variant="contained">
             Save Changes
-          </button>
-          <button
+          </Button>
+          <Button
             type="button"
             onClick={() => history.push("/adminManageResources")}
+            variant="outlined"
           >
             Cancel
-          </button>
+          </Button>
           <div>
             <label htmlFor="body">Pending Approval Text:</label>
             <textarea

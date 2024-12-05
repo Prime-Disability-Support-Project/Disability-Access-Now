@@ -1,0 +1,9 @@
+.founder-name,
+.student-name {
+  font-weight: bold;
+}
+
+.founder-link,
+.student-link {
+  font-style: italic;
+}

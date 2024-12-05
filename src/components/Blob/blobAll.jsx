@@ -1,6 +1,7 @@
 import { useState } from "react";
 import React from "react";
 import { showOpenFilePicker, showSaveFilePicker } from 'native-file-system-adapter';
+import Button from '@mui/material/Button';
 
 // ? used for documentation links
 
@@ -147,8 +148,8 @@ export default function UploadDownload() {
   return (
     <div>
       <h1>PDF Title: {fileTitle}</h1>
-      <button onClick={openFileHandler}>Open a PDF File</button>
-      <button onClick={uploadFileHandler}>Upload New PDF File</button>
+      <Button onClick={openFileHandler}>Open a PDF File</Button>
+      <Button onClick={uploadFileHandler}>Upload New PDF File</Button>
       <div>
         <input
           type="text"
@@ -156,7 +157,7 @@ export default function UploadDownload() {
           onChange={(e) => setSearchKeyword(e.target.value)}
           placeholder="Search for PDFs"
         />
-        <button onClick={searchHandler}>Search PDF Files</button>
+        <Button onClick={searchHandler}>Search PDF Files</Button>
       </div>
       <div>
         <h2>Search Results:</h2>
@@ -164,7 +165,7 @@ export default function UploadDownload() {
           {searchResults.length > 0 ? (
             searchResults.map((result) => (
               <li key={result.id}>
-                {result.filename} <button onClick={() => downloadFileHandler(result.filename)}>Download PDF</button>
+                {result.filename} <Button onClick={() => downloadFileHandler(result.filename)}>Download PDF</Button>
               </li>
             ))
           ) : (

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { downloadFileHandler } from "../Blob/downloadFile"; // util function for downloading pdf files
+import Button from "@mui/material/Button";
 
 const SearchResults = () => {
   const [fileResults, setFileResults] = useState([]);
@@ -38,9 +39,9 @@ const SearchResults = () => {
   }, [query]);
 
   return (
-    <div>
-      <h2>Search Results for "{query}":</h2>
-      <h3>Articles:</h3>
+    <main id="content">
+      <h1>Search Results for "{query}":</h1>
+      <h2>Articles:</h2>
       {articleResults.length > 0 ? (
         <ul>
           {articleResults.map((result) => (
@@ -54,22 +55,25 @@ const SearchResults = () => {
       ) : (
         <p>No search results found in articles.</p>
       )}
-      <h3>Files:</h3>
+      <h2>Files:</h2>
       {fileResults.length > 0 ? (
         <ul>
           {fileResults.map((result) => (
             <li key={result.id}>
               {result.name}
-              <button onClick={() => downloadFileHandler(result.name)}>
+              <Button
+                onClick={() => downloadFileHandler(result.name)}
+                variant="contained"
+              >
                 Download PDF
-              </button>
+              </Button>
             </li>
           ))}
         </ul>
       ) : (
         <p>No search results found in files.</p>
       )}
-    </div>
+    </main>
   );
 };
 

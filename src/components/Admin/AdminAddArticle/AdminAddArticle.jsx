@@ -1,6 +1,7 @@
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import Button from '@mui/material/Button';
 import Markdown from "react-markdown";
 import remarkGfm from 'remark-gfm'
 import "./AdminAddArticle.css";
@@ -14,7 +15,7 @@ export default function AdminAddArticle() {
   const [open, setOpen] = useState(false); // State for modal visibility
 
   const [title, setTitle] = useState();
-  const [subtitle, setSubtitle] = useState();
+  // const [subtitle, setSubtitle] = useState();
   const [body, setBody] = useState();
 
   const allFiles = useSelector((store) => store.files.allFiles);
@@ -37,9 +38,9 @@ export default function AdminAddArticle() {
     setTitle(event.target.value);
   };
 
-  const handleSubtitle = (event) => {
-    setSubtitle(event.target.value);
-  };
+  // const handleSubtitle = (event) => {
+  //   setSubtitle(event.target.value);
+  // };
 
   const handleBody = (event) => {
     setBody(event.target.value);
@@ -48,7 +49,7 @@ export default function AdminAddArticle() {
   const handleSave = () => {
     const articleData = {
       title: title,
-      subtitle: subtitle,
+      // subtitle: null,
       body: body,
       fileIds: selectedFiles,
     };
@@ -77,7 +78,7 @@ const handleClose = () => setOpen(false);
           <Button variant= "contained" color="primary" type="submit" onClick={handleSave}>
             Save New Article
           </Button>
-          <Button variant="outlined" color="secondary"type="button" onClick={handleCancel}>
+          <Button type="button" onClick={handleCancel} variant="outlined">
             Cancel
           </Button>
           <div>
@@ -91,7 +92,7 @@ const handleClose = () => setOpen(false);
               onChange={handleTitle}
             />
           </div>
-          <div>
+          {/* <div>
             <label htmlFor="subtitle">Subtitle:</label>
             <textarea
               rows="2"
@@ -101,7 +102,7 @@ const handleClose = () => setOpen(false);
               value={subtitle}
               onChange={handleSubtitle}
             />
-          </div>
+          </div> */}
           <div>
             <label htmlFor="body">Body {`(markdown)`}:</label>
             <textarea

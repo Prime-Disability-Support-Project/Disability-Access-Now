@@ -18,10 +18,10 @@ const FAQ = () => {
   }, []);
 
   return (
-    <div>
+    <main id="content">
       <h1>FAQs</h1>
       <Markdown>{faq.body}</Markdown>
-    </div>
+    </main>
   );
 };
 

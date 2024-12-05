@@ -1,11 +1,23 @@
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
+import Button from '@mui/material/Button';
 import axios from "axios";
 
 export default function AdminBiosEdit() {
   const history = useHistory();
   const [bios, setBios] = useState([]);
   const [editId, setEditId] = useState(null);
+
+  const location = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth' 
+    });
+  }, [location.pathname]); 
 
   useEffect(() => {
     axios
@@ -42,23 +54,24 @@ export default function AdminBiosEdit() {
 
   return (
     <div>
-      <button
+      <Button
         type="button"
         onClick={() => history.push("/adminManageResources")}
+        variant="contained"
       >
         Back to Manage Resources
-      </button>
+      </Button>
       <form>
         {bios.map((bio) => (
           <div key={bio.id}>
             {editId === bio.id ? (
               <div>
-                <button type="button" onClick={() => handleSave(bio.id)}>
+                <Button type="button" onClick={() => handleSave(bio.id)} variant="contained">
                   Save Changes
-                </button>
-                <button type="button" onClick={() => setEditId(null)}>
+                </Button>
+                <Button type="button" onClick={() => setEditId(null)} variant="outlined">
                   Cancel
-                </button>
+                </Button>
                 <div>
                   <label htmlFor="name">Name:</label>
                   <textarea
@@ -103,9 +116,9 @@ export default function AdminBiosEdit() {
                 <a href={bio.link} target="_blank" rel="noopener noreferrer">
                   {bio.link}
                 </a>
-                <button type="button" onClick={() => setEditId(bio.id)}>
+                <Button type="button" onClick={() => setEditId(bio.id)} variant="contained">
                   Edit
-                </button>
+                </Button>
               </div>
             )}
           </div>

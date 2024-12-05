@@ -1,6 +1,8 @@
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
+import Button from '@mui/material/Button';
 import axios from "axios";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -14,6 +16,16 @@ export default function AdminAboutUsEdit() {
   const [title, setTitle] = useState();
   const [founderText, setFounderText] = useState();
   const [devText, setDevText] = useState();
+
+  const location = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth' 
+    });
+  }, [location.pathname]); 
 
   useEffect(() => {
     axios
@@ -59,12 +71,12 @@ export default function AdminAboutUsEdit() {
     <div className="container">
       <div className="editForm">
         <form>
-          <button type="submit" onClick={() => handleSave(event)}>
+          <Button type="submit" onClick={() => handleSave(event)} variant="contained">
             Save Changes
-          </button>
-          <button type="button" onClick={() => history.push('/adminManageResources')}>
+          </Button>
+          <Button type="button" onClick={() => history.push('/adminManageResources')} variant="outlined">
             Cancel
-          </button>
+          </Button>
           <div>
             <label htmlFor="title">Title:</label>
             <textarea

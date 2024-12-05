@@ -20,10 +20,9 @@ const AmIEligible = () => {
   }, []);
 
   return (
-    <div>
-      <h1>Eligibility Criteria</h1>
+    <main id="content">
       <Markdown remarkPlugins={[remarkGfm]}>{articleBody.body}</Markdown>
-    </div>
+    </main>
   );
 };
 
