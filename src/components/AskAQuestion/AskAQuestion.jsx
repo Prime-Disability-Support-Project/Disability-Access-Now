@@ -124,30 +124,6 @@ const AskQuestion = ({ articleId, close }) => {
         </Box>
       </Modal>
     </div>
-    // <main id="content">
-    //   <form onSubmit={handleSubmit} className="question-form">
-    //     <h1>Ask A Question!</h1>
-    // <p>
-    //   Ask a question to our admins and they will respond as soon as
-    //   possible. These questions and answers are private to you.{" "}
-    // </p>
-    // <textarea
-    //   value={question}
-    //   onChange={handleQuestionChange}
-    //   placeholder="Enter your question here..."
-    //   required
-    // ></textarea>
-    //     {successMessage && <div className="success">{successMessage}</div>}
-    //     {error && <div className="error">{error}</div>}
-
-    // <Button type="submit" disabled={isLoading} variant="contained">
-    //   {isLoading ? "Submitting..." : "Submit Question"}
-    // </Button>
-    // <Button className="close-button" variant="outlined" onClick={close}>
-    //   Close
-    // </Button>
-    //   </form>
-    // </main>
   );
 };
 

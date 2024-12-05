@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
-import Button from "@mui/material/Button";
+import { Box, Card, CardContent, Typography, Button } from "@mui/material";
 
 export default function UserAnsweredQuestions() {
   const dispatch = useDispatch();
@@ -21,46 +21,71 @@ export default function UserAnsweredQuestions() {
   };
 
   return (
-    <div>
-      <h2>Answered Questions</h2>
-      <ul>
-        {answeredQuestions.map((question) => {
-          return (
-            <div key={question.id} className="questions-list">
-              <li>
-                <p>Question: {question.question}</p>
-                <p>Answer: {question.answer}</p>
-                <p>Date Submitted: {question.question_date}</p>
-                <p>
-                  Associated Article:{" "}
-                  {question.associated_article_url ? (
-                    <a href={question.associated_article_url}>
-                      {question.associated_article_url}
-                    </a>
-                  ) : (
-                    "No article was associated with this question"
-                  )}
-                </p>
-                {question.unread === true ? (
-                  <Button
-                    onClick={() => handleRead(question.id)}
-                    variant="contained"
-                  >
-                    Mark as Read
-                  </Button>
-                ) : (
-                  <Button
-                    onClick={() => handleRead(question.id)}
-                    variant="outlined"
-                  >
-                    Mark as Unread
-                  </Button>
-                )}
-              </li>
-            </div>
-          );
-        })}
-      </ul>
-    </div>
+    <Box sx={{ padding: 4 }}>
+      <Typography variant="h4" component="h1" sx={{ fontWeight: "bold" }} gutterBottom>
+        Answered Questions
+      </Typography>
+      {answeredQuestions.length === 0 ? (
+        <Typography variant="body1">No answered questions found.</Typography>
+      ) : (
+        <ul style={{ padding: 0, margin: 0 }}>
+          {answeredQuestions.map((question) => (
+            <li key={question.id} style={{ marginBottom: 16 }}>
+              <Card
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  padding: 2,
+                  transition: "box-shadow 0.3s ease-in-out",
+                  "&:hover": {
+                    boxShadow: 3,
+                  },
+                }}
+              >
+                <CardContent>
+                  <Typography variant="body1" sx={{ marginBottom: 1 }}>
+                    <strong>Question:</strong> {question.question}
+                  </Typography>
+                  <Typography variant="body1" sx={{ marginBottom: 1 }}>
+                    <strong>Answer:</strong> {question.answer}
+                  </Typography>
+                  <Typography variant="body1" sx={{ marginBottom: 1 }}>
+                    <strong>Date Submitted:</strong> {question.question_date}
+                  </Typography>
+                  <Typography variant="body1" sx={{ marginBottom: 2 }}>
+                    <strong>Associated Article:</strong>{" "}
+                    {question.associated_article_url ? (
+                      <a href={question.associated_article_url}>
+                        {question.associated_article_url}
+                      </a>
+                    ) : (
+                      "No article was associated with this question"
+                    )}
+                  </Typography>
+                  <Box sx={{ display: "flex", gap: 2 }}>
+                    {question.unread === true ? (
+                      <Button
+                        onClick={() => handleRead(question.id)}
+                        variant="contained"
+                        color="primary"
+                      >
+                        Mark as Read
+                      </Button>
+                    ) : (
+                      <Button
+                        onClick={() => handleRead(question.id)}
+                        variant="outlined"
+                      >
+                        Mark as Unread
+                      </Button>
+                    )}
+                  </Box>
+                </CardContent>
+              </Card>
+            </li>
+          ))}
+        </ul>
+      )}
+    </Box>
   );
 }
