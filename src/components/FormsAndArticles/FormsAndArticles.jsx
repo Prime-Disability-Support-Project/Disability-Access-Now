@@ -13,7 +13,7 @@ export default function SavedResources() {
   }, [dispatch]);
 
   return (
-    <Box component="main" sx={{ p: 4 }}>
+    <Box component="main" id="content" tabIndex="-1" sx={{ p: 4 }}>
       <Typography
         variant="h4"
         sx={{ fontWeight: "bold" }}

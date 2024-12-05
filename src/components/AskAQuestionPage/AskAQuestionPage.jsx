@@ -16,7 +16,7 @@ export default function AskAQuestionPage() {
   };
 
   return (
-    <main className="ask-a-question-page">
+    <main id="content" tabIndex="-1" className="ask-a-question-page">
       <Container sx={{ padding: 4 }}>
         <Typography
           variant="h3"

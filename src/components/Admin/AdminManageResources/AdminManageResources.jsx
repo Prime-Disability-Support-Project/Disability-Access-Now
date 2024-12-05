@@ -38,7 +38,7 @@ export default function AdminManageResources() {
   };
 
   return (
-    <Box component="main" sx={{ padding: 4 }}>
+    <Box component="main" id="content" tabIndex="-1" sx={{ padding: 4 }}>
       <Typography
         component="h1"
         variant="h4"

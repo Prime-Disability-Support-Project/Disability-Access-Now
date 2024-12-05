@@ -5,7 +5,6 @@ import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import React, { useState, useEffect, useRef } from "react";
 
-
 // MUI Imports
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
@@ -24,7 +23,6 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import MenuIcon from "@mui/icons-material/Menu";
 
-import SkipLink from '@not-govuk/skip-link';
 
 // search mui imports
 const Search = styled("div")(({ theme }) => ({
@@ -74,7 +72,7 @@ function Nav() {
   const [searchTerm, setSearchTerm] = useState("");
   const history = useHistory();
   const [dropDownMenu, setDropDownMenu] = useState(false);
-  const dropDownRef = useRef(null); 
+  const dropDownRef = useRef(null);
   const location = useLocation();
 
   const handleDropdownOpen = () => {
@@ -162,19 +160,19 @@ function Nav() {
     }
   };
 
-  useEffect(() => {
-    return history.listen(() => {
-      const skipLink = document.getElementById('skip-to-content');
-    if (skipLink) {
-      skipLink.focus();
-    }
-    })
-  }, [history]);
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      {/* <a href="#content" className="skip-to-content">Skip to main content</a> */}
-      <SkipLink for="content" className="skip-to-content"/>
+      <a
+        href="#content"
+        className="skip-to-main-content-link"
+        onClick={(e) => {
+          e.preventDefault();
+          document.getElementById("content").focus();
+        }}
+      >
+        Skip to main content
+      </a>
       <header>
         <AppBar position="static">
           <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
@@ -257,7 +255,8 @@ function Nav() {
       </header>
       <nav>
         {user.id && (
-          <ul className="nav-ul"
+          <ul
+            className="nav-ul"
             aria-label="navigation"
             style={{ display: "flex", justifyContent: "space-evenly" }}
           >
@@ -318,7 +317,9 @@ function Nav() {
                   style={{ display: dropDownMenu ? "block" : "none" }}
                 >
                   <li>
-                    <Link className="navLink" to="/eligible">Am I eligible</Link>
+                    <Link className="navLink" to="/eligible">
+                      Am I eligible
+                    </Link>
                   </li>
                   <li>
                     <Link className="navLink" to="/formsYouShouldStartWith">
@@ -326,10 +327,14 @@ function Nav() {
                     </Link>
                   </li>
                   <li>
-                    <Link className="navLink" to="/faqs">FAQs</Link>
+                    <Link className="navLink" to="/faqs">
+                      FAQs
+                    </Link>
                   </li>
                   <li>
-                    <Link className="navLink" to="/formsAndArticles">Forms and Articles</Link>
+                    <Link className="navLink" to="/formsAndArticles">
+                      Forms and Articles
+                    </Link>
                   </li>
                 </ul>
               </div>

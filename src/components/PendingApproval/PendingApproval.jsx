@@ -21,7 +21,7 @@ export default function PendingApproval() {
   }
 
   return (
-    <main id="content">
+    <main id="content" tabIndex="-1">
       <h1>Registration Pending Approval</h1>
       <p>{pending.body}</p>
       <p>Thank you for your patience!</p>

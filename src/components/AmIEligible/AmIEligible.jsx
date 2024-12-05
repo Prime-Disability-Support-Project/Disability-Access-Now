@@ -20,7 +20,7 @@ const AmIEligible = () => {
   }, []);
 
   return (
-    <main id="content">
+    <main id="content" tabIndex="-1">
       <Markdown remarkPlugins={[remarkGfm]}>{articleBody.body}</Markdown>
     </main>
   );

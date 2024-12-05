@@ -3,14 +3,14 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import "./home.css";
 
-import { Container, Grid, Paper, Typography, Button } from '@mui/material';
-
+import { Container, Grid, Paper, Typography, Button } from "@mui/material";
 
 export default function Home() {
   const [home, setHome] = useState({});
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [linkHeader, setLinkHeader] = useState("");
+
 
   useEffect(() => {
     axios
@@ -28,23 +28,32 @@ export default function Home() {
   }, []);
 
   return (
-    <main id="content">
+    <main id="content" tabIndex="-1">
       <Container maxWidth="lg">
         <Grid container spacing={3}>
           <Grid item xs={12}>
-            <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-              <Typography variant="h2" gutterBottom fontWeight={'bold'}>
+            <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
+              <Typography variant="h2" gutterBottom fontWeight={"bold"}>
                 Welcome to Disability Access Now
               </Typography>
               <Typography variant="body1">
-                Disability Access Now is your guide to navigating the disability benefits process in Minnesota. Our mission is to simplify your journey by providing a centralized hub for resources, tips, step-by-step guides, and essential information on applying for benefits, gathering required documents, and handling denials. Need personalized advice? Ask our admins—real people ready to provide clear, tailored answers. Please note, we are not affiliated with any government agency; but we're here to support you every step of the way.
+                Disability Access Now is your guide to navigating the disability
+                benefits process in Minnesota. Our mission is to simplify your
+                journey by providing a centralized hub for resources, tips,
+                step-by-step guides, and essential information on applying for
+                benefits, gathering required documents, and handling denials.
+                Need personalized advice? Ask our admins—real people ready to
+                provide clear, tailored answers. Please note, we are not
+                affiliated with any government agency; but we're here to support
+                you every step of the way.
               </Typography>
             </Paper>
           </Grid>
           <Grid item xs={12}>
-            <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-              <Typography variant="h4" gutterBottom fontWeight={'bold'}>
-                Not sure where to start? Check out these frequently used resources below:
+            <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
+              <Typography variant="h4" gutterBottom fontWeight={"bold"}>
+                Not sure where to start? Check out these frequently used
+                resources below:
               </Typography>
               <Button
                 component={Link}

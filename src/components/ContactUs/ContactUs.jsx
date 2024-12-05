@@ -3,7 +3,7 @@ import "./ContactUs.css";
 
 function Contact() {
   return (
-    <main id="content">
+    <main id="content" tabIndex="-1">
       <div className="contact">
         <h1> Contact Us </h1>
         <h2>Disclaimer:</h2>

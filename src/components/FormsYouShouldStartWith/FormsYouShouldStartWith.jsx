@@ -29,7 +29,7 @@ export default function FormsYouShouldStartWith() {
   }, []);
 
   return (
-    <main id="content">
+    <main id="content" tabIndex="-1">
       <h1>Forms You Should Start With</h1>
       <h2>Just getting started? We recommend checking out these forms first:</h2>
       <ul>

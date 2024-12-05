@@ -123,17 +123,17 @@
   list-style: none;
 }
 
-.skip-to-content {
+.skip-to-main-content-link {
   position: absolute;
-  top: -40px;
+  top: -100px;
   left: 0;
   background: #000;
   color: #fff;
-  padding: 8px;
-  z-index: 100;
-  transition: top 0.3s;
+  padding: 8px 16px;
+  z-index: 1000;
+  text-decoration: none;
 }
 
-.skip-to-content:focus {
+.skip-to-main-content-link:focus {
   top: 0;
 }
