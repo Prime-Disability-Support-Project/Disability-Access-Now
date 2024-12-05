@@ -17,6 +17,10 @@ body {
   color: #333;
 }
 
+ul {
+  list-style: none;
+}
+
 header {
   color: black;
   padding: 1rem 2rem;
