@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { downloadFileHandler } from "../Blob/downloadFile"; // util function for downloading pdf files
-import Button from '@mui/material/Button';
+import { Box, Button, Typography, List, ListItem, ListItemText } from '@mui/material';
 
 export default function SavedResources() {
   const dispatch = useDispatch();
@@ -22,40 +22,61 @@ export default function SavedResources() {
   };
 
   return (
-    <main id="content">
-      <h1>Saved Resources</h1>
-      <h2>Saved Articles</h2>
-      <ul>
-        {savedArticles.map((article) => {
-          return (
-            <li key={article.id}>
-              {/* Will need to update this to whatever the live web address ends up being */}
-              <a href={`http://localhost:5173/#/articlePage/${article.id}`}>
-                {article.title}
-              </a>
-              <Button onClick={() => removeArticle(article.id)} variant="outlined">
+    <Box component="main" sx={{ p: 4 }}>
+      <Typography variant="h4" sx={{fontWeight: "bold"}} component={"h1"} gutterBottom>
+        Saved Resources
+      </Typography>
+      <Box sx={{ mb: 4, p: 3, bgcolor: 'background.paper', borderRadius: 2, boxShadow: 2 }}>
+        <Typography variant="h5" sx={{fontWeight: "bold"}} component={"h2"} gutterBottom>
+          Saved Articles
+        </Typography>
+        <List>
+          {savedArticles.map((article) => (
+            <ListItem key={article.id} sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <ListItemText
+                primary={<a href={`http://localhost:5173/#/articlePage/${article.id}`}>{article.title}</a>}
+              />
+              <Button
+                onClick={() => removeArticle(article.id)}
+                variant="outlined"
+                color="error"
+                size="small"
+              >
                 Remove From Bookmarks
               </Button>
-            </li>
-          );
-        })}
-      </ul>
-      <h2>Saved Files</h2>
-      <ul>
-        {savedFiles.map((file) => {
-          return (
-            <li key={file.id}>
-              <p>{file.filename}</p>
-              <Button onClick={() => downloadFileHandler(file.filename)} variant="contained">
-                Download PDF
-              </Button>
-              <Button onClick={() => removeFile(file.id)} variant="outlined">
-                Remove From Bookmarks
-              </Button>
-            </li>
-          );
-        })}
-      </ul>
-    </main>
+            </ListItem>
+          ))}
+        </List>
+      </Box>
+      <Box sx={{ p: 3, bgcolor: 'background.default', borderRadius: 2, boxShadow: 2 }}>
+        <Typography variant="h5" sx={{fontWeight: "bold"}} component={"h2"} gutterBottom>
+          Saved Files
+        </Typography>
+        <List>
+          {savedFiles.map((file) => (
+            <ListItem key={file.id} sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <ListItemText primary={file.filename} />
+              <Box sx={{ display: 'flex', gap: 2 }}>
+                <Button
+                  onClick={() => downloadFileHandler(file.filename)}
+                  variant="contained"
+                  size="small"
+                >
+                  Download PDF
+                </Button>
+                <Button
+                  onClick={() => removeFile(file.id)}
+                  variant="outlined"
+                  color="error"
+                  size="small"
+                >
+                  Remove From Bookmarks
+                </Button>
+              </Box>
+            </ListItem>
+          ))}
+        </List>
+      </Box>
+    </Box>
   );
 }
