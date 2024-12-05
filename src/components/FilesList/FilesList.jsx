@@ -28,24 +28,31 @@ export default function FilesList() {
     <ul aria-label="List of Files">
       {allFiles.map((file) => {
         return (
-          <li key={file.id} style={{marginBottom: "2rem"}}>
+          <li key={file.id} style={{ marginBottom: "2rem" }}>
             <p>{file.filename}</p>
             <Button
               onClick={() => downloadFileHandler(file.filename)}
               variant="contained"
-              sx={{marginRight: '1rem'}}
+              sx={{ marginRight: "1rem" }}
             >
               Download PDF
             </Button>
             {/* Conditionally render Bookmark button if the file isn't already bookmarked */}
             {savedFiles.some((savedFile) => savedFile["id"] === file.id) ? (
-              <Button onClick={() => removeFile(file.id)} variant="outlined">
+              <Button
+                onClick={() => removeFile(file.id)}
+                variant="outlined"
+                aria-pressed="true"
+                aria-label={`Remove ${file.filename} from bookmarks`}
+              >
                 Remove From Bookmarks
               </Button>
             ) : (
               <Button
                 onClick={(event) => handleBookmark(file.id, event)}
                 variant="outlined"
+                aria-pressed="false"
+                aria-label={`Bookmark ${file.filename}`}
               >
                 Bookmark this File
               </Button>
