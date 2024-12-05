@@ -5,9 +5,13 @@ import Markdown from "react-markdown";
 import remarkGfm from 'remark-gfm'
 import "./AdminAddArticle.css";
 
+import { Button, Modal, Box, Typography } from "@mui/material";  // Material UI Modal and Button
+
+
 export default function AdminAddArticle() {
   const history = useHistory();
   const dispatch = useDispatch();
+  const [open, setOpen] = useState(false); // State for modal visibility
 
   const [title, setTitle] = useState();
   const [subtitle, setSubtitle] = useState();
@@ -57,16 +61,25 @@ export default function AdminAddArticle() {
     history.goBack();
   };
 
+
+// Open modal
+const handleOpen = () => setOpen(true);
+  
+// Close modal
+const handleClose = () => setOpen(false);
+
+
   return (
     <div className="container">
       <div className="inputForm">
         <form>
-          <button type="submit" onClick={handleSave}>
+          
+          <Button variant= "contained" color="primary" type="submit" onClick={handleSave}>
             Save New Article
-          </button>
-          <button type="button" onClick={handleCancel}>
+          </Button>
+          <Button variant="outlined" color="secondary"type="button" onClick={handleCancel}>
             Cancel
-          </button>
+          </Button>
           <div>
             <label htmlFor="title">Title:</label>
             <textarea
@@ -116,6 +129,11 @@ export default function AdminAddArticle() {
             })}
           </select>
         </form>
+        {/* Button to trigger the modal */}
+        <Button variant="contained" color="primary" onClick={handleOpen}>
+          Preview Article
+        </Button>
+
         <h3 className="note">
           Note for my devs - use command click to select multiple options and
           also to unselect options. We can swap this out with an npm package if
@@ -126,6 +144,46 @@ export default function AdminAddArticle() {
         <h1>Preview of the Article Body:</h1>
         <Markdown remarkPlugins={[remarkGfm]}>{body}</Markdown>
       </div>
-    </div>
+    
+
+     {/* Modal Component */}
+     <Modal
+     open={open}
+     onClose={handleClose} // Close modal when clicked outside
+     aria-labelledby="modal-modal-title"
+     aria-describedby="modal-modal-description"
+   >
+     <Box sx={{ ...style }}>
+       <Typography id="modal-modal-title" variant="h6" component="h2">
+         Article Preview
+       </Typography>
+       <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+         <h2>{title}</h2>
+         <h3>{subtitle}</h3>
+         <div>
+           <Markdown remarkPlugins={[remarkGfm]}>{body}</Markdown>
+         </div>
+       </Typography>
+       <Button onClick={handleClose} variant="contained" color="secondary">
+         Close Preview
+       </Button>
+     </Box>
+   </Modal>
+ </div>
+
   );
 }
+// Modal style
+const style = {
+position: 'absolute',
+top: '50%',
+left: '50%',
+transform: 'translate(-50%, -50%)',
+bgcolor: 'background.paper',
+border: '2px solid #000',
+boxShadow: 24,
+p: 4,
+};
+
+
+
