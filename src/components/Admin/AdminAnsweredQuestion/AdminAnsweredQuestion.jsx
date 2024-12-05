@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
-import Button from '@mui/material/Button';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
+import Button from "@mui/material/Button";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
 import "./AdminAnsweredQuestion.css";
 
 export default function AdminAnsweredQuestions() {
@@ -26,7 +26,7 @@ export default function AdminAnsweredQuestions() {
 
   return (
     <Box sx={{ padding: 4 }}>
-      <Typography variant="h4" gutterBottom>
+      <Typography variant="h4" component={"h1"} sx={{ fontWeight: "bold" }} gutterBottom>
         Answered Questions
       </Typography>
       {answeredQuestions.length === 0 ? (
@@ -35,7 +35,9 @@ export default function AdminAnsweredQuestions() {
         <ul style={{ padding: 0, margin: 0 }}>
           {answeredQuestions.map((question) => (
             <li key={question.id} style={{ marginBottom: 16 }}>
-              <Card sx={{ display: "flex", flexDirection: "column", padding: 2 }}>
+              <Card
+                sx={{ display: "flex", flexDirection: "column", padding: 2 }}
+              >
                 <CardContent>
                   <Typography variant="body1" sx={{ marginBottom: 1 }}>
                     <strong>Question:</strong> {question.question}
