@@ -56,6 +56,7 @@ export default function AdminQuestions() {
       {selectedQuestion && (
         <AdminAnswerInput
           question={selectedQuestion}
+          onAnswerQuestion={handleAnswerQuestion}
           onClose={handleClosePopup}
           onSubmit={handleSubmitAnswer}
         />
