@@ -68,6 +68,7 @@ export default function UserAnsweredQuestions() {
                         onClick={() => handleRead(question.id)}
                         variant="contained"
                         color="primary"
+                        aria-label={`Mark question ${question.id} as read`}
                       >
                         Mark as Read
                       </Button>
@@ -75,6 +76,7 @@ export default function UserAnsweredQuestions() {
                       <Button
                         onClick={() => handleRead(question.id)}
                         variant="outlined"
+                        aria-label={`Mark question ${question.id} as unread`}
                       >
                         Mark as Unread
                       </Button>

@@ -49,8 +49,11 @@ export default function Article() {
 
   return (
     <main id="content" tabIndex="-1">
-      <Button className="ask-button" onClick={close} variant="contained">
-        Ask a question about this article
+      <Button className="ask-button" onClick={close} variant="contained"
+        aria-label="Ask a question about this article"
+
+      >
+        Ask a question about this article 
       </Button>
       {/* Pop-up for asking a question */}
       {showPopup && (
@@ -60,18 +63,24 @@ export default function Article() {
           </div>
         </div>
       )}
-      <Button onClick={() => history.goBack()} variant="outlined">
+      <Button onClick={() => history.goBack()} variant="outlined" aria-label="Go back to the previous page">
         Back
       </Button>
       {/* Conditionally render Bookmark button if the article isn't already bookmarked */}
       {savedArticles.some(
         (article) => article["id"] === specificArticle["id"]
       ) ? (
-        <Button onClick={() => removeArticle(specificArticle.id)}>
+        <Button onClick={() => removeArticle(specificArticle.id)}
+        aria-label="Remove this article from bookmarks"
+
+        >
           Remove From Bookmarks
         </Button>
       ) : (
-        <Button onClick={handleBookmark}>Bookmark this Article</Button>
+        <Button onClick={handleBookmark}
+        aria-label="Bookmark this article"
+
+        >Bookmark this Article</Button>
       )}
       <Markdown className="article" remarkPlugins={[remarkGfm]}>
         {specificArticle.body}
@@ -86,6 +95,8 @@ export default function Article() {
                 <Button
                   onClick={() => downloadFileHandler(file.filename)}
                   variant="contained"
+                  aria-label={`Download PDF for ${file.filename}`}
+
                 >
                   Download PDF
                 </Button>
