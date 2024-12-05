@@ -44,8 +44,13 @@ function App() {
   }, [dispatch]);
 
   const theme = createTheme({
+    palette: {
+      primary: {
+        main: "#12579B",
+      },
+    },
     typography: {
-      fontFamily: ["Work Sans", "Arial", "Helvetica", "sans-serif"].join(","),
+      fontFamily: "Work Sans, Arial, Helvetica, sans-serif"
     },
   });
 
