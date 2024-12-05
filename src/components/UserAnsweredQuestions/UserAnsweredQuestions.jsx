@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
-import Button from '@mui/material/Button';
+import Button from "@mui/material/Button";
 
 export default function UserAnsweredQuestions() {
   const dispatch = useDispatch();
@@ -22,7 +22,7 @@ export default function UserAnsweredQuestions() {
 
   return (
     <div>
-      <h1>Answered Questions</h1>
+      <h2>Answered Questions</h2>
       <ul>
         {answeredQuestions.map((question) => {
           return (
@@ -42,11 +42,17 @@ export default function UserAnsweredQuestions() {
                   )}
                 </p>
                 {question.unread === true ? (
-                  <Button onClick={() => handleRead(question.id)} variant="contained">
+                  <Button
+                    onClick={() => handleRead(question.id)}
+                    variant="contained"
+                  >
                     Mark as Read
                   </Button>
                 ) : (
-                  <Button onClick={() => handleRead(question.id)} variant="outlined">
+                  <Button
+                    onClick={() => handleRead(question.id)}
+                    variant="outlined"
+                  >
                     Mark as Unread
                   </Button>
                 )}

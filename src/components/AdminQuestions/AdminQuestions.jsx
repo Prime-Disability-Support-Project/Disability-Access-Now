@@ -32,14 +32,14 @@ export default function AdminQuestions() {
   };
 
   return (
-    <div className="admin-questions-container">
+    <main>
       <div className="tabs">
         <Button onClick={() => setView("unanswered")} variant="contained">
           Unanswered Questions
         </Button>
         <Button onClick={() => setView("answered")} variant="contained">Answered Questions</Button>
       </div>
-      <div className="questions-list">
+      <div className="question-list">
         {view === "unanswered" ? (
             <AdminUnansweredQuestions onAnswerQuestion={handleAnswerQuestion}  />
         ) : (
@@ -56,6 +56,6 @@ export default function AdminQuestions() {
           onSubmit={handleSubmitAnswer}
         />
       )}
-    </div>
+    </main>
   );
 }

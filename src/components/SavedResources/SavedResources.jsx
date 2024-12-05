@@ -22,7 +22,7 @@ export default function SavedResources() {
   };
 
   return (
-    <div>
+    <main>
       <h1>Saved Resources</h1>
       <h2>Saved Articles</h2>
       <ul>
@@ -56,6 +56,6 @@ export default function SavedResources() {
           );
         })}
       </ul>
-    </div>
+    </main>
   );
 }

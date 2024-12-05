@@ -25,7 +25,6 @@ export default function FilesList() {
   }, [dispatch]);
 
   return (
-    <div>
       <ul aria-label="List of Files">
         {allFiles.map((file) => {
           return (
@@ -48,6 +47,5 @@ export default function FilesList() {
           );
         })}
       </ul>
-    </div>
   );
 }
