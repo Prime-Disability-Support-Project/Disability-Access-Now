@@ -31,7 +31,7 @@ export default function AdminQuestions() {
   };
 
   return (
-    <main id="content">
+    <main id="content" tabIndex="-1">
       <Box
         className="tabs"
         sx={{

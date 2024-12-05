@@ -51,6 +51,8 @@ export default function AdminBiosEdit() {
   return (
     <Box
       component={"main"}
+      id="content"
+      tabIndex="-1"
       sx={{ display: "flex", flexDirection: "column", gap: 4, p: 4 }}
     >
       <Typography variant="h4" component={"h1"} gutterBottom>

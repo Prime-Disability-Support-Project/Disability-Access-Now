@@ -63,7 +63,7 @@ export default function AdminHomePageEdit() {
   };
 
   return (
-    <Box component={"main"} sx={{ display: "flex", flexDirection: "column", gap: 4, p: 4 }}>
+    <Box component={"main"} id="content" tabIndex="-1" sx={{ display: "flex", flexDirection: "column", gap: 4, p: 4 }}>
       <Box sx={{ display: "flex", gap: 4 }}>
         <Box sx={{ flex: 1 }}>
         <Typography variant="h4" component={"h1"} gutterBottom>

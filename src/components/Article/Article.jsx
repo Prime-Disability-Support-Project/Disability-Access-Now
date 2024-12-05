@@ -48,7 +48,7 @@ export default function Article() {
   }, []);
 
   return (
-    <main id="content">
+    <main id="content" tabIndex="-1">
       <Button className="ask-button" onClick={close} variant="contained">
         Ask a question about this article
       </Button>

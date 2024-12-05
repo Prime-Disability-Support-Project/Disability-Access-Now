@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Markdown from "react-markdown";
-import './AboutUs.css'
+import "./AboutUs.css";
 
 export default function AboutUs() {
   const [aboutUs, setAboutUs] = useState();
@@ -38,7 +38,7 @@ export default function AboutUs() {
   }
 
   return (
-    <main id="content">
+    <main id="content" tabIndex="-1">
       <h1>{aboutUs.title}</h1>
       <Markdown>{aboutUs.founderText}</Markdown>
       <section aria-label="Founder's Bio">

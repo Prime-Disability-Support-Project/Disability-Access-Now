@@ -39,7 +39,7 @@ const SearchResults = () => {
   }, [query]);
 
   return (
-    <main id="content">
+    <main id="content" tabIndex="-1">
       <h1>Search Results for "{query}":</h1>
       <h2>Articles:</h2>
       {articleResults.length > 0 ? (

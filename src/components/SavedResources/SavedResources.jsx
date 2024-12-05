@@ -22,7 +22,7 @@ export default function SavedResources() {
   };
 
   return (
-    <Box component="main" sx={{ p: 4 }}>
+    <Box component="main" id="content" tabIndex="-1" sx={{ p: 4 }}>
       <Typography variant="h4" sx={{fontWeight: "bold"}} component={"h1"} gutterBottom>
         Saved Resources
       </Typography>

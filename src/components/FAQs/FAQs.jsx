@@ -18,7 +18,7 @@ const FAQ = () => {
   }, []);
 
   return (
-    <main id="content">
+    <main id="content" tabIndex="-1">
       <h1>FAQs</h1>
       <Markdown>{faq.body}</Markdown>
     </main>
