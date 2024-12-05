@@ -1,6 +1,7 @@
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
 import Button from '@mui/material/Button';
 import axios from "axios";
 import Markdown from "react-markdown";
@@ -15,6 +16,16 @@ export default function AdminAboutUsEdit() {
   const [title, setTitle] = useState();
   const [founderText, setFounderText] = useState();
   const [devText, setDevText] = useState();
+
+  const location = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth' 
+    });
+  }, [location.pathname]); 
 
   useEffect(() => {
     axios
