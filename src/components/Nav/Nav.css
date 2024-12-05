@@ -85,10 +85,11 @@
   .dropdown-content {
     display: none;
     position: absolute;
-    background-color: #008183;
+    background-color: #00acb0;
     min-width: 160px;
     box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
     z-index: 1;
+    padding: 0;
   }
 
   .dropdown-content a {
@@ -118,6 +119,6 @@
 }
 /* note for above css we can definitely change hover color */
 
-ul{
+.nav-ul {
   list-style: none;
 }
