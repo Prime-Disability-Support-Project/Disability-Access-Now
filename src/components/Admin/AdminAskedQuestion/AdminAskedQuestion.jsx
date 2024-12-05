@@ -28,7 +28,7 @@ export default function AdminUnansweredQuestions({ onAnswerQuestion }) {
 
   return (
     <Box sx={{ padding: 4 }}>
-      <Typography variant="h4" gutterBottom>
+      <Typography variant="h4" component={"h1"} sx={{ fontWeight: "bold" }} gutterBottom>
         Unanswered Questions
       </Typography>
       {unansweredQuestions.length === 0 ? (
