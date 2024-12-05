@@ -30,10 +30,11 @@ export default function SavedResources() {
           return (
             <li key={article.id}>
               {/* Will need to update this to whatever the live web address ends up being */}
-              <a href={`http://localhost:5173/#/articlePage/${article.id}`}>
+              <a href={`http://localhost:5173/#/articlePage/${article.id}`}
+              title={`Read article: ${article.title}`}>
                 {article.title}
               </a>
-              <Button onClick={() => removeArticle(article.id)} variant="outlined">
+              <Button onClick={() => removeArticle(article.id)} variant="outlined" aria-label={`Remove article ${article.title} from bookmarks`}>
                 Remove From Bookmarks
               </Button>
             </li>
@@ -46,10 +47,10 @@ export default function SavedResources() {
           return (
             <li key={file.id}>
               <p>{file.filename}</p>
-              <Button onClick={() => downloadFileHandler(file.filename)} variant="contained">
+              <Button onClick={() => downloadFileHandler(file.filename)} variant="contained" aria-label={`Download file: ${file.filename}`}>
                 Download PDF
               </Button>
-              <Button onClick={() => removeFile(file.id)} variant="outlined">
+              <Button onClick={() => removeFile(file.id)} variant="outlined"  aria-label={`Remove file ${file.filename} from bookmarks`}>
                 Remove From Bookmarks
               </Button>
             </li>

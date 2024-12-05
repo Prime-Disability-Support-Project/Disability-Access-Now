@@ -39,13 +39,19 @@ export default function FilesList() {
             </Button>
             {/* Conditionally render Bookmark button if the file isn't already bookmarked */}
             {savedFiles.some((savedFile) => savedFile["id"] === file.id) ? (
-              <Button onClick={() => removeFile(file.id)} variant="outlined">
+              <Button onClick={() => removeFile(file.id)} variant="outlined"
+                aria-pressed="true" // Indicates the button is in the "active" state (bookmarked)
+                aria-label={`Remove ${file.filename} from bookmarks`} // Descriptive label for screen readers
+              
+              >
                 Remove From Bookmarks
               </Button>
             ) : (
               <Button
                 onClick={(event) => handleBookmark(file.id, event)}
                 variant="outlined"
+                aria-pressed="false" // Indicates the button is in the "inactive" state (not bookmarked)
+                aria-label={`Bookmark ${file.filename}`} // Descriptive label for screen readers
               >
                 Bookmark this File
               </Button>
