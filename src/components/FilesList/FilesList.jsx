@@ -2,7 +2,7 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { downloadFileHandler } from "../Blob/downloadFile"; // util function for downloading pdf files
-import Button from '@mui/material/Button';
+import Button from "@mui/material/Button";
 
 export default function FilesList() {
   const dispatch = useDispatch();
@@ -25,27 +25,34 @@ export default function FilesList() {
   }, [dispatch]);
 
   return (
-      <ul aria-label="List of Files">
-        {allFiles.map((file) => {
-          return (
-            <li key={file.id}>
-              <p>{file.filename}</p>
-              <Button onClick={() => downloadFileHandler(file.filename)} variant="contained">
-                Download PDF
+    <ul aria-label="List of Files">
+      {allFiles.map((file) => {
+        return (
+          <li key={file.id} style={{marginBottom: "2rem"}}>
+            <p>{file.filename}</p>
+            <Button
+              onClick={() => downloadFileHandler(file.filename)}
+              variant="contained"
+              sx={{marginRight: '1rem'}}
+            >
+              Download PDF
+            </Button>
+            {/* Conditionally render Bookmark button if the file isn't already bookmarked */}
+            {savedFiles.some((savedFile) => savedFile["id"] === file.id) ? (
+              <Button onClick={() => removeFile(file.id)} variant="outlined">
+                Remove From Bookmarks
               </Button>
-              {/* Conditionally render Bookmark button if the file isn't already bookmarked */}
-              {savedFiles.some((savedFile) => savedFile["id"] === file.id) ? (
-                <Button onClick={() => removeFile(file.id)} variant="outlined">
-                  Remove From Bookmarks
-                </Button>
-              ) : (
-                <Button onClick={(event) => handleBookmark(file.id, event)} variant="outlined">
-                  Bookmark this File
-                </Button>
-              )}
-            </li>
-          );
-        })}
-      </ul>
+            ) : (
+              <Button
+                onClick={(event) => handleBookmark(file.id, event)}
+                variant="outlined"
+              >
+                Bookmark this File
+              </Button>
+            )}
+          </li>
+        );
+      })}
+    </ul>
   );
 }

@@ -1,4 +1,4 @@
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { useHistory } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -11,29 +11,38 @@ export default function ArticleList() {
     dispatch({ type: "FETCH_ALL_ARTICLES" });
   }, [dispatch]);
 
-  const handleClick = (articleId) => {
+  const handleClick = (articleId, event) => {
+    event.preventDefault();
     history.push(`/articlePage/${articleId}`);
   };
 
+  const handleKeyPress = (event, articleId) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      history.push(`/articlePage/${articleId}`);
+    }
+  };
+
   return (
-    <main>
-      <ul aria-label="List of Articles">
-        {allArticles.map((article) => {
-          // don't post these two in the main articles list
-          if (
-            article.title !== "FAQs" &&
-            article.title !== "Forms You Should Start With"
-          ) {
-            return (
-              <li key={article.id} onClick={() => handleClick(article.id)}>
-                <a aria-label={`Read more about${article.title}`}>
-                  {article.title}
-                </a>
-              </li>
-            );
-          }
-        })}
-      </ul>
-    </main>
+    <ul aria-label="List of Articles">
+      {allArticles.map((article) => {
+        if (
+          article.title !== "FAQs" &&
+          article.title !== "Forms You Should Start With"
+        ) {
+          return (
+            <li
+              key={article.id}
+              role="button"
+              onClick={(e) => handleClick(article.id, e)}
+              onKeyDown={(e) => handleKeyPress(e, article.id)}
+              style={{ cursor: "pointer", marginBottom: "1rem" }}
+            >
+              <a href="#">{article.title}</a>
+            </li>
+          );
+        }
+      })}
+    </ul>
   );
 }
