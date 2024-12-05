@@ -1,7 +1,14 @@
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Box, Grid, Card, CardContent, Typography, Button } from "@mui/material";
+import {
+  Box,
+  Grid,
+  Card,
+  CardContent,
+  Typography,
+  Button,
+} from "@mui/material";
 import UploadPDF from "../../Blob/UploadPDF";
 
 export default function AdminManageResources() {
@@ -31,14 +38,24 @@ export default function AdminManageResources() {
   };
 
   return (
-    <Box component={"main"} sx={{ padding: 4 }}>
-      <Typography variant="h4" gutterBottom>
+    <Box component="main" sx={{ padding: 4 }}>
+      <Typography
+        component="h1"
+        variant="h4"
+        gutterBottom
+        sx={{ fontWeight: "bold" }}
+      >
         Manage Resources
       </Typography>
 
       <Card sx={{ marginBottom: 4 }}>
         <CardContent>
-          <Typography variant="h5" gutterBottom>
+          <Typography
+            component="h2"
+            variant="h5"
+            gutterBottom
+            sx={{ fontWeight: "bold" }}
+          >
             Add New Resources
           </Typography>
           <Grid container spacing={2}>
@@ -59,7 +76,12 @@ export default function AdminManageResources() {
 
       <Card sx={{ marginBottom: 4 }}>
         <CardContent>
-          <Typography variant="h5" gutterBottom>
+          <Typography
+            component="h2"
+            variant="h5"
+            gutterBottom
+            sx={{ fontWeight: "bold" }}
+          >
             Choose an Article to Edit
           </Typography>
           <ul style={{ listStyle: "none", padding: 0 }}>
@@ -71,7 +93,9 @@ export default function AdminManageResources() {
                   justifyContent="space-between"
                   sx={{ marginBottom: 2 }}
                 >
-                  <Typography variant="body1">{article.title}</Typography>
+                  <Typography component="p" variant="body1">
+                    {article.title}
+                  </Typography>
                   <Box>
                     <Button
                       onClick={() => handleEdit(article.id)}
@@ -83,6 +107,7 @@ export default function AdminManageResources() {
                     <Button
                       onClick={() => handleDelete(article.id)}
                       variant="outlined"
+                      color="error"
                     >
                       Delete
                     </Button>
@@ -96,7 +121,12 @@ export default function AdminManageResources() {
 
       <Card sx={{ marginBottom: 4 }}>
         <CardContent>
-          <Typography variant="h5" gutterBottom>
+          <Typography
+            component="h2"
+            variant="h5"
+            gutterBottom
+            sx={{ fontWeight: "bold" }}
+          >
             Delete a File
           </Typography>
           <ul style={{ listStyle: "none", padding: 0 }}>
@@ -108,10 +138,13 @@ export default function AdminManageResources() {
                   justifyContent="space-between"
                   sx={{ marginBottom: 2 }}
                 >
-                  <Typography variant="body1">{file.filename}</Typography>
+                  <Typography component="p" variant="body1">
+                    {file.filename}
+                  </Typography>
                   <Button
                     onClick={() => handleDeleteFile(file.id)}
                     variant="outlined"
+                    color="error"
                   >
                     Delete
                   </Button>
@@ -124,10 +157,17 @@ export default function AdminManageResources() {
 
       <Card>
         <CardContent>
-          <Typography variant="h5" gutterBottom>
+          <Typography
+            component="h2"
+            variant="h5"
+            gutterBottom
+            sx={{ fontWeight: "bold" }}
+          >
             Edit Site Pages
           </Typography>
-          <Typography variant="h6">About Us</Typography>
+          <Typography component="h3" variant="h6" sx={{ fontWeight: "bold" }}>
+            About Us
+          </Typography>
           <ul style={{ listStyle: "none", padding: 0 }}>
             <li>
               <Button
@@ -137,12 +177,19 @@ export default function AdminManageResources() {
               >
                 Edit Text
               </Button>
-              <Button onClick={() => history.push("/editBios")} variant="contained">
+              <Button
+                onClick={() => history.push("/editBios")}
+                variant="contained"
+              >
                 Edit Bios
               </Button>
             </li>
           </ul>
-          <Typography variant="h6" sx={{ marginTop: 2 }}>
+          <Typography
+            component="h3"
+            variant="h6"
+            sx={{ fontWeight: "bold", marginTop: 2 }}
+          >
             Home Page
           </Typography>
           <ul style={{ listStyle: "none", padding: 0 }}>
@@ -155,7 +202,11 @@ export default function AdminManageResources() {
               </Button>
             </li>
           </ul>
-          <Typography variant="h6" sx={{ marginTop: 2 }}>
+          <Typography
+            component="h3"
+            variant="h6"
+            sx={{ fontWeight: "bold", marginTop: 2 }}
+          >
             Pending Approval
           </Typography>
           <ul style={{ listStyle: "none", padding: 0 }}>
