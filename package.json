@@ -10,6 +10,7 @@
     "@emotion/styled": "^11.13.5",
     "@mui/icons-material": "^6.1.10",
     "@mui/material": "^6.1.10",
+    "@not-govuk/skip-link": "^0.15.1",
     "axios": "^1.6.8",
     "bcryptjs": "^2.4.3",
     "connect-pg-simple": "^9.0.1",
@@ -45,6 +46,7 @@
   "devDependencies": {
     "@vitejs/plugin-react": "^4.2.1",
     "nodemon": "^3.1.0",
+    "sass-embedded": "^1.82.0",
     "vite": "^5.2.11",
     "vitest": "^1.6.0"
   },
