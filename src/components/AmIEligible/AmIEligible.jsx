@@ -21,7 +21,6 @@ const AmIEligible = () => {
 
   return (
     <div>
-      <h1>Eligibility Criteria</h1>
       <Markdown remarkPlugins={[remarkGfm]}>{articleBody.body}</Markdown>
     </div>
   );

@@ -7,7 +7,7 @@ router.get("/articles", (req, res) => {
   const userId = req.user.id;
 
   const queryText = `
-    SELECT articles.id, articles.title, articles.subtitle, articles.body 
+    SELECT articles.id, articles.title, articles.body 
     FROM "savedArticle"
     JOIN articles
     ON articles.id = "savedArticle".article_id
