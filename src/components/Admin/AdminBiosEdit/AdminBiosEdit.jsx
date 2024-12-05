@@ -1,5 +1,6 @@
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
 import Button from '@mui/material/Button';
 import axios from "axios";
 
@@ -7,6 +8,16 @@ export default function AdminBiosEdit() {
   const history = useHistory();
   const [bios, setBios] = useState([]);
   const [editId, setEditId] = useState(null);
+
+  const location = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth' 
+    });
+  }, [location.pathname]); 
 
   useEffect(() => {
     axios
