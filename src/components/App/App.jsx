@@ -31,6 +31,8 @@ import AdminQuestions from '../AdminQuestions/AdminQuestions.jsx';
 import AdminUnansweredQuestions from '../Admin/AdminAskedQuestion/AdminAskedQuestion.jsx';
 import AdminAnsweredQuestions from '../Admin/AdminAnsweredQuestion/AdminAnsweredQuestion.jsx';
 import AdminAnswerInput from '../Admin/AdminAnswerInput/AdminAnswerInput.jsx';
+import { createTheme, ThemeProvider } from "@mui/material";
+
 
 function App() {
   const dispatch = useDispatch();
@@ -41,8 +43,20 @@ function App() {
     dispatch({ type: 'FETCH_USER' });
   }, [dispatch]);
 
+  const theme = createTheme({
+    palette: {
+      primary: {
+        main: "#12579B",
+      },
+    },
+    typography: {
+      fontFamily: "Work Sans, Arial, Helvetica, sans-serif"
+    },
+  });
+
   return (
     <Router>
+      <ThemeProvider theme={theme}>
       <div>
         <Nav />
         <Switch>
@@ -82,6 +96,7 @@ function App() {
         
         {user.id && <Footer />}
       </div>
+      </ThemeProvider>
     </Router>
   );
 }
