@@ -29,7 +29,7 @@ export default function AdminManageLogins() {
   };
 
   return (
-    <Box sx={{ padding: 4 }}>
+    <Box component={"main"} sx={{ padding: 4 }}>
       <Typography component="h1" variant="h4" gutterBottom sx={{ fontWeight: 'bold' }}>
         Manage Logins
       </Typography>
