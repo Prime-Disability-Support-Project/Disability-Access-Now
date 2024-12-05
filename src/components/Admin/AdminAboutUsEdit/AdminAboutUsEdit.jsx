@@ -2,11 +2,10 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
-import Button from '@mui/material/Button';
+import { Box, Button, Typography, TextField } from "@mui/material";
 import axios from "axios";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import "./AdminAboutUsEdit.css";
 
 export default function AdminAboutUsEdit() {
   const history = useHistory();
@@ -23,9 +22,9 @@ export default function AdminAboutUsEdit() {
     window.scrollTo({
       top: 0,
       left: 0,
-      behavior: 'smooth' 
+      behavior: "smooth",
     });
-  }, [location.pathname]); 
+  }, [location.pathname]);
 
   useEffect(() => {
     axios
@@ -56,7 +55,12 @@ export default function AdminAboutUsEdit() {
 
   const handleSave = (event) => {
     event.preventDefault();
-    const data = { title: title, founderText: founderText, devText: devText, id: aboutUs.id };
+    const data = {
+      title: title,
+      founderText: founderText,
+      devText: devText,
+      id: aboutUs.id,
+    };
     axios
       .put("/api/about", data)
       .then((response) => {
@@ -68,56 +72,91 @@ export default function AdminAboutUsEdit() {
   };
 
   return (
-    <div className="container">
-      <div className="editForm">
-        <form>
-          <Button type="submit" onClick={() => handleSave(event)} variant="contained">
+    <Box sx={{ display: "flex", flexDirection: "row", gap: 4, p: 4 }}>
+      <Box sx={{ flex: 1 }}>
+        <Typography variant="h4" component={"h1"} gutterBottom>
+          Edit About Us
+        </Typography>
+        <Box sx={{ display: "flex", gap: 2, mb: 3 }}>
+          <Button type="submit" onClick={handleSave} variant="contained">
             Save Changes
           </Button>
-          <Button type="button" onClick={() => history.push('/adminManageResources')} variant="outlined">
+          <Button
+            type="button"
+            onClick={() => history.push("/adminManageResources")}
+            variant="outlined"
+          >
             Cancel
           </Button>
-          <div>
-            <label htmlFor="title">Title:</label>
-            <textarea
-              rows="2"
-              cols="75"
-              type="text"
-              name="title"
-              value={title}
-              onChange={handleTitle}
-            />
-          </div>
-          <div>
-            <label htmlFor="founder">Text about the Founder {`(markdown)`}:</label>
-            <textarea
-              rows="15"
-              cols="75"
-              type="text"
-              name="founder"
-              value={founderText}
-              onChange={handleFounder}
-            />
-          </div>
-          <div>
-            <label htmlFor="dev">Text about the Dev Team {`(markdown)`}:</label>
-            <textarea
-              rows="15"
-              cols="75"
-              type="text"
-              name="dev"
-              value={devText}
-              onChange={handleDev}
-            />
-          </div>
-        </form>
-      </div>
-      <div className="preview">
-        <h1>Preview:</h1>
-        <h1>{title}</h1>
+        </Box>
+
+        <Box sx={{ mb: 3 }}>
+          <Typography variant="h6" gutterBottom>
+            Title (header of the page):
+          </Typography>
+          <TextField
+            fullWidth
+            multiline
+            rows={2}
+            value={title}
+            onChange={handleTitle}
+            variant="outlined"
+            placeholder="Enter the title"
+            sx={{ bgcolor: "background.paper" }}
+          />
+        </Box>
+
+        <Box sx={{ mb: 3 }}>
+          <Typography variant="h6" gutterBottom>
+            About the Founder (use markdown):
+          </Typography>
+          <TextField
+            fullWidth
+            multiline
+            rows={15}
+            value={founderText}
+            onChange={handleFounder}
+            variant="outlined"
+            placeholder="Enter text about the founder"
+            sx={{ bgcolor: "background.paper" }}
+          />
+        </Box>
+
+        <Box sx={{ mb: 3 }}>
+          <Typography variant="h6" gutterBottom>
+            About the Dev Team (use markdown):
+          </Typography>
+          <TextField
+            fullWidth
+            multiline
+            rows={15}
+            value={devText}
+            onChange={handleDev}
+            variant="outlined"
+            placeholder="Enter text about the dev team"
+            sx={{ bgcolor: "background.paper" }}
+          />
+        </Box>
+      </Box>
+
+      <Box
+        sx={{
+          flex: 1,
+          bgcolor: "background.paper",
+          p: 3,
+          borderRadius: 2,
+          boxShadow: 2,
+        }}
+      >
+        <Typography variant="h5" gutterBottom>
+          Preview:
+        </Typography>
+        <Typography variant="h6" gutterBottom>
+          {title}
+        </Typography>
         <Markdown remarkPlugins={[remarkGfm]}>{founderText}</Markdown>
         <Markdown remarkPlugins={[remarkGfm]}>{devText}</Markdown>
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 }
