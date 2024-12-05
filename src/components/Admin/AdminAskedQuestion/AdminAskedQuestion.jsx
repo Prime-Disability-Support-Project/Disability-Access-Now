@@ -28,7 +28,12 @@ export default function AdminUnansweredQuestions({ onAnswerQuestion }) {
 
   return (
     <Box sx={{ padding: 4 }}>
-      <Typography variant="h4" component={"h1"} sx={{ fontWeight: "bold" }} gutterBottom>
+      <Typography
+        variant="h4"
+        component={"h1"}
+        sx={{ fontWeight: "bold" }}
+        gutterBottom
+      >
         Unanswered Questions
       </Typography>
       {unansweredQuestions.length === 0 ? (
@@ -38,7 +43,15 @@ export default function AdminUnansweredQuestions({ onAnswerQuestion }) {
           {unansweredQuestions.map((question) => (
             <li key={question.id} style={{ marginBottom: 16 }}>
               <Card
-                sx={{ display: "flex", flexDirection: "column", padding: 2 }}
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  padding: 2,
+                  transition: "box-shadow 0.3s ease-in-out",
+                  "&:hover": {
+                    boxShadow: 3, 
+                  },
+                }}
               >
                 <CardContent>
                   {question.flagged && (
