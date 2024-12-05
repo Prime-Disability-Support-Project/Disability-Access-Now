@@ -18,7 +18,7 @@ const FAQ = () => {
   }, []);
 
   return (
-    <main>
+    <main id="content">
       <h1>FAQs</h1>
       <Markdown>{faq.body}</Markdown>
     </main>

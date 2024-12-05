@@ -22,7 +22,7 @@ export default function SavedResources() {
   };
 
   return (
-    <main>
+    <main id="content">
       <h1>Saved Resources</h1>
       <h2>Saved Articles</h2>
       <ul>

@@ -69,7 +69,7 @@ const AskQuestion = ({ articleId, close }) => {
 
   return (
     <>
-      <main>
+      <main id="content">
         <form onSubmit={handleSubmit} className="question-form">
           <h1>Ask A Question!</h1>
           <p>

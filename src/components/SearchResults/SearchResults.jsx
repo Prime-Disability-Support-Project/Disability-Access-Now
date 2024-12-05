@@ -39,7 +39,7 @@ const SearchResults = () => {
   }, [query]);
 
   return (
-    <main>
+    <main id="content">
       <h1>Search Results for "{query}":</h1>
       <h2>Articles:</h2>
       {articleResults.length > 0 ? (

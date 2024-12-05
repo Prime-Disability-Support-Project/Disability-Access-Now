@@ -31,7 +31,7 @@ export default function AdminQuestions() {
   };
 
   return (
-    <main>
+    <main id="content">
       <div className="tabs">
         <Button
           onClick={() => setView("unanswered")}
