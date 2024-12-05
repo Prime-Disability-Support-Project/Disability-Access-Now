@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import Button from '@mui/material/Button';
 
 export default function AdminManageLogins() {
   const dispatch = useDispatch();
@@ -44,8 +45,8 @@ export default function AdminManageLogins() {
             <li>
               <strong>Email Address:</strong> {user.email}
             </li>
-            <button onClick={() => handleApprove(user.id, user.email)}>Approve</button>
-            <button onClick={() => handleRemove(user.id)}>Remove User</button>
+            <Button onClick={() => handleApprove(user.id, user.email)} variant="contained">Approve</Button>
+            <Button onClick={() => handleRemove(user.id)} variant="outlined">Remove User</Button>
           </ul>
         );
       })}
@@ -64,15 +65,15 @@ export default function AdminManageLogins() {
               {user.role === 1 ? "User" : "Administrator"}
             </li>
             {user.role === 1 ? (
-              <button onClick={() => handleAdmin(user.id)}>
+              <Button onClick={() => handleAdmin(user.id)} variant="contained">
                 Grant Admin Privileges
-              </button>
+              </Button>
             ) : (
-              <button onClick={() => handleAdmin(user.id)}>
+              <Button onClick={() => handleAdmin(user.id)} variant="outlined">
                 Revoke Admin Privileges
-              </button>
+              </Button>
             )}
-            <button onClick={() => handleRemove(user.id)}>Remove User</button>
+            <Button onClick={() => handleRemove(user.id)} variant="text">Remove User</Button>
           </ul>
         );
       })}

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import React from "react";
 import { showOpenFilePicker } from 'native-file-system-adapter';
+import Button from '@mui/material/Button';
 
 // Uploads and Saves to the DB with one button!
 
@@ -67,7 +68,7 @@ export default function UploadPDF() {
   return (
     <div>
       {/* <p>PDF Title: {fileTitle}</p> */}
-      <button onClick={openFileHandler}>Upload New PDF</button>
+      <Button onClick={openFileHandler}>Upload New PDF</Button>
     </div>
   );
 }

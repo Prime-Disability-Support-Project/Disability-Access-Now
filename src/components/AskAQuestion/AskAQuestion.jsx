@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
+import Button from '@mui/material/Button';
 
 import "./AskAQuestion.css";
 
@@ -84,12 +85,12 @@ const AskQuestion = ({ articleId, close }) => {
           {successMessage && <div className="success">{successMessage}</div>}
           {error && <div className="error">{error}</div>}
 
-          <button type="submit" disabled={isLoading}>
+          <Button type="submit" disabled={isLoading} variant="contained">
             {isLoading ? "Submitting..." : "Submit Question"}
-          </button>
-          <button className="close-button" onClick={close}>
+          </Button>
+          <Button className="close-button" variant="outlined" onClick={close}>
             Close
-          </button>
+          </Button>
         </form>
       </main>
     </>

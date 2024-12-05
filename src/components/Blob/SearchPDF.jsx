@@ -1,6 +1,7 @@
 import { useState } from "react";
 import React from "react";
 import { showOpenFilePicker, showSaveFilePicker } from 'native-file-system-adapter';
+import Button from '@mui/material/Button';
 
 
 export default function SearchPDF({onSearch}){
@@ -70,7 +71,7 @@ export default function SearchPDF({onSearch}){
                 onChange={(e) => setSearchKeyword(e.target.value)}
                 placeholder="Search for PDFs"
                 />
-                <button onClick={searchHandler}>Search PDF Files</button>
+                <Button onClick={searchHandler}>Search PDF Files</Button>
             </div>
 
             {searchResults.length > 0 ? 
@@ -82,7 +83,7 @@ export default function SearchPDF({onSearch}){
                   
                     {searchResults.map((result) => (
                       <li key={result.id}>
-                      {result.filename} <button onClick={() => downloadFileHandler(result.filename)}>Download PDF</button>
+                      {result.filename} <Button onClick={() => downloadFileHandler(result.filename)}>Download PDF</Button>
                       </li>
                   ))}
                   

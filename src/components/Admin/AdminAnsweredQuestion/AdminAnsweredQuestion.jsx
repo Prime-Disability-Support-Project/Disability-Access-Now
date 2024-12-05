@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
+import Button from '@mui/material/Button';
 import "./AdminAnsweredQuestion.css";
 
 
@@ -44,9 +45,9 @@ export default function AdminAnsweredQuestions() {
                     "No article was associated with this question"
                   )}
                 </p>
-                <button onClick={() => handleDeleteQuestion(question.id)}>
+                <Button onClick={() => handleDeleteQuestion(question.id)} variant="outlined">
                   Delete Question
-                </button>
+                </Button>
               </li>
             </div>
           ))}

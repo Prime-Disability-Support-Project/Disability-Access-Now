@@ -1,6 +1,7 @@
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import Button from '@mui/material/Button';
 import Markdown from "react-markdown";
 import remarkGfm from 'remark-gfm'
 import "./AdminAddArticle.css";
@@ -61,12 +62,12 @@ export default function AdminAddArticle() {
     <div className="container">
       <div className="inputForm">
         <form>
-          <button type="submit" onClick={handleSave}>
+          <Button type="submit" onClick={handleSave} variant="contained">
             Save New Article
-          </button>
-          <button type="button" onClick={handleCancel}>
+          </Button>
+          <Button type="button" onClick={handleCancel} variant="outlined">
             Cancel
-          </button>
+          </Button>
           <div>
             <label htmlFor="title">Title:</label>
             <textarea

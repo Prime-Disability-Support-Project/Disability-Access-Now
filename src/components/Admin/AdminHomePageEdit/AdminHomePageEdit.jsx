@@ -1,6 +1,7 @@
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
+import Button from '@mui/material/Button';
 import axios from "axios";
 
 export default function AdminHomePageEdit() {
@@ -57,12 +58,12 @@ export default function AdminHomePageEdit() {
     <div className="container">
       <div className="editForm">
         <form>
-          <button type="submit" onClick={() => handleSave(event)}>
+          <Button type="submit" onClick={() => handleSave(event)} variant="contained">
             Save Changes
-          </button>
-          <button type="button" onClick={() => history.push('/adminManageResources')}>
+          </Button>
+          <Button type="button" onClick={() => history.push('/adminManageResources')} variant="outlined">
             Cancel
-          </button>
+          </Button>
           <div>
             <label htmlFor="title">Title:</label>
             <textarea

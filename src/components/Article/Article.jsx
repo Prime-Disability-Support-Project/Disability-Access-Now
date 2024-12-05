@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { downloadFileHandler } from "../Blob/downloadFile";
+import Button from '@mui/material/Button';
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import AskQuestion from "../AskAQuestion/AskAQuestion";
@@ -49,9 +50,9 @@ export default function Article() {
   return (
     <div>
       <div className="ask-title">
-        <button className="ask-button" onClick={close}>
-          Click here to ask a question about this article
-        </button>
+        <Button className="ask-button" onClick={close} variant="contained">
+          Ask a question about this article
+        </Button>
       </div>
       {/* Pop-up for asking a question */}
       {showPopup && (
@@ -61,16 +62,16 @@ export default function Article() {
           </div>
         </div>
       )}
-      <button onClick={() => history.goBack()}>Back</button>
+      <Button onClick={() => history.goBack()} variant="outlined">Back</Button>
       {/* Conditionally render Bookmark button if the article isn't already bookmarked */}
       {savedArticles.some(
         (article) => article["id"] === specificArticle["id"]
       ) ? (
-        <button onClick={() => removeArticle(specificArticle.id)}>
+        <Button onClick={() => removeArticle(specificArticle.id)}>
           Remove From Bookmarks
-        </button>
+        </Button>
       ) : (
-        <button onClick={handleBookmark}>Bookmark this Article</button>
+        <Button onClick={handleBookmark}>Bookmark this Article</Button>
       )}
       {/* <h1>{specificArticle.title}</h1>
       <h2>
@@ -86,9 +87,9 @@ export default function Article() {
             return (
               <li>
                 {file.filename}{" "}
-                <button onClick={() => downloadFileHandler(file.filename)}>
+                <Button onClick={() => downloadFileHandler(file.filename)} variant="contained">
                   Download PDF
-                </button>
+                </Button>
               </li>
             );
           })
