@@ -1,9 +1,10 @@
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import LogOutButton from "../LogOutButton/LogOutButton";
 import "./Nav.css";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import React, { useState, useEffect, useRef } from "react";
+
 
 // MUI Imports
 import { styled, alpha } from "@mui/material/styles";
@@ -22,6 +23,8 @@ import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import MenuIcon from "@mui/icons-material/Menu";
+
+import SkipLink from '@not-govuk/skip-link';
 
 // search mui imports
 const Search = styled("div")(({ theme }) => ({
@@ -71,7 +74,8 @@ function Nav() {
   const [searchTerm, setSearchTerm] = useState("");
   const history = useHistory();
   const [dropDownMenu, setDropDownMenu] = useState(false);
-  const dropDownRef = useRef(null);
+  const dropDownRef = useRef(null); 
+  const location = useLocation();
 
   const handleDropdownOpen = () => {
     setDropDownMenu(true);
@@ -158,8 +162,19 @@ function Nav() {
     }
   };
 
+  useEffect(() => {
+    return history.listen(() => {
+      const skipLink = document.getElementById('skip-to-content');
+    if (skipLink) {
+      skipLink.focus();
+    }
+    })
+  }, [history]);
+
   return (
     <Box sx={{ flexGrow: 1 }}>
+      {/* <a href="#content" className="skip-to-content">Skip to main content</a> */}
+      <SkipLink for="content" className="skip-to-content"/>
       <header>
         <AppBar position="static">
           <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
