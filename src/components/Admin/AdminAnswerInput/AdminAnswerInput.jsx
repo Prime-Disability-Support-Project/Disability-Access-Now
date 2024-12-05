@@ -1,14 +1,15 @@
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import Button from '@mui/material/Button';
+import { Button, Modal, Box, Typography } from "@mui/material";  // Material UI Modal and Button
 import axios from "axios";
 import "./AdminAnswerInput.css";
 
-export default function AdminAnswerInput({ question, onClose, onSubmit }) {
+export default function AdminAnswerInput({ question, onClose, onSubmit, onAnswerQuestion }) {
   const [answer, setAnswer] = useState("");
   const [user, setUser] = useState(null);
   const [article, setArticle] = useState(null);
   const [flagged, setFlagged] = useState();
+  
 
   const dispatch = useDispatch();
 
@@ -52,19 +53,33 @@ export default function AdminAnswerInput({ question, onClose, onSubmit }) {
       console.log("Error fetching question details:", error);
     });
   }
+  const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+    };
 
   return (
+
     <div className="answer-popup">
-      <div className="popup-content">
-        <div className="popup-header">
-          <h3>Answer Question</h3>
-          <Button className="close-button" onClick={onClose} variant="contained">
-            X
-          </Button>
-        </div>
-        <div className="question-details">
-          <div className="question-info">
-            <p>Username: {user?.name}</p>
+       {/* Modal Component */}
+     <Modal
+     open={onAnswerQuestion}
+     onClose={onClose} // Close modal when clicked outside
+     aria-labelledby="modal-modal-title"
+     aria-describedby="modal-modal-description"
+   >
+     <Box sx={{ ...style }}>
+       <Typography id="modal-modal-title" variant="h6" component="h2">
+       Answer Question 
+       </Typography>
+       <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+       <p>Username: {user?.name}</p>
             <p>Date Asked: {question.question_date}</p>
             <p>Associated Article: </p>{" "}
             {article ? (
@@ -72,17 +87,18 @@ export default function AdminAnswerInput({ question, onClose, onSubmit }) {
             ) : (
               <p>No article was associated with this question</p>
             )}
-          </div>
-          <p>Question: {question.question}</p>
-        </div>
-        <textarea
+
+       </Typography>
+       <Typography>
+       <p>Question: {question.question}</p>
+       </Typography>
+       <textarea
           className="answer-textarea"
           value={answer}
           onChange={(e) => setAnswer(e.target.value)}
           placeholder="Type your answer here"
         />
-        <div className="popup-actions">
-          <Button className="submit-button" onClick={handleSubmitAnswer} variant="contained">
+       <Button className="submit-button" onClick={handleSubmitAnswer} variant="contained">
             Submit Answer
           </Button>
           {flagged === false ? (
@@ -93,8 +109,8 @@ export default function AdminAnswerInput({ question, onClose, onSubmit }) {
           <Button className="cancel-button" onClick={onClose} variant="text">
             Cancel
           </Button>
-        </div>
-      </div>
+     </Box>
+   </Modal>
     </div>
   );
 }
