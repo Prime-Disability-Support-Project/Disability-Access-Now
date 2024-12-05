@@ -1,22 +1,66 @@
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { Box, Typography } from "@mui/material";
 import ArticleList from "../ArticleList/ArticleList";
 import FilesList from "../FilesList/FilesList";
-import "./FormsAndArticles.css";
 
-export default function FormsAndArticles() {
+export default function SavedResources() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch({ type: "FETCH_SAVED_ARTICLES" });
+    dispatch({ type: "FETCH_SAVED_FILES" });
+  }, [dispatch]);
+
   return (
-    <main className="forms-and-articles">
-      <h1>Forms and Articles</h1>
-      <section aria-labelledby="articles-section" className="content-section">
-        <h2 id="articles-section">Articles</h2>
-        <p>Below is a list of all available articles:</p>
+    <Box component="main" sx={{ p: 4 }}>
+      <Typography
+        variant="h4"
+        sx={{ fontWeight: "bold" }}
+        component={"h1"}
+        gutterBottom
+      >
+        Forms and Articles
+      </Typography>
+      <Box
+        sx={{
+          mb: 4,
+          p: 3,
+          bgcolor: "background.paper",
+          borderRadius: 2,
+          boxShadow: 2,
+        }}
+      >
+        <Typography
+          variant="h5"
+          sx={{ fontWeight: "bold" }}
+          component={"h2"}
+          gutterBottom
+          aria-label="Below is a list of all available articles"
+        >
+          Articles
+        </Typography>
         <ArticleList />
-      </section>
-
-      <section aria-labelledby="files-section" className="content-section">
-        <h2 id="files-section">Files</h2>
-        <p>Below is a list of all downloadable files:</p>
+      </Box>
+      <Box
+        sx={{
+          p: 3,
+          bgcolor: "background.default",
+          borderRadius: 2,
+          boxShadow: 2,
+        }}
+      >
+        <Typography
+          variant="h5"
+          sx={{ fontWeight: "bold" }}
+          component={"h2"}
+          gutterBottom
+          aria-label="Below is a list of all downloadable files"
+        >
+          Forms & Files
+        </Typography>
         <FilesList />
-      </section>
-    </main>
+      </Box>
+    </Box>
   );
 }
