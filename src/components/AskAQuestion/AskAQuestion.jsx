@@ -83,6 +83,10 @@ const AskQuestion = ({ articleId, close }) => {
     maxWidth: "1200",
   };
 
+  const magicQuestion = () => {
+    setQuestion(`Can I get Social Security disability benefits for any months before I apply?`)
+  }
+
   return (
     <div>
       <Modal
@@ -100,7 +104,7 @@ const AskQuestion = ({ articleId, close }) => {
             sx={{ mt: 2 }}
             component={"h2"}
           >
-            <p>
+            <p onClick={magicQuestion}>
               Ask a question to our admins and they will respond as soon as
               possible. These questions and answers are private to you.{" "}
             </p>
