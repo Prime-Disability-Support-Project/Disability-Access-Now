@@ -23,24 +23,24 @@ function sendAdminNotification(question, username) {
       const admins = result.rows;
       if (admins.length > 0) {
         const mailOptions = {
-          from: `"Support Team" <${process.env.GMAIL_USER}>`, // Sender address
+          from: `"Disability Access Now Support Team" <${process.env.GMAIL_USER}>`, // Sender address
           to: admins.map((admin) => admin.email).join(","), // Send to all admins
           subject: "New User Question", // Subject line
           text: `Hello,
 
-A new question has been posted by  ${username}:
+A new question has been posted by ${username}:
 
 Question: ${question.question}
 
-Please review and respond as needed.
+Please review and respond.
 
-Best regards,
-Support Team`, // Plain text body
+Thank you,
+Disability Access Now Support Team`, // Plain text body
           html: `<p>Hello,</p>
                  <p>A new question has been posted by <strong>${username}</strong>:</p>
                  <p><strong>Question:</strong> ${question.question}</p>
-                 <p>Please review and respond as needed.</p>
-                 <p>Best regards,<br>Support Team</p>`, // HTML body
+                 <p>Please review and respond.</p>
+                 <p>Thank you,<br>Disability Access Now Support Team</p>`, // HTML body
         };
 
         // Send email to the admins
@@ -61,11 +61,48 @@ Support Team`, // Plain text body
     });
 }
 
-// Email notification function to user
+// Email confirmation when they ask a question
+function sendNewUserNotification(question, email) {
+
+  const mailOptions = {
+    from: `"Disability Access Now Support Team" <${process.env.GMAIL_USER}>`, // Sender address
+    to: email, // user email
+    subject: "Disability Access Now - New Question Received", // Subject line
+    text: `Hello,
+
+Your question has been received:
+
+Question: ${question.question}
+
+Our admins will get back to you as soon as possible, and 
+you will receive an email notification when they post their answer.
+
+
+Thank you,
+Disability Access Now Support Team`, // Plain text body
+    html: `<p>Hello,</p>
+           <p>Your question has been received:</p>
+           <p><strong>Question:</strong> ${question.question}</p>
+           <p>Our admins will get back to you as soon as possible, and you will receive an email notification when they post their answer.</p>
+           <p>Thank you,<br>Disability Access Now Support Team</p>`, // HTML body
+  };
+
+  // Send email to the admins
+  transporter
+    .sendMail(mailOptions)
+    .then((info) => {
+      console.log("Email sent: " + info.response);
+    })
+    .catch((error) => {
+      console.error("Error sending email:", error);
+    });
+}
+
+// Email notification function to user when a new answer is posted
 function sendUserNotification(question, email) {
 
         const mailOptions = {
-          from: `"Support Team" <${process.env.GMAIL_USER}>`, // Sender address
+          from: `"Disability Access Now Support Team" <${process.env.GMAIL_USER}>`, // Sender address
           to: email, // user email
           subject: "Disability Access Now - New Admin Answer", // Subject line
           text: `Hello,
@@ -75,13 +112,13 @@ A new answer has been posted for one of your questions:
 Question: ${question.question}
 Answer: ${question.answer}
 
-Best regards,
-Support Team`, // Plain text body
+Thank you,
+Disability Access Now Support Team`, // Plain text body
           html: `<p>Hello,</p>
                  <p>A new response has been posted for one of your questions:</p>
                  <p><strong>Question:</strong> ${question.question}</p>
                  <p><strong>Answer:</strong> ${question.answer}</p>
-                 <p>Best regards,<br>Support Team</p>`, // HTML body
+                 <p>Thank you,<br>Disability Access Now Support Team</p>`, // HTML body
         };
 
         // Send email to the admins
@@ -94,6 +131,8 @@ Support Team`, // Plain text body
             console.error("Error sending email:", error);
           });
 }
+
+
 
 // Get all unanswered questions for the specific user - ordered by date
 router.get("/user-unanswered-questions", (req, res) => {
@@ -190,6 +229,7 @@ router.post("/new-question-without-article", async (req, res) => {
   // flagged = false
   const userId = req.user.id;
   const username = req.user.name;
+  const email = req.user.email
 
   try {
     const insertQuery = `INSERT INTO questions ("question", "answer", "answered", "unread", "associated_article_url", "question_date", "flagged", "user_id") 
@@ -211,6 +251,7 @@ router.post("/new-question-without-article", async (req, res) => {
 
     // Send email notification to admins about the new question
     sendAdminNotification(newQuestion, username);
+    sendNewUserNotification(newQuestion, email)
 
     res.sendStatus(201); // Created
   } catch (error) {
@@ -234,6 +275,8 @@ router.post("/new-question-with-article", async (req, res) => {
 
   const userId = req.user.id;
   const username = req.user.name;
+  const email = req.user.email
+
 
   try {
     const insertQuery = `INSERT INTO questions ("question", "answer", "answered", "unread", "associated_article_url", "question_date", "flagged", "user_id") 
@@ -255,6 +298,7 @@ router.post("/new-question-with-article", async (req, res) => {
 
     // Send email notification to admins about the new question
     sendAdminNotification(newQuestion, username);
+    sendNewUserNotification(newQuestion, email)
 
     res.sendStatus(201); // Created
   } catch (error) {
@@ -394,7 +438,6 @@ router.put("/admin-answer", (req, res) => {
   // unread = true
 
   const email = question.email
-  console.log('email', email)
 
   const params = [question.answer, true, true, question.questionId];
 
