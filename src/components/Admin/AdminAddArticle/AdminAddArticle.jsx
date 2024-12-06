@@ -58,6 +58,42 @@ export default function AdminAddArticle() {
     },
   };
 
+  const magicTitle = () => {
+    setTitle("SSI vs. SSDI: The Differences, Benefits, and How to Apply");
+  };
+
+  const magicMarkdown = () => {
+    setBody(`# SSI vs. SSDI: The Differences, Benefits, and How to Apply
+=========================================================
+
+## What Is Supplemental Security Income (SSI)?
+-------------------------------------------
+
+SSI provides minimum basic financial assistance to older adults and persons with disabilities (regardless of age) with very limited income and resources. Federal SSI benefits from the Social Security Administration are often supplemented by state programs.
+
+## What Is Social Security Disability Insurance (SSDI)?
+----------------------------------------------------
+
+SSDI supports individuals who are disabled and have a qualifying work history, either through their own employment or a family member (spouse/parent).
+
+## What Is the difference between SSI and SSDI?
+--------------------------------------------
+
+The major difference is that SSI determination is based on age/disability and limited income and resources, whereas SSDI determination is based on disability and work credits.
+
+In addition, in most states, an SSI recipient will automatically qualify for health care coverage through Medicaid. A person with SSDI will automatically qualify for Medicare after 24 months of receiving disability payments (individuals with amyotrophic lateral sclerosis [ALS] are eligible for Medicare immediately).
+
+## Can I receive both SSI and SSDI?
+
+Yes, it is possible that if you have both limited income/resources and a work history, you can qualify for both benefits.
+
+## How do I apply for SSI or SSDI?
+
+You can apply for SSI online only if you are an adult with a disability. SSI applications are not available online for people applying for a child under age 18 with a disability or a non-disabled senior aged 65+.
+
+You can apply for SSDI benefits online at any age. You also can apply by calling Social Security at the number above or at your local office.`);
+  };
+
   return (
     <Box
       sx={{
@@ -68,7 +104,7 @@ export default function AdminAddArticle() {
       }}
     >
       <Box sx={{ flex: 1 }}>
-      <Typography variant="h4" component={"h1"} gutterBottom>
+        <Typography variant="h4" component={"h1"} gutterBottom>
           Add New Article
         </Typography>
         <Box sx={{ display: "flex", gap: 2, mb: 3 }}>
@@ -80,7 +116,7 @@ export default function AdminAddArticle() {
           </Button>
         </Box>
         <Box sx={{ mb: 3 }}>
-          <Typography variant="h6" gutterBottom>
+          <Typography variant="h6" gutterBottom onClick={magicTitle}>
             Title (name of the article):
           </Typography>
           <TextField
@@ -96,7 +132,7 @@ export default function AdminAddArticle() {
           />
         </Box>
         <Box sx={{ mb: 3 }}>
-          <Typography variant="h6" gutterBottom>
+          <Typography variant="h6" gutterBottom onClick={magicMarkdown}>
             Body (use markdown):
           </Typography>
           <TextField
