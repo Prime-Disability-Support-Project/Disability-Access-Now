@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { Typography, Box } from "@mui/material";
 import Markdown from "react-markdown";
 import "./AboutUs.css";
 
@@ -38,39 +39,66 @@ export default function AboutUs() {
   }
 
   return (
-    <main id="content" tabIndex="-1">
-      <h1>{aboutUs.title}</h1>
-      <Markdown>{aboutUs.founderText}</Markdown>
-      <section aria-label="Founder's Bio">
-        <ul key={founderBio.id}>
-          <li className="founder-name">{founderBio.name}</li>
-          <li>{founderBio.bio}</li>
-          {founderBio.link && (
-            <li className="founder-link">
-              Connect with {founderBio.name} at {founderBio.link}
-            </li>
-          )}
-        </ul>
-      </section>
-      <Markdown>{aboutUs.devText}</Markdown>
-      <section aria-label="Dev Team Bios">
-        {studentBios.map((bio) => {
-          return (
-            <ul key={bio.id}>
-              <li className="student-name">{bio.name}</li>
-              {bio.bio && <li>{bio.bio}</li>}
-              {bio.link && (
-                <li className="student-link">
-                  Connect with {bio.name} on{" "}
-                  <a href={bio.link} target="blank">
-                    LinkedIn
-                  </a>
-                </li>
-              )}
-            </ul>
-          );
-        })}
-      </section>
-    </main>
+    <Box component="main" id="content" tabIndex="-1" sx={{ p: 4 }}>
+      <Typography
+        variant="h4"
+        sx={{ fontWeight: "bold" }}
+        component={"h1"}
+        gutterBottom
+      >
+        {aboutUs.title}
+      </Typography>
+      <Box
+        sx={{
+          mb: 4,
+          p: 3,
+          bgcolor: "background.paper",
+          borderRadius: 2,
+          boxShadow: 2,
+        }}
+      >
+        <Markdown>{aboutUs.founderText}</Markdown>
+        <section aria-label="Founder's Bio">
+          <ul key={founderBio.id} className="bios">
+            <li className="founder-name">{founderBio.name}</li>
+            <li>{founderBio.bio}</li>
+            {founderBio.link && (
+              <li className="founder-link">
+                Connect with {founderBio.name} at {founderBio.link}
+              </li>
+            )}
+          </ul>
+        </section>
+      </Box>
+      <Box
+        sx={{
+          mb: 4,
+          p: 3,
+          bgcolor: "background.paper",
+          borderRadius: 2,
+          boxShadow: 2,
+        }}
+      >
+        <Markdown>{aboutUs.devText}</Markdown>
+        <section aria-label="Dev Team Bios">
+          {studentBios.map((bio) => {
+            return (
+              <ul key={bio.id} className="bios">
+                <li className="student-name">{bio.name}</li>
+                {bio.bio && <li>{bio.bio}</li>}
+                {bio.link && (
+                  <li className="student-link">
+                    Connect with {bio.name} on{" "}
+                    <a href={bio.link} target="blank">
+                      LinkedIn
+                    </a>
+                  </li>
+                )}
+              </ul>
+            );
+          })}
+        </section>
+      </Box>
+    </Box>
   );
 }

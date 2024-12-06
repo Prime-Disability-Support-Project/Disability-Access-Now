@@ -7,3 +7,8 @@
 .student-link {
   font-style: italic;
 }
+
+
+.bios ul{
+  padding-left: 0;
+}
