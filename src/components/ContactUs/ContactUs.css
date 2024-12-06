@@ -1,4 +1,4 @@
-.contact  {
+/* .contact  {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -9,19 +9,19 @@
     background-color: #f4f7f9;
     color: #333;
     line-height: 1.6;
-}
+} */
 
-.contact{
+/* .contact{
     padding: 20px;
     margin: 20px auto;
     max-width: 800px;
-    background-color: #ffffff; /* White background for readability */
-    border: 1px solid #ccc;  /* Light border for separation */
-    border-radius: 8px;       /* Rounded corners */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow */
-}
+    background-color: #ffffff; 
+    border: 1px solid #ccc;  
+    border-radius: 8px;      
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+} */
 
-.contact h1 {
+/* .contact h1 {
     font-size: 2rem;
     margin-bottom: 10px;
 }
@@ -44,9 +44,9 @@
     color: #0275d8;
     text-decoration: none;
     font-weight: 600;
-}
+} */
 
-.contact a:focus, .contact a:hover {
+/* .contact a:focus, .contact a:hover {
     text-decoration: underline;
 }
 
@@ -66,4 +66,4 @@
     .contact p {
         font-size: 0.95rem;
     }
-}
+} */
