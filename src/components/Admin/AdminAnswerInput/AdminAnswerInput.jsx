@@ -84,7 +84,7 @@ export default function AdminAnswerInput({
           </Typography>
           <Typography sx={{ mt: 2 }}>
             <p>Username: {user?.name}</p>
-            <p>Date Asked: {question.question_date}</p>
+            <p>Date Submitted: {question.question_date.split("T")[0]}</p>
             <p>
               Associated Article:{" "}
               {article ? (

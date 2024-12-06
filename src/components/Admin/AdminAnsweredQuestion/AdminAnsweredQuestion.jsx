@@ -59,7 +59,7 @@ export default function AdminAnsweredQuestions() {
                     <strong>Answer:</strong> {question.answer}
                   </Typography>
                   <Typography variant="body1" sx={{ marginBottom: 1 }}>
-                    <strong>Date Submitted:</strong> {question.question_date}
+                    <strong>Date Submitted:</strong> {question.question_date.split("T")[0]}
                   </Typography>
                   <Typography variant="body1" sx={{ marginBottom: 2 }}>
                     <strong>Associated Article:</strong>{" "}
