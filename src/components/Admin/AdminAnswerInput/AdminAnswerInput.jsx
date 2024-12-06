@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { Button, Modal, Box, Typography, TextField } from "@mui/material"; 
+import { Button, Modal, Box, Typography, TextField } from "@mui/material";
 import axios from "axios";
 import "./AdminAnswerInput.css";
 
@@ -69,7 +69,13 @@ export default function AdminAnswerInput({
     boxShadow: 24,
     p: 4,
     width: { xs: "90%", sm: "70%", md: "50%", lg: "40%" },
-    maxWidth: "1200"
+    maxWidth: "1200",
+  };
+
+  const magicAnswer = () => {
+    setAnswer(
+      `We may pay Social Security disability benefits for as many as 12 months before you apply if we find you had disability during that time and you meet all other requirements. Generally, there is a five-month waiting period and we’ll pay your first benefit the sixth full month after the date we find your disability began.`
+    );
   };
 
   return (
@@ -80,12 +86,22 @@ export default function AdminAnswerInput({
         aria-labelledby="modal-modal-title"
       >
         <Box component={"form"} sx={{ ...style }}>
-          <Typography id="modal-modal-title" variant="h6" component="h1" sx={{fontWeight: "bold"}}>
+          <Typography
+            id="modal-modal-title"
+            variant="h6"
+            component="h1"
+            sx={{ fontWeight: "bold" }}
+          >
             Answer Question
           </Typography>
           <Typography sx={{ mt: 2 }}>
-            <p><strong>Name:</strong> {user?.name}</p>
-            <p><strong>Date Submitted:</strong> {question.question_date.split("T")[0]}</p>
+            <p>
+              <strong>Name:</strong> {user?.name}
+            </p>
+            <p>
+              <strong>Date Submitted:</strong>{" "}
+              {question.question_date.split("T")[0]}
+            </p>
             <p>
               <strong>Associated Article:</strong>
               {article ? (
@@ -96,7 +112,9 @@ export default function AdminAnswerInput({
             </p>
           </Typography>
           <Typography>
-            <p><strong>Question:</strong> {question.question}</p>
+            <p onClick={magicAnswer}>
+              <strong>Question:</strong> {question.question}
+            </p>
           </Typography>
           <TextField
             className="answer-textarea"
@@ -124,7 +142,12 @@ export default function AdminAnswerInput({
                 Question has been flagged for help
               </Button>
             )}
-            <Button className="cancel-button" onClick={onClose} variant="text" color="error">
+            <Button
+              className="cancel-button"
+              onClick={onClose}
+              variant="text"
+              color="error"
+            >
               Cancel
             </Button>
           </Box>
