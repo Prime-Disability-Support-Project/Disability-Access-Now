@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { downloadFileHandler } from "../Blob/downloadFile";
-import Button from '@mui/material/Button';
+import {
+  Box,
+  Button,
+  Typography,
+  List,
+  ListItem,
+  ListItemText,
+} from "@mui/material";
 import axios from "axios";
-import Markdown from "react-markdown";
-import remarkGfm from "remark-gfm";
+
 
 export default function FormsYouShouldStartWith() {
   const dispatch = useDispatch();
@@ -29,25 +35,60 @@ export default function FormsYouShouldStartWith() {
   }, []);
 
   return (
-    <main id="content" tabIndex="-1">
-      <h1>Forms You Should Start With</h1>
-      <h2>Just getting started? We recommend checking out these forms first:</h2>
-      <ul>
-        {associatedFiles.length > 0 ? (
-          associatedFiles.map((file) => {
-            return (
-              <li key={file.id}>
-                {file.filename}
-                <Button onClick={() => downloadFileHandler(file.filename)} variant="contained">
-                  Download PDF
-                </Button>
-              </li>
-            );
-          })
-        ) : (
-          <p>No Associated Files</p>
-        )}
-      </ul>
-    </main>
+    <Box component="main" id="content" tabIndex="-1" sx={{ p: 4 }}>
+      <Typography
+        variant="h4"
+        sx={{ fontWeight: "bold" }}
+        component={"h1"}
+        gutterBottom
+      >
+        Forms You Should Start With
+      </Typography>{" "}
+      <Box
+        sx={{
+          p: 3,
+          bgcolor: "background.default",
+          borderRadius: 2,
+          boxShadow: 2,
+        }}
+      >
+        <Typography
+          variant="h5"
+          sx={{ fontWeight: "bold" }}
+          component={"h2"}
+          gutterBottom
+        >
+          Just getting started? We recommend checking out these forms:
+        </Typography>
+        <List>
+          {associatedFiles.length > 0 ? (
+            associatedFiles.map((file) => {
+              return (
+                <ListItem
+                  key={file.id}
+                  sx={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                  }}
+                >
+                  <ListItemText primary={file.filename} />
+                  <Box sx={{ display: "flex", gap: 2 }}>
+                    <Button
+                      onClick={() => downloadFileHandler(file.filename)}
+                      variant="contained"
+                    >
+                      Download PDF
+                    </Button>
+                  </Box>
+                </ListItem>
+              );
+            })
+          ) : (
+            <p>No Associated Files</p>
+          )}
+        </List>
+      </Box>
+    </Box>
   );
 }
