@@ -7,6 +7,7 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import "./AdminAnsweredQuestion.css";
+import Swal from "sweetalert2";
 
 export default function AdminAnsweredQuestions() {
   const dispatch = useDispatch();
@@ -19,10 +20,35 @@ export default function AdminAnsweredQuestions() {
   }, [dispatch]);
 
   const handleDeleteQuestion = (questionId) => {
-    axios.delete(`/api/questions/${questionId}`).then(() => {
-      dispatch({ type: "FETCH_ADMIN_ANSWERED" });
+    // Show a confirmation dialog
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this action!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Proceed with deletion if confirmed
+        axios
+          .delete(`/api/questions/${questionId}`)
+          .then(() => {
+            // Refresh the list of answered questions after successful deletion
+            dispatch({ type: "FETCH_ADMIN_ANSWERED" });
+  
+            // Show success alert
+            Swal.fire("Deleted!", "The question has been deleted.", "success");
+          })
+          .catch((error) => {
+            // Show error alert if deletion fails
+            Swal.fire("Error!", "There was an issue deleting the question.", "error");
+          });
+      }
     });
   };
+  
 
   return (
     <Box sx={{ padding: 4 }}>
