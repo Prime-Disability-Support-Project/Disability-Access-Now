@@ -3,13 +3,13 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect } from "react";
-import Button from '@mui/material/Button';
+import Button from "@mui/material/Button";
 
 function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const errors = useSelector((store) => store.errors);
-  const nav = useSelector(store => store.pending)
+  const nav = useSelector((store) => store.pending);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -17,27 +17,36 @@ function LoginForm() {
     event.preventDefault();
 
     if (email && password) {
-        dispatch({
-          type: "LOGIN",
-          payload: {
-            email: email,
-            password: password,
-          },
-        });
+      dispatch({
+        type: "LOGIN",
+        payload: {
+          email: email,
+          password: password,
+        },
+      });
     } else {
       dispatch({ type: "LOGIN_INPUT_ERROR" });
     }
   }; // end login
 
-
   // When a user logs in, nav is set to '/pending' if the user isn't approved
   // The user is logged out, then pushed to the Pending Approval page
   useEffect(() => {
-    if(nav === '/pending'){
-    history.push(nav)
-    dispatch({ type: 'CLEAR_NAV' });
+    if (nav === "/pending") {
+      history.push(nav);
+      dispatch({ type: "CLEAR_NAV" });
     }
   }, [nav]);
+
+  const magicUser = () => {
+    setEmail("evan.bouman@gmail.com");
+    setPassword("password");
+  };
+
+  const magicAdmin = () => {
+    setEmail("primedisabilitysupp@gmail.com");
+    setPassword("password");
+  };
 
   return (
     <form className="formPanel" onSubmit={login}>
@@ -48,7 +57,7 @@ function LoginForm() {
         </h3>
       )}
       <div>
-        <label htmlFor="email">
+        <label htmlFor="email" onClick={magicUser}>
           Email:
           <input
             type="text"
@@ -60,7 +69,7 @@ function LoginForm() {
         </label>
       </div>
       <div>
-        <label htmlFor="password">
+        <label htmlFor="password" onClick={magicAdmin}>
           Password:
           <input
             type="password"
@@ -72,7 +81,9 @@ function LoginForm() {
         </label>
       </div>
       <div>
-        <Button type="submit" name="submit" value="Log In" variant="contained">Login</Button>
+        <Button type="submit" name="submit" value="Log In" variant="contained">
+          Login
+        </Button>
         {/* <input className="btn" type="submit" name="submit" value="Log In" /> */}
       </div>
     </form>
