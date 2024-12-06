@@ -67,7 +67,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 function Nav() {
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
-  const [unreadAnswers, setUnreadAnswers] = useState();
+  const [unreadAnswers, setUnreadAnswers] = useState(null);
   const [unreadQuestions, setUnreadQuestions] = useState();
   const [searchTerm, setSearchTerm] = useState("");
   const history = useHistory();
@@ -219,7 +219,7 @@ function Nav() {
                 />
               </Search>
             )}
-            {user.id && user.role === 1 && (
+            {user.id && user.role === 1 && unreadAnswers > 0 && (
               <Box sx={{ display: { xs: "none", md: "flex" } }}>
                 <IconButton
                   size="large"
@@ -228,13 +228,15 @@ function Nav() {
                   component={Link}
                   to="/userQuestions"
                 >
-                  <Badge badgeContent={unreadAnswers} color="error">
-                    <MailIcon />
-                  </Badge>
+                       <Badge badgeContent={unreadAnswers} color="error">
+                         <MailIcon />
+                       </Badge>
+               
+                  
                 </IconButton>
               </Box>
             )}
-            {user.id && user.role === 2 && (
+            {user.id && user.role === 2 && unreadQuestions > 0 && (
               <Box sx={{ display: { xs: "none", md: "flex" } }}>
                 <IconButton
                   size="large"
