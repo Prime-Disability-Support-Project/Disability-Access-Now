@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Box, Grid, Card, CardContent, Typography, Button } from "@mui/material";
+import Swal from "sweetalert2";
+
 
 export default function AdminManageLogins() {
   const dispatch = useDispatch();
@@ -25,8 +27,25 @@ export default function AdminManageLogins() {
   };
 
   const handleRemove = (userId) => {
-    dispatch({ type: "REMOVE_USER", payload: userId });
-  };
+    Swal.fire({
+      title: 'Are you sure you want to remove this user?',
+      text: '',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Yes!',
+  }).then((result) => {
+    if (result.isConfirmed) {
+      dispatch({ type: "REMOVE_USER", payload: userId });
+      Swal.fire(
+        'Removed!',
+        'The user has been removed.',
+        'success'
+      );
+    }
+  });
+}
 
   return (
     <Box component={"main"} id="content" tabIndex="-1" sx={{ padding: 4 }}>
