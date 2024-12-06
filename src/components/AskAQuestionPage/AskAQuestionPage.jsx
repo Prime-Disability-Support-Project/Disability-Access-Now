@@ -19,7 +19,7 @@ export default function AskAQuestionPage() {
     <main id="content" tabIndex="-1" className="ask-a-question-page">
       <Container sx={{ padding: 4 }}>
         <Typography
-          variant="h3"
+          variant="h4"
           component="h1"
           sx={{ fontWeight: "bold", marginBottom: 2 }}
         >

@@ -174,7 +174,7 @@ function Nav() {
         Skip to main content
       </a>
       <header>
-        <AppBar position="static">
+        <AppBar position="static" sx={{borderRadius: 3}}>
           <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
             <Typography
               variant="h4"
