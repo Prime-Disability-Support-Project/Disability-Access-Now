@@ -30,7 +30,7 @@ function sendAdminNotification(question, username) {
 
 A new question has been posted by ${username}:
 
-Question: ${question.question}
+Question: ${question}
 
 Please review and respond.
 
@@ -38,7 +38,7 @@ Thank you,
 Disability Access Now Support Team`, // Plain text body
           html: `<p>Hello,</p>
                  <p>A new question has been posted by <strong>${username}</strong>:</p>
-                 <p><strong>Question:</strong> ${question.question}</p>
+                 <p><strong>Question:</strong> ${question}</p>
                  <p>Please review and respond.</p>
                  <p>Thank you,<br>Disability Access Now Support Team</p>`, // HTML body
         };
@@ -72,7 +72,7 @@ function sendNewUserNotification(question, email) {
 
 Your question has been received:
 
-Question: ${question.question}
+Question: ${question}
 
 Our admins will get back to you as soon as possible, and 
 you will receive an email notification when they post their answer.
@@ -82,7 +82,7 @@ Thank you,
 Disability Access Now Support Team`, // Plain text body
     html: `<p>Hello,</p>
            <p>Your question has been received:</p>
-           <p><strong>Question:</strong> ${question.question}</p>
+           <p><strong>Question:</strong> ${question}</p>
            <p>Our admins will get back to you as soon as possible, and you will receive an email notification when they post their answer.</p>
            <p>Thank you,<br>Disability Access Now Support Team</p>`, // HTML body
   };
@@ -265,6 +265,7 @@ router.post("/new-question-without-article", async (req, res) => {
 
 // POST a new question with an associated article
 router.post("/new-question-with-article", async (req, res) => {
+  console.log('req.body', req.body)
   const question = req.body.question;
   // answer = null
   // answered = false
@@ -294,11 +295,10 @@ router.post("/new-question-with-article", async (req, res) => {
     const result = await pool.query(insertQuery, insertParams);
 
     const newQuestion = result.rows[0];
-    console.log("New question added:", newQuestion);
 
     // Send email notification to admins about the new question
-    sendAdminNotification(newQuestion, username);
-    sendNewUserNotification(newQuestion, email)
+    sendAdminNotification(question, username);
+    sendNewUserNotification(question, email)
 
     res.sendStatus(201); // Created
   } catch (error) {
