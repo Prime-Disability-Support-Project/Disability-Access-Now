@@ -83,10 +83,10 @@ export default function AdminAnswerInput({
             Answer Question
           </Typography>
           <Typography sx={{ mt: 2 }}>
-            <p>Username: {user?.name}</p>
-            <p>Date Submitted: {question.question_date.split("T")[0]}</p>
+            <p><strong>Name:</strong> {user?.name}</p>
+            <p><strong>Date Submitted:</strong> {question.question_date.split("T")[0]}</p>
             <p>
-              Associated Article:{" "}
+              <strong>Associated Article:</strong>
               {article ? (
                 <a href={article}>{article}</a>
               ) : (
@@ -95,7 +95,7 @@ export default function AdminAnswerInput({
             </p>
           </Typography>
           <Typography>
-            <p>Question: {question.question}</p>
+            <p><strong>Question:</strong> {question.question}</p>
           </Typography>
           <TextField
             className="answer-textarea"
