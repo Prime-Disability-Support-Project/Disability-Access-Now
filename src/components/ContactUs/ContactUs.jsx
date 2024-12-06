@@ -54,7 +54,11 @@ function Contact() {
           boxShadow: 2,
         }}
       >
-        <Typography variant="h6" component="h2" sx={{ marginBottom: "1rem" }}>
+        <Typography
+          variant="h6"
+          component="h2"
+          sx={{ marginBottom: "1rem", fontWeight: "bold" }}
+        >
           Disclaimer:
         </Typography>
         <Typography sx={{ marginBottom: "1rem" }}>

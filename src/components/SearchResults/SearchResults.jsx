@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { downloadFileHandler } from "../Blob/downloadFile"; // util function for downloading pdf files
-import Button from "@mui/material/Button";
+import {
+  Box,
+  Button,
+  Typography,
+  List,
+  ListItem,
+  ListItemText,
+} from "@mui/material";
 
 const SearchResults = () => {
   const [fileResults, setFileResults] = useState([]);
@@ -39,41 +46,105 @@ const SearchResults = () => {
   }, [query]);
 
   return (
-    <main id="content" tabIndex="-1">
-      <h1>Search Results for "{query}":</h1>
-      <h2>Articles:</h2>
-      {articleResults.length > 0 ? (
-        <ul>
-          {articleResults.map((result) => (
-            <li key={result.id}>
-              <a href={`http://localhost:5173/#/articlePage/${result.id}`}>
-                {result.name}
-              </a>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>No search results found in articles.</p>
-      )}
-      <h2>Files:</h2>
-      {fileResults.length > 0 ? (
-        <ul>
-          {fileResults.map((result) => (
-            <li key={result.id}>
-              {result.name}
-              <Button
-                onClick={() => downloadFileHandler(result.name)}
-                variant="contained"
+    <Box component="main" id="content" tabIndex="-1" sx={{ p: 4 }}>
+      <Typography
+        variant="h4"
+        sx={{ fontWeight: "bold" }}
+        component={"h1"}
+        gutterBottom
+      >
+        Search Results for "{query}":
+      </Typography>
+      <Box
+        sx={{
+          mb: 4,
+          p: 3,
+          bgcolor: "background.paper",
+          borderRadius: 2,
+          boxShadow: 2,
+        }}
+      >
+        <Typography
+          variant="h5"
+          sx={{ fontWeight: "bold" }}
+          component={"h2"}
+          gutterBottom
+        >
+          Articles{" "}
+        </Typography>{" "}
+        {articleResults.length > 0 ? (
+          <List>
+            {articleResults.map((result) => (
+              <ListItem
+                key={result.id}
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
               >
-                Download PDF
-              </Button>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>No search results found in files.</p>
-      )}
-    </main>
+                <ListItemText
+                  primary={
+                    <a
+                      href={`http://localhost:5173/#/articlePage/${result.id}`}
+                    >
+                      {result.name}
+                    </a>
+                  }
+                />
+              </ListItem>
+            ))}
+          </List>
+        ) : (
+          <p>No search results found in articles.</p>
+        )}
+      </Box>
+      <Box
+        sx={{
+          mb: 4,
+          p: 3,
+          bgcolor: "background.paper",
+          borderRadius: 2,
+          boxShadow: 2,
+        }}
+      >
+        <Typography
+          variant="h5"
+          sx={{ fontWeight: "bold" }}
+          component={"h2"}
+          gutterBottom
+        >
+          Files{" "}
+        </Typography>{" "}
+        {fileResults.length > 0 ? (
+          <List>
+            {fileResults.map((result) => (
+              <ListItem
+                key={result.id}
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
+                <ListItemText primary={result.name} />
+                <Box sx={{ display: "flex", gap: 2 }}>
+                  <Button
+                    onClick={() => downloadFileHandler(file.filename)}
+                    variant="contained"
+                    size="small"
+                  >
+                    Download PDF
+                  </Button>
+                </Box>
+              </ListItem>
+            ))}
+          </List>
+        ) : (
+          <p>No search results found in files.</p>
+        )}
+      </Box>
+    </Box>
   );
 };
 

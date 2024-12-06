@@ -3,7 +3,14 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { downloadFileHandler } from "../Blob/downloadFile";
-import Button from "@mui/material/Button";
+import {
+  Box,
+  Button,
+  Typography,
+  List,
+  ListItem,
+  ListItemText,
+} from "@mui/material";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import AskQuestion from "../AskAQuestion/AskAQuestion";
@@ -49,11 +56,13 @@ export default function Article() {
 
   return (
     <main id="content" tabIndex="-1">
-      <Button className="ask-button" onClick={close} variant="contained"
+      <Button
+        className="ask-button"
+        onClick={close}
+        variant="contained"
         aria-label="Ask a question about this article"
-
       >
-        Ask a question about this article 
+        Ask a question about this article
       </Button>
       {/* Pop-up for asking a question */}
       {showPopup && (
@@ -63,50 +72,76 @@ export default function Article() {
           </div>
         </div>
       )}
-      <Button onClick={() => history.goBack()} variant="outlined" aria-label="Go back to the previous page">
+      <Button
+        onClick={() => history.goBack()}
+        variant="outlined"
+        aria-label="Go back to the previous page"
+      >
         Back
       </Button>
       {/* Conditionally render Bookmark button if the article isn't already bookmarked */}
       {savedArticles.some(
         (article) => article["id"] === specificArticle["id"]
       ) ? (
-        <Button onClick={() => removeArticle(specificArticle.id)}
-        aria-label="Remove this article from bookmarks"
-
+        <Button
+          onClick={() => removeArticle(specificArticle.id)}
+          aria-label="Remove this article from bookmarks"
         >
           Remove From Bookmarks
         </Button>
       ) : (
-        <Button onClick={handleBookmark}
-        aria-label="Bookmark this article"
-
-        >Bookmark this Article</Button>
+        <Button onClick={handleBookmark} aria-label="Bookmark this article">
+          Bookmark this Article
+        </Button>
       )}
       <Markdown className="article" remarkPlugins={[remarkGfm]}>
         {specificArticle.body}
       </Markdown>
-      <h2>Associated Files:</h2>
-      <ul>
-        {associatedFiles.length > 0 ? (
-          associatedFiles.map((file) => {
-            return (
-              <li>
-                {file.filename}{" "}
-                <Button
-                  onClick={() => downloadFileHandler(file.filename)}
-                  variant="contained"
-                  aria-label={`Download PDF for ${file.filename}`}
-
+      <Box
+        sx={{
+          mb: 4,
+          p: 3,
+          bgcolor: "background.paper",
+          borderRadius: 2,
+          boxShadow: 2,
+        }}
+      >
+        <Typography
+          variant="h5"
+          sx={{ fontWeight: "bold" }}
+          component={"h2"}
+          gutterBottom
+        >
+          Associated Files:
+        </Typography>
+        <List>
+          {associatedFiles.length > 0 ? (
+            associatedFiles.map((file) => {
+              return (
+                <ListItem
+                  key={file.id}
+                  sx={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                  }}
                 >
-                  Download PDF
-                </Button>
-              </li>
-            );
-          })
-        ) : (
-          <p>No Associated Files</p>
-        )}
-      </ul>
+                  <ListItemText primary={file.filename} />
+                  <Button
+                    onClick={() => downloadFileHandler(file.filename)}
+                    variant="contained"
+                    aria-label={`Download PDF for ${file.filename}`}
+                  >
+                    Download PDF
+                  </Button>
+                </ListItem>
+              );
+            })
+          ) : (
+            <p>No Associated Files</p>
+          )}
+        </List>
+      </Box>
     </main>
   );
 }
