@@ -52,6 +52,15 @@ function App() {
     typography: {
       fontFamily: "Work Sans, Arial, Helvetica, sans-serif"
     },
+    components: {
+      MuiButton: {
+        styleOverrides: {
+          root: {
+            borderRadius: 8,
+          },
+        }, 
+      }, 
+    },
   });
 
   return (
