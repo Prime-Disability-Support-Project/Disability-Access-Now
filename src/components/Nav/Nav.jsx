@@ -219,7 +219,7 @@ function Nav() {
                 />
               </Search>
             )}
-            {user.id && user.role === 1 && (
+            {user.id && user.role === 1 && unreadAnswers > 1 && (
               <Box sx={{ display: { xs: "none", md: "flex" } }}>
                 <IconButton
                   size="large"
@@ -234,7 +234,7 @@ function Nav() {
                 </IconButton>
               </Box>
             )}
-            {user.id && user.role === 2 && (
+            {user.id && user.role === 2 && unreadQuestions > 1 &&  (
               <Box sx={{ display: { xs: "none", md: "flex" } }}>
                 <IconButton
                   size="large"
