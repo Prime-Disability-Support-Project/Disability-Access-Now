@@ -173,8 +173,7 @@ function Nav() {
       >
         Skip to main content
       </a>
-      <header>
-        <AppBar position="static" sx={{borderRadius: 3}}>
+        <AppBar position="static">
           <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
             <Typography
               variant="h4"
@@ -197,7 +196,7 @@ function Nav() {
                   variant="h6"
                   noWrap
                   component="div"
-                  sx={{ display: { xs: "none", sm: "block" }, marginLeft: 2 }}
+                  sx={{ display: { xs: "none", sm: "block" } }}
                 >
                   Welcome, {user.name}
                 </Typography>
@@ -254,7 +253,6 @@ function Nav() {
             <Box sx={{ display: { xs: "flex", md: "none" } }}></Box>
           </Toolbar>
         </AppBar>
-      </header>
       <nav>
         {user.id && (
           <ul

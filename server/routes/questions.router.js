@@ -248,10 +248,11 @@ router.post("/new-question-without-article", async (req, res) => {
 
     const newQuestion = result.rows[0]; // This will now have the inserted question
     console.log("New question added:", newQuestion);
+    const newQuestionText = newQuestion.question
 
     // Send email notification to admins about the new question
-    sendAdminNotification(newQuestion, username);
-    sendNewUserNotification(newQuestion, email)
+    sendAdminNotification(newQuestionText, username);
+    sendNewUserNotification(newQuestionText, email)
 
     res.sendStatus(201); // Created
   } catch (error) {
