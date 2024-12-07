@@ -20,6 +20,7 @@ export default function Home() {
         setTitle(homeResponse.title);
         setBody(homeResponse.body);
         setLinkHeader(homeResponse.linkHeader);
+        // document.getElementById("content").focus();
       })
       .catch((error) => {
         console.log("Error fetching Home content:", error);
