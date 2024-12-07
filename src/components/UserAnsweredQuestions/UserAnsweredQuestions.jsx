@@ -36,6 +36,7 @@ export default function UserAnsweredQuestions() {
                   display: "flex",
                   flexDirection: "column",
                   padding: 2,
+                  backgroundColor: question.unread && "rgba(18, 87, 155, 0.08)",
                   transition: "box-shadow 0.3s ease-in-out",
                   "&:hover": {
                     boxShadow: 3,
