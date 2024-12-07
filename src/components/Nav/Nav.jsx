@@ -67,7 +67,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 function Nav() {
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
-  const [unreadAnswers, setUnreadAnswers] = useState(null);
+  const [unreadAnswers, setUnreadAnswers] = useState();
   const [unreadQuestions, setUnreadQuestions] = useState();
   const [searchTerm, setSearchTerm] = useState("");
   const history = useHistory();
@@ -173,7 +173,8 @@ function Nav() {
       >
         Skip to main content
       </a>
-        <AppBar position="static">
+      <header>
+        <AppBar position="static" sx={{borderRadius: 3}}>
           <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
             <Typography
               variant="h4"
@@ -196,7 +197,7 @@ function Nav() {
                   variant="h6"
                   noWrap
                   component="div"
-                  sx={{ display: { xs: "none", sm: "block" } }}
+                  sx={{ display: { xs: "none", sm: "block" }, marginLeft: 2 }}
                 >
                   Welcome, {user.name}
                 </Typography>
@@ -218,7 +219,7 @@ function Nav() {
                 />
               </Search>
             )}
-            {user.id && user.role === 1 && unreadAnswers > 0 && (
+            {user.id && user.role === 1 && (
               <Box sx={{ display: { xs: "none", md: "flex" } }}>
                 <IconButton
                   size="large"
@@ -227,15 +228,13 @@ function Nav() {
                   component={Link}
                   to="/userQuestions"
                 >
-                       <Badge badgeContent={unreadAnswers} color="error">
-                         <MailIcon />
-                       </Badge>
-               
-                  
+                  <Badge badgeContent={unreadAnswers} color="error">
+                    <MailIcon />
+                  </Badge>
                 </IconButton>
               </Box>
             )}
-            {user.id && user.role === 2 && unreadQuestions > 0 && (
+            {user.id && user.role === 2 && (
               <Box sx={{ display: { xs: "none", md: "flex" } }}>
                 <IconButton
                   size="large"
@@ -253,6 +252,7 @@ function Nav() {
             <Box sx={{ display: { xs: "flex", md: "none" } }}></Box>
           </Toolbar>
         </AppBar>
+      </header>
       <nav>
         {user.id && (
           <ul
