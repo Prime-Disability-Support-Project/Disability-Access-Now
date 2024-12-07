@@ -109,11 +109,7 @@ export default function Article() {
       </Box>
       {/* Pop-up for asking a question */}
       {showPopup && (
-        <div className="popup-container">
-          <div className="popup-content">
-            <AskQuestion articleId={specificArticle.id} close={close} />
-          </div>
-        </div>
+        <AskQuestion articleId={specificArticle.id} close={close} />
       )}
       <Box>
         <Button
