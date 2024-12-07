@@ -11,6 +11,8 @@ import {
   ListItem,
   ListItemText,
 } from "@mui/material";
+import BookmarkIcon from "@mui/icons-material/Bookmark";
+import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import AskQuestion from "../AskAQuestion/AskAQuestion";
@@ -21,7 +23,6 @@ export default function Article() {
   const dispatch = useDispatch();
 
   const [showPopup, setShowPopup] = useState(false);
-  // const [url, setUrl] = useState();
 
   const close = () => {
     setShowPopup(!showPopup);
@@ -44,7 +45,6 @@ export default function Article() {
 
   useEffect(() => {
     const url = window.location.href;
-    // setUrl(url)
     const articleId = url.split("/").pop();
     dispatch({
       type: "FETCH_SPECIFIC_ARTICLE",
@@ -56,14 +56,57 @@ export default function Article() {
 
   return (
     <main id="content" tabIndex="-1">
-      <Button
-        className="ask-button"
-        onClick={close}
-        variant="contained"
-        aria-label="Ask a question about this article"
-      >
-        Ask a question about this article
-      </Button>
+      <Box>
+        <Button
+          className="ask-button"
+          onClick={close}
+          variant="contained"
+          aria-label="Ask a question about this article"
+          sx={{ marginRight: 2 }}
+        >
+          Ask a question about this article
+        </Button>
+        {/* Conditionally render Bookmark button if the article isn't already bookmarked */}
+        {savedArticles.some(
+          (article) => article["id"] === specificArticle["id"]
+        ) ? (
+          <Button
+            onClick={() => removeArticle(specificArticle.id)}
+            aria-label="Remove this article from bookmarks"
+            variant="text"
+            sx={{ minWidth: 165 }}
+          >
+            <span
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <BookmarkIcon sx={{ marginRight: 1 }} />
+              Unbookmark
+            </span>{" "}
+          </Button>
+        ) : (
+          <Button
+            onClick={handleBookmark}
+            aria-label="Bookmark this article"
+            variant="text"
+            sx={{ minWidth: 165 }}
+          >
+            <span
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <BookmarkBorderIcon sx={{ marginRight: 1 }} />
+              Bookmark
+            </span>{" "}
+          </Button>
+        )}
+      </Box>
       {/* Pop-up for asking a question */}
       {showPopup && (
         <div className="popup-container">
@@ -72,28 +115,15 @@ export default function Article() {
           </div>
         </div>
       )}
-      <Button
-        onClick={() => history.goBack()}
-        variant="outlined"
-        aria-label="Go back to the previous page"
-      >
-        Back
-      </Button>
-      {/* Conditionally render Bookmark button if the article isn't already bookmarked */}
-      {savedArticles.some(
-        (article) => article["id"] === specificArticle["id"]
-      ) ? (
+      <Box>
         <Button
-          onClick={() => removeArticle(specificArticle.id)}
-          aria-label="Remove this article from bookmarks"
+          onClick={() => history.goBack()}
+          variant="outlined"
+          aria-label="Go back to the previous page"
         >
-          Remove From Bookmarks
+          Back
         </Button>
-      ) : (
-        <Button onClick={handleBookmark} aria-label="Bookmark this article">
-          Bookmark this Article
-        </Button>
-      )}
+      </Box>
       <Markdown className="article" remarkPlugins={[remarkGfm]}>
         {specificArticle.body}
       </Markdown>

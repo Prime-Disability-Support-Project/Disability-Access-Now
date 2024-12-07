@@ -1,12 +1,17 @@
+/* Work Sans Font Import */
+@import url("https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;600;700&display=swap");
+
+
 /* Reset and Base Styles */
-html, body, #react-root {
+html,
+body,
+#react-root {
   height: 100%;
 }
 
 html {
   scroll-behavior: smooth;
 }
-
 
 * {
   font-family: "Work Sans", Arial, Helvetica, sans-serif;
@@ -45,6 +50,8 @@ main {
   margin: 0 auto;
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
+  min-height: 100vh;
 }
 
 /* Section Styles */
@@ -65,9 +72,9 @@ section p {
 }
 
 /* Input Styles */
-input[type="text"], 
-input[type="search"], 
-input[type="password"], 
+input[type="text"],
+input[type="search"],
+input[type="password"],
 textarea {
   width: 90%;
   padding: 0.5rem;
@@ -75,8 +82,6 @@ textarea {
   border: 1px solid #ccc;
   border-radius: 0.25rem;
 }
-
-
 
 /* --------------------------------------------------------------------------------
 Container
@@ -174,5 +179,3 @@ input {
   margin-bottom: 10px;
 }
 
-/* Work Sans Font Import */
-@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;600;700&display=swap');
