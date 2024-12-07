@@ -38,6 +38,7 @@ const AskQuestion = ({ articleId, close }) => {
             questionDate: new Date().toISOString(),
           }
         );
+        dispatch({ type: "FETCH_USER_UNANSWERED" });
         setQuestion("");
         setError(null);
         setSuccessMessage("Your question has been submitted successfully!");
@@ -57,6 +58,7 @@ const AskQuestion = ({ articleId, close }) => {
             questionDate: new Date().toISOString(),
           }
         );
+        dispatch({ type: "FETCH_USER_UNANSWERED" });
         setQuestion("");
         setError(null);
         setSuccessMessage("Your question has been submitted successfully!");
