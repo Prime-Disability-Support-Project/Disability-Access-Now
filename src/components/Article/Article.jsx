@@ -43,6 +43,15 @@ export default function Article() {
     dispatch({ type: "REMOVE_SAVED_ARTICLE", payload: articleId });
   };
 
+  const scrollToTop = (e) => {
+    document.getElementById("content").focus();
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
+  };
+
   useEffect(() => {
     const url = window.location.href;
     const articleId = url.split("/").pop();
@@ -168,6 +177,9 @@ export default function Article() {
           )}
         </List>
       </Box>
+      <Button onClick={scrollToTop} variant="contained" aria-label="">
+        Return to Top
+      </Button>
     </main>
   );
 }
