@@ -23,7 +23,6 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import MenuIcon from "@mui/icons-material/Menu";
 
-
 // search mui imports
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -160,7 +159,6 @@ function Nav() {
     }
   };
 
-
   return (
     <Box sx={{ flexGrow: 1 }}>
       <a
@@ -173,86 +171,94 @@ function Nav() {
       >
         Skip to main content
       </a>
-      <header>
-        <AppBar position="static" sx={{borderRadius: 3}}>
-          <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
-            <Typography
-              variant="h4"
-              noWrap
-              component={Link}
-              to="/home"
-              sx={{
-                display: { xs: "none", sm: "block" },
-                color: "inherit",
-                textDecoration: "none",
-              }}
-            >
-              Disability Access Now
-            </Typography>
-            <Box sx={{ flexGrow: 1 }} />
+      <AppBar
+        className="header-style"
+        position="static"
+        sx={{
+          borderRadius: 3,
+          padding: "1rem",
+          margin: "auto",
+          maxWidth: "calc(100% - 2rem)",
+          marginTop: "1rem",
+        }}
+      >
+        <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
+          <Typography
+            variant="h4"
+            noWrap
+            component={Link}
+            to="/home"
+            sx={{
+              display: { xs: "none", sm: "block" },
+              color: "inherit",
+              textDecoration: "none",
+            }}
+          >
+            Disability Access Now
+          </Typography>
+          <Box sx={{ flexGrow: 1 }} />
 
-            <Box sx={{ display: "flex", alignItems: "center" }}>
-              {user.id && (
-                <Typography
-                  variant="h6"
-                  noWrap
-                  component="div"
-                  sx={{ display: { xs: "none", sm: "block" }, marginLeft: 2 }}
-                >
-                  Welcome, {user.name}
-                </Typography>
-              )}
-            </Box>
-            <Box sx={{ flexGrow: 1 }} />
-
+          <Box sx={{ display: "flex", alignItems: "center" }}>
             {user.id && (
-              <Search>
-                <SearchIconWrapper>
-                  <SearchIcon />
-                </SearchIconWrapper>
-                <StyledInputBase
-                  placeholder="Search…"
-                  inputProps={{ "aria-label": "search" }}
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  onKeyDown={(e) => e.key === "Enter" && handleSearch(e)}
-                />
-              </Search>
+              <Typography
+                variant="h6"
+                noWrap
+                component="div"
+                sx={{ display: { xs: "none", sm: "block" }, marginLeft: 2 }}
+              >
+                Welcome, {user.name}
+              </Typography>
             )}
-            {user.id && user.role === 1 && unreadAnswers > 0 && (
-              <Box sx={{ display: { xs: "none", md: "flex" } }}>
-                <IconButton
-                  size="large"
-                  aria-label={`You have ${unreadAnswers} Unread Answers`}
-                  color="inherit"
-                  component={Link}
-                  to="/userQuestions"
-                >
-                  <Badge badgeContent={unreadAnswers} color="error">
-                    <MailIcon />
-                  </Badge>
-                </IconButton>
-              </Box>
-            )}
-            {user.id && user.role === 2 && unreadQuestions > 0 &&  (
-              <Box sx={{ display: { xs: "none", md: "flex" } }}>
-                <IconButton
-                  size="large"
-                  aria-label={`You have ${unreadQuestions} Unread Questions`}
-                  color="inherit"
-                  component={Link}
-                  to="/adminQuestions"
-                >
-                  <Badge badgeContent={unreadQuestions} color="error">
-                    <MailIcon />
-                  </Badge>
-                </IconButton>
-              </Box>
-            )}
-            <Box sx={{ display: { xs: "flex", md: "none" } }}></Box>
-          </Toolbar>
-        </AppBar>
-      </header>
+          </Box>
+          <Box sx={{ flexGrow: 1 }} />
+
+          {user.id && (
+            <Search>
+              <SearchIconWrapper>
+                <SearchIcon />
+              </SearchIconWrapper>
+              <StyledInputBase
+                placeholder="Search…"
+                inputProps={{ "aria-label": "search" }}
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                onKeyDown={(e) => e.key === "Enter" && handleSearch(e)}
+              />
+            </Search>
+          )}
+          {user.id && user.role === 1 && unreadAnswers > 0 && (
+            <Box sx={{ display: { xs: "none", md: "flex" } }}>
+              <IconButton
+                size="large"
+                aria-label={`You have ${unreadAnswers} Unread Answers`}
+                color="inherit"
+                component={Link}
+                to="/userQuestions"
+              >
+                <Badge badgeContent={unreadAnswers} color="error">
+                  <MailIcon />
+                </Badge>
+              </IconButton>
+            </Box>
+          )}
+          {user.id && user.role === 2 && unreadQuestions > 0 && (
+            <Box sx={{ display: { xs: "none", md: "flex" } }}>
+              <IconButton
+                size="large"
+                aria-label={`You have ${unreadQuestions} Unread Questions`}
+                color="inherit"
+                component={Link}
+                to="/adminQuestions"
+              >
+                <Badge badgeContent={unreadQuestions} color="error">
+                  <MailIcon />
+                </Badge>
+              </IconButton>
+            </Box>
+          )}
+          <Box sx={{ display: { xs: "flex", md: "none" } }}></Box>
+        </Toolbar>
+      </AppBar>
       <nav>
         {user.id && (
           <ul
