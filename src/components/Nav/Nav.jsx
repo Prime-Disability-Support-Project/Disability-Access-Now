@@ -11,17 +11,20 @@ import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
+import { Button } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
 import Badge from "@mui/material/Badge";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
+import Divider from "@mui/material/Divider";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import MenuIcon from "@mui/icons-material/Menu";
+import Popover from "@mui/material/Popover";
 
 // search mui imports
 const Search = styled("div")(({ theme }) => ({
@@ -71,15 +74,16 @@ function Nav() {
   const [searchTerm, setSearchTerm] = useState("");
   const history = useHistory();
   const [dropDownMenu, setDropDownMenu] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
   const dropDownRef = useRef(null);
   const location = useLocation();
 
-  const handleDropdownOpen = () => {
-    setDropDownMenu(true);
+  const handleDropdownOpen = (event) => {
+    setAnchorEl(event.currentTarget);
   };
 
   const handleDropdownClose = () => {
-    setDropDownMenu(false);
+    setAnchorEl(null);
   };
 
   const handleKeyboard = (event) => {
@@ -91,12 +95,12 @@ function Nav() {
     }
   };
 
-  const handleMouseEnter = () => {
-    setDropDownMenu(true);
+  const handleMouseEnter = (event) => {
+    setAnchorEl(event.currentTarget);
   };
 
   const handleMouseLeave = () => {
-    setDropDownMenu(false);
+    setAnchorEl(null);
   };
 
   const handleFocus = () => {
@@ -259,108 +263,121 @@ function Nav() {
           <Box sx={{ display: { xs: "flex", md: "none" } }}></Box>
         </Toolbar>
       </AppBar>
-      <nav>
-        {user.id && (
-          <ul
-            className="nav-ul"
-            aria-label="navigation"
-            style={{ display: "flex", justifyContent: "space-evenly" }}
-          >
-            <li>
-              <Link className="navLink" to="/home">
+      {user.id && (
+        <AppBar
+          component={"nav"}
+          position="static"
+          sx={{
+            borderRadius: 3,
+            margin: "auto",
+            maxWidth: "calc(100% - 8rem)",
+            marginTop: "1rem",
+            background: "#FFFFFF",
+            color: "#37474F",
+          }}
+        >
+          <Toolbar sx={{ display: "flex", justifyContent: "space-evenly" }}>
+            <>
+              <Button color="inherit" component={Link} to="/home">
                 Home
-              </Link>
-            </li>
-            {user.role === 2 && (
-              <>
-                <li>
-                  <Link className="navLink" to="/adminManage">
-                    {" "}
+              </Button>
+              {user.role === 2 && (
+                <>
+                  <Button color="inherit" component={Link} to="/adminManage">
                     Manage Logins
-                  </Link>
-                </li>
-                <li>
-                  <Link className="navLink" to="/adminManageResources">
-                    {" "}
+                  </Button>
+                  <Button
+                    color="inherit"
+                    component={Link}
+                    to="/adminManageResources"
+                  >
                     Manage Resources
-                  </Link>
-                </li>
-                <li>
-                  <Link className="navLink" to="/adminQuestions">
+                  </Button>
+                  <Button color="inherit" component={Link} to="/adminQuestions">
                     User Questions
-                  </Link>
-                </li>
-              </>
-            )}
-            {user.role === 1 && (
-              <li>
-                <Link className="navLink" to="/userQuestions">
+                  </Button>
+                </>
+              )}
+              {user.role === 1 && (
+                <Button color="inherit" component={Link} to="/userQuestions">
                   Ask a Question
-                </Link>
-              </li>
-            )}
-            <li>
-              <div
-                className="dropdown"
-                onMouseEnter={handleDropdownOpen}
-                onMouseLeave={handleDropdownClose}
+                </Button>
+              )}
+              <Button
+                color="inherit"
+                aria-controls="simple-menu"
+                aria-haspopup="true"
+                onClick={handleDropdownOpen}
               >
-                <button
-                  className="dropbtn navLink"
-                  id="menubutton"
-                  aria-haspopup="true"
-                  aria-controls="menu"
-                  aria-expanded={dropDownMenu}
-                  onClick={handleDropdownOpen}
-                  onKeyDown={handleKeyboard}
-                  tabIndex={0}
+                Resources
+              </Button>
+
+              <Menu
+                id="simple-menu"
+                anchorEl={anchorEl}
+                keepMounted
+                open={Boolean(anchorEl)}
+                onClose={handleDropdownClose}
+                MenuListProps={{
+                  onKeyDown: (event) => {
+                    if (event.key === "Tab") {
+                      return;
+                    }
+                  },
+                }}
+              >
+                <MenuItem
+                  onClick={() => {
+                    handleDropdownClose();
+                  }}
                 >
-                  Resources
-                </button>
-                <ul
-                  className="dropdown-content"
-                  id="menu"
-                  style={{ display: dropDownMenu ? "block" : "none" }}
+                  <Link className="navLink" to="/eligible">
+                    Am I eligible
+                  </Link>
+                </MenuItem>
+                <Divider />
+                <MenuItem
+                  onClick={() => {
+                    handleDropdownClose();
+                  }}
                 >
-                  <li>
-                    <Link className="navLink" to="/eligible">
-                      Am I eligible
-                    </Link>
-                  </li>
-                  <li>
-                    <Link className="navLink" to="/formsYouShouldStartWith">
-                      Forms you should start with
-                    </Link>
-                  </li>
-                  <li>
-                    <Link className="navLink" to="/faqs">
-                      FAQs
-                    </Link>
-                  </li>
-                  <li>
-                    <Link className="navLink" to="/formsAndArticles">
-                      Forms and Articles
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-            </li>
-            <li>
-              <Link className="navLink" to="/savedResources">
+                  <Link className="navLink" to="/formsYouShouldStartWith">
+                    Forms you should start with
+                  </Link>
+                </MenuItem>
+                <Divider />
+                <MenuItem
+                  onClick={() => {
+                    handleDropdownClose();
+                  }}
+                >
+                  <Link className="navLink" to="/faqs">
+                    FAQs
+                  </Link>
+                </MenuItem>
+                <Divider />
+                <MenuItem
+                  onClick={() => {
+                    handleDropdownClose();
+                  }}
+                >
+                  <Link className="navLink" to="/formsAndArticles">
+                    Forms and Articles
+                  </Link>
+                </MenuItem>
+              </Menu>
+
+              <Button color="inherit" component={Link} to="/savedResources">
                 Saved Resources
-              </Link>
-            </li>
-            <li>
-              <Link className="navLink" to="/aboutUs">
+              </Button>
+              <Button color="inherit" component={Link} to="/aboutUs">
                 About Us
-              </Link>
-            </li>
-            <li>
+              </Button>
               <LogOutButton role="button" className="navLink" />
-            </li>
-          </ul>
-        )}
-      </nav>
+            </>
+          </Toolbar>
+        </AppBar>
+      )}
     </Box>
   );
 }
