@@ -57,7 +57,7 @@ export default function SavedResources() {
           gutterBottom
           aria-label="Below is a list of all downloadable files"
         >
-          Forms & Files
+          Forms
         </Typography>
         <FilesList />
       </Box>

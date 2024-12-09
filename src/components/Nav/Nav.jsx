@@ -11,18 +11,20 @@ import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
+import { Button } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
 import Badge from "@mui/material/Badge";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
+import Divider from "@mui/material/Divider";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import MenuIcon from "@mui/icons-material/Menu";
-
+import Popover from "@mui/material/Popover";
 
 // search mui imports
 const Search = styled("div")(({ theme }) => ({
@@ -72,15 +74,16 @@ function Nav() {
   const [searchTerm, setSearchTerm] = useState("");
   const history = useHistory();
   const [dropDownMenu, setDropDownMenu] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
   const dropDownRef = useRef(null);
   const location = useLocation();
 
-  const handleDropdownOpen = () => {
-    setDropDownMenu(true);
+  const handleDropdownOpen = (event) => {
+    setAnchorEl(event.currentTarget);
   };
 
   const handleDropdownClose = () => {
-    setDropDownMenu(false);
+    setAnchorEl(null);
   };
 
   const handleKeyboard = (event) => {
@@ -92,12 +95,12 @@ function Nav() {
     }
   };
 
-  const handleMouseEnter = () => {
-    setDropDownMenu(true);
+  const handleMouseEnter = (event) => {
+    setAnchorEl(event.currentTarget);
   };
 
   const handleMouseLeave = () => {
-    setDropDownMenu(false);
+    setAnchorEl(null);
   };
 
   const handleFocus = () => {
@@ -160,7 +163,6 @@ function Nav() {
     }
   };
 
-
   return (
     <Box sx={{ flexGrow: 1 }}>
       <a
@@ -173,188 +175,213 @@ function Nav() {
       >
         Skip to main content
       </a>
-      <header>
-        <AppBar position="static" sx={{borderRadius: 3}}>
-          <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
-            <Typography
-              variant="h4"
-              noWrap
-              component={Link}
-              to="/home"
-              sx={{
-                display: { xs: "none", sm: "block" },
-                color: "inherit",
-                textDecoration: "none",
-              }}
-            >
-              Disability Access Now
-            </Typography>
-            <Box sx={{ flexGrow: 1 }} />
-
-            <Box sx={{ display: "flex", alignItems: "center" }}>
-              {user.id && (
-                <Typography
-                  variant="h6"
-                  noWrap
-                  component="div"
-                  sx={{ display: { xs: "none", sm: "block" }, marginLeft: 2 }}
-                >
-                  Welcome, {user.name}
-                </Typography>
-              )}
-            </Box>
-            <Box sx={{ flexGrow: 1 }} />
-
-            {user.id && (
-              <Search>
-                <SearchIconWrapper>
-                  <SearchIcon />
-                </SearchIconWrapper>
-                <StyledInputBase
-                  placeholder="Search…"
-                  inputProps={{ "aria-label": "search" }}
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  onKeyDown={(e) => e.key === "Enter" && handleSearch(e)}
-                />
-              </Search>
-            )}
-            {user.id && user.role === 1 && unreadAnswers > 0 && (
-              <Box sx={{ display: { xs: "none", md: "flex" } }}>
-                <IconButton
-                  size="large"
-                  aria-label={`You have ${unreadAnswers} Unread Answers`}
-                  color="inherit"
-                  component={Link}
-                  to="/userQuestions"
-                >
-                  <Badge badgeContent={unreadAnswers} color="error">
-                    <MailIcon />
-                  </Badge>
-                </IconButton>
-              </Box>
-            )}
-            {user.id && user.role === 2 && unreadQuestions > 0 &&  (
-              <Box sx={{ display: { xs: "none", md: "flex" } }}>
-                <IconButton
-                  size="large"
-                  aria-label={`You have ${unreadQuestions} Unread Questions`}
-                  color="inherit"
-                  component={Link}
-                  to="/adminQuestions"
-                >
-                  <Badge badgeContent={unreadQuestions} color="error">
-                    <MailIcon />
-                  </Badge>
-                </IconButton>
-              </Box>
-            )}
-            <Box sx={{ display: { xs: "flex", md: "none" } }}></Box>
-          </Toolbar>
-        </AppBar>
-      </header>
-      <nav>
-        {user.id && (
-          <ul
-            className="nav-ul"
-            aria-label="navigation"
-            style={{ display: "flex", justifyContent: "space-evenly" }}
+      <AppBar
+        className="header-style"
+        position="static"
+        sx={{
+          borderRadius: 3,
+          padding: "1rem",
+          margin: "auto",
+          maxWidth: "calc(100% - 2rem)",
+          marginTop: "1rem",
+        }}
+      >
+        <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
+          <Typography
+            variant="h4"
+            noWrap
+            component={Link}
+            to="/home"
+            sx={{
+              display: { xs: "none", sm: "block" },
+              color: "inherit",
+              textDecoration: "none",
+            }}
           >
-            <li>
-              <Link className="navLink" to="/home">
-                Home
-              </Link>
-            </li>
-            {user.role === 2 && (
-              <>
-                <li>
-                  <Link className="navLink" to="/adminManage">
-                    {" "}
-                    Manage Logins
-                  </Link>
-                </li>
-                <li>
-                  <Link className="navLink" to="/adminManageResources">
-                    {" "}
-                    Manage Resources
-                  </Link>
-                </li>
-                <li>
-                  <Link className="navLink" to="/adminQuestions">
-                    User Questions
-                  </Link>
-                </li>
-              </>
-            )}
-            {user.role === 1 && (
-              <li>
-                <Link className="navLink" to="/userQuestions">
-                  Ask a Question
-                </Link>
-              </li>
-            )}
-            <li>
-              <div
-                className="dropdown"
-                onMouseEnter={handleDropdownOpen}
-                onMouseLeave={handleDropdownClose}
+            Disability Access Now
+          </Typography>
+          <Box sx={{ flexGrow: 1 }} />
+
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            {user.id && (
+              <Typography
+                variant="h6"
+                noWrap
+                component="div"
+                sx={{ display: { xs: "none", sm: "block" }, marginLeft: 2 }}
               >
-                <button
-                  className="dropbtn navLink"
-                  id="menubutton"
-                  aria-haspopup="true"
-                  aria-controls="menu"
-                  aria-expanded={dropDownMenu}
-                  onClick={handleDropdownOpen}
-                  onKeyDown={handleKeyboard}
+                Welcome, {user.name}
+              </Typography>
+            )}
+          </Box>
+          <Box sx={{ flexGrow: 1 }} />
+
+          {user.id && (
+            <Search>
+              <SearchIconWrapper>
+                <SearchIcon />
+              </SearchIconWrapper>
+              <StyledInputBase
+                placeholder="Search…"
+                inputProps={{ "aria-label": "search" }}
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                onKeyDown={(e) => e.key === "Enter" && handleSearch(e)}
+              />
+            </Search>
+          )}
+          {user.id && user.role === 1 && unreadAnswers > 0 && (
+            <Box sx={{ display: { xs: "none", md: "flex" } }}>
+              <IconButton
+                size="large"
+                aria-label={`You have ${unreadAnswers} Unread Answers`}
+                color="inherit"
+                component={Link}
+                to="/userQuestions"
+              >
+                <Badge badgeContent={unreadAnswers} color="error">
+                  <MailIcon />
+                </Badge>
+              </IconButton>
+            </Box>
+          )}
+          {user.id && user.role === 2 && unreadQuestions > 0 && (
+            <Box sx={{ display: { xs: "none", md: "flex" } }}>
+              <IconButton
+                size="large"
+                aria-label={`You have ${unreadQuestions} Unread Questions`}
+                color="inherit"
+                component={Link}
+                to="/adminQuestions"
+              >
+                <Badge badgeContent={unreadQuestions} color="error">
+                  <MailIcon />
+                </Badge>
+              </IconButton>
+            </Box>
+          )}
+          <Box sx={{ display: { xs: "flex", md: "none" } }}></Box>
+        </Toolbar>
+      </AppBar>
+      {user.id && (
+        <AppBar
+          component={"nav"}
+          position="static"
+          sx={{
+            borderRadius: 3,
+            margin: "auto",
+            maxWidth: "calc(100% - 8rem)",
+            marginTop: "1rem",
+            background: "#FFFFFF",
+            color: "#37474F",
+          }}
+        >
+          <Toolbar sx={{ display: "flex", justifyContent: "space-evenly" }}>
+            <>
+              <Button color="inherit" component={Link} to="/home">
+                Home
+              </Button>
+              {user.role === 2 && (
+                <>
+                  <Button color="inherit" component={Link} to="/adminManage">
+                    Manage Logins
+                  </Button>
+                  <Button
+                    color="inherit"
+                    component={Link}
+                    to="/adminManageResources"
+                  >
+                    Manage Resources
+                  </Button>
+                  <Button color="inherit" component={Link} to="/adminQuestions">
+                    User Questions
+                  </Button>
+                </>
+              )}
+              {user.role === 1 && (
+                <Button color="inherit" component={Link} to="/userQuestions">
+                  Ask a Question
+                </Button>
+              )}
+              <Button
+                color="inherit"
+                aria-controls="simple-menu"
+                aria-haspopup="true"
+                onClick={handleDropdownOpen}
+              >
+                Resources
+              </Button>
+
+              <Menu
+                id="simple-menu"
+                anchorEl={anchorEl}
+                keepMounted
+                open={Boolean(anchorEl)}
+                onClose={handleDropdownClose}
+                MenuListProps={{
+                  onKeyDown: (event) => {
+                    if (event.key === "Tab") {
+                      return;
+                    }
+                  },
+                }}
+              >
+                <MenuItem
+                  onClick={() => {
+                    handleDropdownClose();
+                  }}
+                  component={Link}
+                  to="/eligible"
                   tabIndex={0}
                 >
-                  Resources
-                </button>
-                <ul
-                  className="dropdown-content"
-                  id="menu"
-                  style={{ display: dropDownMenu ? "block" : "none" }}
+                  Am I eligible
+                </MenuItem>
+                <Divider />
+                <MenuItem
+                  onClick={() => {
+                    handleDropdownClose();
+                  }}
+                  component={Link}
+                  to="/formsYouShouldStartWith"
+                  tabIndex={0}
                 >
-                  <li>
-                    <Link className="navLink" to="/eligible">
-                      Am I eligible
-                    </Link>
-                  </li>
-                  <li>
-                    <Link className="navLink" to="/formsYouShouldStartWith">
-                      Forms you should start with
-                    </Link>
-                  </li>
-                  <li>
-                    <Link className="navLink" to="/faqs">
-                      FAQs
-                    </Link>
-                  </li>
-                  <li>
-                    <Link className="navLink" to="/formsAndArticles">
-                      Forms and Articles
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-            </li>
-            <li>
-              <Link className="navLink" to="/savedResources">
+                  Forms you should start with
+                </MenuItem>
+                <Divider />
+                <MenuItem
+                  onClick={() => {
+                    handleDropdownClose();
+                  }}
+                  component={Link}
+                  to="/faqs"
+                  tabIndex={0}
+                >
+                  FAQs
+                </MenuItem>
+                <Divider />
+                <MenuItem
+                  onClick={() => {
+                    handleDropdownClose();
+                  }}
+                  component={Link}
+                  to="/formsAndArticles"
+                  tabIndex={0}
+                >
+                  Forms and Articles
+                </MenuItem>
+              </Menu>
+
+              <Button color="inherit" component={Link} to="/savedResources">
                 Saved Resources
-              </Link>
-            </li>
-            <li>
-              <Link className="navLink" to="/aboutUs">
+              </Button>
+              <Button color="inherit" component={Link} to="/aboutUs">
                 About Us
-              </Link>
-            </li>
-            <li>
+              </Button>
               <LogOutButton role="button" className="navLink" />
-            </li>
-          </ul>
-        )}
-      </nav>
+            </>
+          </Toolbar>
+        </AppBar>
+      )}
     </Box>
   );
 }
