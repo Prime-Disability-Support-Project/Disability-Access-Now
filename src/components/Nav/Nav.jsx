@@ -330,40 +330,44 @@ function Nav() {
                   onClick={() => {
                     handleDropdownClose();
                   }}
+                  component={Link}
+                  to="/eligible"
+                  tabIndex={0}
                 >
-                  <Link className="navLink" to="/eligible">
-                    Am I eligible
-                  </Link>
+                  Am I eligible
                 </MenuItem>
                 <Divider />
                 <MenuItem
                   onClick={() => {
                     handleDropdownClose();
                   }}
+                  component={Link}
+                  to="/formsYouShouldStartWith"
+                  tabIndex={0}
                 >
-                  <Link className="navLink" to="/formsYouShouldStartWith">
-                    Forms you should start with
-                  </Link>
+                  Forms you should start with
                 </MenuItem>
                 <Divider />
                 <MenuItem
                   onClick={() => {
                     handleDropdownClose();
                   }}
+                  component={Link}
+                  to="/faqs"
+                  tabIndex={0}
                 >
-                  <Link className="navLink" to="/faqs">
-                    FAQs
-                  </Link>
+                  FAQs
                 </MenuItem>
                 <Divider />
                 <MenuItem
                   onClick={() => {
                     handleDropdownClose();
                   }}
+                  component={Link}
+                  to="/formsAndArticles"
+                  tabIndex={0}
                 >
-                  <Link className="navLink" to="/formsAndArticles">
-                    Forms and Articles
-                  </Link>
+                  Forms and Articles
                 </MenuItem>
               </Menu>
 
