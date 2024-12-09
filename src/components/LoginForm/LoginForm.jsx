@@ -42,6 +42,10 @@ function LoginForm() {
     setEmail("alexis.sibley222@gmail.com");
     setPassword("password");
   };
+  const magicUserJoe = () => {
+    setEmail("joe.peterson5323@gmail.com");
+    setPassword("password");
+  };
 
   const magicAdmin = () => {
     setEmail("primedisabilitysupp@gmail.com");
@@ -50,7 +54,7 @@ function LoginForm() {
 
   return (
     <form className="formPanel" onSubmit={login}>
-      <h2>Login</h2>
+      <h2 onClick={magicUserJoe}>Login</h2>
       {errors.loginMessage && (
         <h3 className="alert" role="alert">
           {errors.loginMessage}
