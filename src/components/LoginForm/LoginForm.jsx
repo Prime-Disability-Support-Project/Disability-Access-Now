@@ -39,7 +39,7 @@ function LoginForm() {
   }, [nav]);
 
   const magicUser = () => {
-    setEmail("evan.bouman@gmail.com");
+    setEmail("alexis.sibley222@gmail.com");
     setPassword("password");
   };
 
