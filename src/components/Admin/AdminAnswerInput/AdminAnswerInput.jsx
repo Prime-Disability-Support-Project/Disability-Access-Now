@@ -72,11 +72,6 @@ export default function AdminAnswerInput({
     maxWidth: "1200",
   };
 
-  const magicAnswer = () => {
-    setAnswer(
-      `We may pay Social Security disability benefits for as many as 12 months before you apply if we find you had disability during that time and you meet all other requirements. Generally, there is a five-month waiting period and we’ll pay your first benefit the sixth full month after the date we find your disability began.`
-    );
-  };
 
   return (
     <div className="answer-popup">
@@ -112,7 +107,7 @@ export default function AdminAnswerInput({
             </p>
           </Typography>
           <Typography>
-            <p onClick={magicAnswer}>
+            <p>
               <strong>Question:</strong> {question.question}
             </p>
           </Typography>

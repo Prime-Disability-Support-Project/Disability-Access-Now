@@ -38,30 +38,16 @@ function LoginForm() {
     }
   }, [nav]);
 
-  const magicUser = () => {
-    setEmail("alexis.sibley222@gmail.com");
-    setPassword("password");
-  };
-  const magicUserJoe = () => {
-    setEmail("joe.peterson5323@gmail.com");
-    setPassword("password");
-  };
-
-  const magicAdmin = () => {
-    setEmail("primedisabilitysupp@gmail.com");
-    setPassword("password");
-  };
-
   return (
     <form className="formPanel" onSubmit={login}>
-      <h2 onClick={magicUserJoe}>Login</h2>
+      <h2>Login</h2>
       {errors.loginMessage && (
         <h3 className="alert" role="alert">
           {errors.loginMessage}
         </h3>
       )}
       <div>
-        <label htmlFor="email" onClick={magicUser}>
+        <label htmlFor="email">
           Email:
           <input
             type="text"
@@ -73,7 +59,7 @@ function LoginForm() {
         </label>
       </div>
       <div>
-        <label htmlFor="password" onClick={magicAdmin}>
+        <label htmlFor="password">
           Password:
           <input
             type="password"
