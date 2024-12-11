@@ -14,7 +14,7 @@ export default function UploadPDF() {
 
       reader.onloadend = async () => {
         const base64data = reader.result.split(',')[1];
-        const response = await fetch('http://localhost:5001/api/files/upload', {
+        const response = await fetch('/api/files/upload', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

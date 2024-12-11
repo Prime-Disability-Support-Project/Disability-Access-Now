@@ -56,7 +56,7 @@ export default function UploadDownload() {
 
   const searchHandler = async () => {
     try {
-      const response = await fetch(`http://localhost:5001/api/files/search?keyword=${searchKeyword}`);
+      const response = await fetch(`/api/files/search?keyword=${searchKeyword}`);
       if (response.ok) {
         const results = await response.json();
         setSearchResults(results);
@@ -72,7 +72,7 @@ export default function UploadDownload() {
   const downloadFileHandler = async (filename) => {
     try {
         // fetch file from server
-      const response = await fetch(`http://localhost:5001/api/files/download/${filename}`);
+      const response = await fetch(`/api/files/download/${filename}`);
       if (response.ok) {
         // converts response to a blob
         const blob = await response.blob();
@@ -123,7 +123,7 @@ export default function UploadDownload() {
       reader.onloadend = async () => {
         const base64data = reader.result.split(',')[1];
         // sends data to the server
-        const response = await fetch('http://localhost:5001/api/files/upload', {
+        const response = await fetch('/api/files/upload', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

@@ -22,7 +22,7 @@ const SearchResults = () => {
     const fetchSearchResults = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5001/api/files/search?keyword=${query}`
+          `/api/files/search?keyword=${query}`
         );
         if (response.ok) {
           const results = await response.json();
@@ -131,7 +131,7 @@ const SearchResults = () => {
                 <ListItemText primary={result.name} />
                 <Box sx={{ display: "flex", gap: 2 }}>
                   <Button
-                    onClick={() => downloadFileHandler(file.filename)}
+                    onClick={() => downloadFileHandler(result.name)}
                     variant="contained"
                     size="small"
                   >

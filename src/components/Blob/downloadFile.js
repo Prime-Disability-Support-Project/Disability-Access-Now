@@ -2,7 +2,7 @@
 
 export const downloadFileHandler = async (fileName) => {
     try {
-      const response = await fetch(`http://localhost:5001/api/files/download/${fileName}`);
+      const response = await fetch(`/api/files/download/${fileName}`);
       if (response.ok) {
         const blob = await response.blob();
         const url = window.URL.createObjectURL(blob);

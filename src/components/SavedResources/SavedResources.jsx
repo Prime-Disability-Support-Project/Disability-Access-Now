@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import { useSelector, useDispatch } from "react-redux";
 import { downloadFileHandler } from "../Blob/downloadFile"; // util function for downloading pdf files
 import { Box, Button, Typography, List, ListItem, ListItemText } from '@mui/material';
@@ -34,7 +35,11 @@ export default function SavedResources() {
           {savedArticles.map((article) => (
             <ListItem key={article.id} sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <ListItemText
-                primary={<a href={`http://localhost:5173/#/articlePage/${article.id}`}>{article.title}</a>}
+                primary={<Link
+                  to={`/articlePage/${article.id}`}
+                  >
+                    {article.title}
+                  </Link>}
               />
               <Button
                 onClick={() => removeArticle(article.id)}
