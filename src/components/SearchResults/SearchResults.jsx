@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { downloadFileHandler } from "../Blob/downloadFile"; // util function for downloading pdf files
 import {
@@ -85,11 +86,11 @@ const SearchResults = () => {
               >
                 <ListItemText
                   primary={
-                    <a
-                      href={`http://localhost:5173/#/articlePage/${result.id}`}
+                    <Link
+                    to={`/articlePage/${result.id}`}
                     >
                       {result.name}
-                    </a>
+                    </Link>
                   }
                 />
               </ListItem>
