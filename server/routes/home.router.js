@@ -1,9 +1,12 @@
 const express = require("express");
 const pool = require("../modules/pool");
 const router = express.Router();
+const {
+  rejectUnauthenticated,
+} = require("../modules/authentication-middleware");
 
 // GET text content and email for Pending Approval page
-router.get("/", (req, res) => {
+router.get("/", rejectUnauthenticated, (req, res) => {
   const queryText = `SELECT * FROM "home"`;
 
   pool
@@ -18,7 +21,7 @@ router.get("/", (req, res) => {
 });
 
 // PUT Home Content
-router.put("/:id", (req, res) => {
+router.put("/:id", rejectUnauthenticated, (req, res) => {
   const { title, body, linkHeader } = req.body;
   const id = req.params.id;
   const queryText = `UPDATE "home" SET "title" = $1, "body" = $2, "linkHeader" = $3 WHERE "id" = $4`;

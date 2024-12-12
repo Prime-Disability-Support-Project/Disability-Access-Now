@@ -3,6 +3,9 @@ const pool = require("../modules/pool");
 const router = express.Router();
 const nodemailer = require("nodemailer");
 require("dotenv").config(); // ensure your env variables are loaded
+const {
+  rejectUnauthenticated,
+} = require("../modules/authentication-middleware");
 
 //set up the nodemailer transporter using Gmail
 const transporter = nodemailer.createTransport({
@@ -131,7 +134,7 @@ Disability Access Now Support Team`, // Plain text body
 }
 
 // Get all unanswered questions for the specific user - ordered by date
-router.get("/user-unanswered-questions", (req, res) => {
+router.get("/user-unanswered-questions", rejectUnauthenticated, (req, res) => {
   const userId = req.user.id;
   const queryText =
     'SELECT * FROM questions WHERE "user_id" = $1 AND "answered" = $2 ORDER BY "question_date" ASC;';
@@ -146,7 +149,7 @@ router.get("/user-unanswered-questions", (req, res) => {
 });
 
 // Get all answered questions for the specific user - ordered by date
-router.get("/user-answered-questions", (req, res) => {
+router.get("/user-answered-questions", rejectUnauthenticated, (req, res) => {
   const userId = req.user.id;
   const queryText =
     'SELECT * FROM questions WHERE "user_id" = $1 AND "answered" = $2 ORDER BY "question_date" ASC;';
@@ -161,7 +164,7 @@ router.get("/user-answered-questions", (req, res) => {
 });
 
 // Get all unanswered questions for the admin view - ordered by date
-router.get("/admin-unanswered-questions", (req, res) => {
+router.get("/admin-unanswered-questions", rejectUnauthenticated, (req, res) => {
   const queryText =
     'SELECT * FROM questions WHERE "answered" = $1 ORDER BY "question_date" ASC;';
   const params = [false];
@@ -175,7 +178,7 @@ router.get("/admin-unanswered-questions", (req, res) => {
 });
 
 // Get all answered questions for the admin view - ordered by date
-router.get("/admin-answered-questions", (req, res) => {
+router.get("/admin-answered-questions", rejectUnauthenticated, (req, res) => {
   const queryText =
     'SELECT * FROM questions WHERE "answered" = $1 ORDER BY "question_date" ASC;';
   const params = [true];
@@ -189,7 +192,7 @@ router.get("/admin-answered-questions", (req, res) => {
 });
 
 // Get user and associated article information
-router.get("/details/:id", (req, res) => {
+router.get("/details/:id", rejectUnauthenticated, (req, res) => {
   const queryText = `
     SELECT 
       q.associated_article_url,
@@ -215,7 +218,7 @@ router.get("/details/:id", (req, res) => {
 });
 
 // POST a new question without an associated article
-router.post("/new-question-without-article", async (req, res) => {
+router.post("/new-question-without-article", rejectUnauthenticated, async (req, res) => {
   const question = req.body.question;
   // answer = null
   // answered = false
@@ -257,7 +260,7 @@ router.post("/new-question-without-article", async (req, res) => {
 });
 
 // POST a new question with an associated article
-router.post("/new-question-with-article", async (req, res) => {
+router.post("/new-question-with-article", rejectUnauthenticated, async (req, res) => {
   console.log("req.body", req.body);
   const question = req.body.question;
   // answer = null
@@ -302,7 +305,7 @@ router.post("/new-question-with-article", async (req, res) => {
 });
 
 // Toggle unread between true and false for user's viewing admin answers
-router.put("/user-unread", (req, res) => {
+router.put("/user-unread", rejectUnauthenticated, (req, res) => {
   const questionId = req.body.questionId;
 
   const params = [questionId];
@@ -326,7 +329,7 @@ router.put("/user-unread", (req, res) => {
 });
 
 // Update unread to false when an admin views the questions
-router.put("/admin-unread", (req, res) => {
+router.put("/admin-unread", rejectUnauthenticated, (req, res) => {
   // unread = false
   const questionId = req.body.questionId;
 
@@ -350,7 +353,7 @@ router.put("/admin-unread", (req, res) => {
 });
 
 // Toggle flagged in questions
-router.put("/flag", (req, res) => {
+router.put("/flag", rejectUnauthenticated, (req, res) => {
   // unread = false
   const questionId = req.body.questionId;
 
@@ -376,7 +379,7 @@ router.put("/flag", (req, res) => {
 });
 
 // Get the count of answered questions that are unread for the specific user (used to show the number of notifications)
-router.get("/user-answered-questions-count", (req, res) => {
+router.get("/user-answered-questions-count", rejectUnauthenticated, (req, res) => {
   const userId = req.user.id;
 
   const queryText = `
@@ -397,7 +400,7 @@ router.get("/user-answered-questions-count", (req, res) => {
 });
 
 // Get the count of unanswered questions that are unread for the admins (used to show the number of notifications)
-router.get("/admin-unanswered-questions-count", (req, res) => {
+router.get("/admin-unanswered-questions-count", rejectUnauthenticated, (req, res) => {
   const queryText = `
       SELECT COUNT(*) AS unread_unanswered_questions
       FROM "questions"
@@ -418,7 +421,7 @@ router.get("/admin-unanswered-questions-count", (req, res) => {
 });
 
 // Update when an answer is submitted by the admin
-router.put("/admin-answer", (req, res) => {
+router.put("/admin-answer", rejectUnauthenticated, (req, res) => {
   const question = {
     question: req.body.question,
     answer: req.body.answer,
@@ -453,7 +456,7 @@ router.put("/admin-answer", (req, res) => {
 });
 
 // Allows admins to delete answered questions from the history
-router.delete("/:id", (req, res) => {
+router.delete("/:id", rejectUnauthenticated, (req, res) => {
   const questionId = req.params.id;
 
   pool

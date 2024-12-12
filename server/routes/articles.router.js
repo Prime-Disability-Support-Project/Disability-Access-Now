@@ -1,9 +1,12 @@
 const express = require("express");
 const pool = require("../modules/pool");
 const router = express.Router();
+const {
+  rejectUnauthenticated,
+} = require("../modules/authentication-middleware");
 
 // GET All Article Titles and URLs
-router.get("/", (req, res) => {
+router.get("/", rejectUnauthenticated, (req, res) => {
   const queryText = `SELECT * FROM articles ORDER BY "title" ASC`;
 
   pool
@@ -18,7 +21,7 @@ router.get("/", (req, res) => {
 });
 
 // GET article with title ILIKE FAQ
-router.get("/faq", (req, res) => {
+router.get("/faq", rejectUnauthenticated, (req, res) => {
   const queryText = `SELECT * FROM articles WHERE "title" ILIKE $1`;
   const params = ["%FAQ%"];
 
@@ -38,7 +41,7 @@ router.get("/faq", (req, res) => {
 });
 
 // GET article with title ILIKE Eligibility Criteria
-router.get("/eligible", (req, res) => {
+router.get("/eligible", rejectUnauthenticated, (req, res) => {
   const queryText = `SELECT * FROM articles WHERE "title" ILIKE $1`;
   const params = ["%Eligibility Criteria%"];
 
@@ -58,7 +61,7 @@ router.get("/eligible", (req, res) => {
 });
 
 // GET article with title LIKE Forms You Should Start With
-router.get("/forms", (req, res) => {
+router.get("/forms", rejectUnauthenticated, (req, res) => {
   const queryText = `SELECT * FROM articles WHERE "title" ILIKE $1`;
   const params = ["%Forms You Should Start With%"];
 
@@ -78,7 +81,7 @@ router.get("/forms", (req, res) => {
 });
 
 // GET Specific Article
-router.get("/:articleId", (req, res) => {
+router.get("/:articleId", rejectUnauthenticated, (req, res) => {
   const { articleId } = req.params;
   const queryText = `SELECT * FROM articles WHERE id = $1`;
   const params = [articleId];
@@ -99,7 +102,7 @@ router.get("/:articleId", (req, res) => {
 });
 
 // POST New Article (Also Update Junction Table if Files are Provided)
-router.post("/", (req, res) => {
+router.post("/", rejectUnauthenticated, (req, res) => {
   const { title, body, fileIds } = req.body;
   const queryText = `
                                   INSERT INTO articles ("title", "body") 
@@ -141,7 +144,7 @@ router.post("/", (req, res) => {
 });
 
 // PUT Update an article's contents
-router.put("/:articleId", (req, res) => {
+router.put("/:articleId", rejectUnauthenticated, (req, res) => {
   const { articleId } = req.params;
   const { title, body } = req.body;
   const queryText = `UPDATE articles SET "title" = $1, "body" = $2 WHERE id = $3`;
@@ -163,7 +166,7 @@ router.put("/:articleId", (req, res) => {
 });
 
 // PUT Update an article's associated files list
-router.put("/files/:articleId", (req, res) => {
+router.put("/files/:articleId", rejectUnauthenticated, (req, res) => {
   const { articleId } = req.params;
   const { fileIds } = req.body;
   // First empty out any existing relationships with files
@@ -187,7 +190,7 @@ router.put("/files/:articleId", (req, res) => {
 });
 
 // DELETE an Article
-router.delete("/:articleId", (req, res) => {
+router.delete("/:articleId", rejectUnauthenticated, (req, res) => {
   const { articleId } = req.params;
 
   // First, delete the file associations
