@@ -1,9 +1,12 @@
 const express = require("express");
 const pool = require("../modules/pool");
 const router = express.Router();
+const {
+  rejectUnauthenticated,
+} = require("../modules/authentication-middleware");
 
 // GET About Us text content
-router.get("/", (req, res) => {
+router.get("/", rejectUnauthenticated, (req, res) => {
   const queryText = `SELECT * FROM "aboutUs"`;
 
   pool
@@ -18,7 +21,7 @@ router.get("/", (req, res) => {
 });
 
 // GET bios
-router.get("/bios", (req, res) => {
+router.get("/bios", rejectUnauthenticated, (req, res) => {
   const queryText = `SELECT * FROM "bios" ORDER BY "name" ASC`;
 
   pool
@@ -33,7 +36,7 @@ router.get("/bios", (req, res) => {
 });
 
 // POST a new bio
-router.post("/bio", (req, res) => {
+router.post("/bio", rejectUnauthenticated, (req, res) => {
   const { name, bio, link, type } = req.body;
   const insertQuery = `INSERT INTO "bios" ("name", "bio", "link", "type") 
             VALUES ($1, $2, $3, $4);`;
@@ -50,7 +53,7 @@ router.post("/bio", (req, res) => {
 });
 
 // PUT AboutUs content
-router.put("/", (req, res) => {
+router.put("/", rejectUnauthenticated, (req, res) => {
   console.log(req.body);
   const { title, founderText, devText, id } = req.body;
   const queryText = `UPDATE "aboutUs" SET "title" = $1, "founderText" = $2, "devText" = $3 WHERE "id" = $4`;
@@ -68,7 +71,7 @@ router.put("/", (req, res) => {
 });
 
 // PUT a bio
-router.put("/bios/:id", (req, res) => {
+router.put("/bios/:id", rejectUnauthenticated, (req, res) => {
   const { name, bio, link, type } = req.body;
   const bioId = req.params.id;
   const queryText = `UPDATE "bios" SET "name" = $1, "bio" = $2, "link" = $3, "type" = $4 WHERE "id" = $5`;
@@ -86,7 +89,7 @@ router.put("/bios/:id", (req, res) => {
 });
 
 // Delete a bio
-router.delete("/:id", (req, res) => {
+router.delete("/:id", rejectUnauthenticated, (req, res) => {
   const bioId = req.params.id;
 
   pool

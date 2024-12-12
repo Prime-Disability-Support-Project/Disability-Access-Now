@@ -1,9 +1,12 @@
 const express = require("express");
 const pool = require("../modules/pool");
 const router = express.Router();
+const {
+  rejectUnauthenticated,
+} = require("../modules/authentication-middleware");
 
 // GET all articles that are saved by a specific user
-router.get("/articles", (req, res) => {
+router.get("/articles", rejectUnauthenticated, (req, res) => {
   const userId = req.user.id;
 
   const queryText = `
@@ -26,7 +29,7 @@ router.get("/articles", (req, res) => {
 });
 
 // GET all files that are saved by a specific user
-router.get("/files", (req, res) => {
+router.get("/files", rejectUnauthenticated, (req, res) => {
   const userId = req.user.id;
 
   const queryText = `
@@ -49,7 +52,7 @@ router.get("/files", (req, res) => {
 });
 
 // POST a new user+article relationship in the savedArticle table
-router.post("/save-article", (req, res) => {
+router.post("/save-article", rejectUnauthenticated, (req, res) => {
   const articleId = req.body.articleId;
 
   const userId = req.user.id;
@@ -69,7 +72,7 @@ router.post("/save-article", (req, res) => {
 });
 
 // POST a new user+file relationship in the savedFile table
-router.post("/save-file", (req, res) => {
+router.post("/save-file", rejectUnauthenticated, (req, res) => {
   const fileId = req.body.fileId;
 
   const userId = req.user.id;
@@ -89,7 +92,7 @@ router.post("/save-file", (req, res) => {
 });
 
 // removing the article from saved articles
-router.delete("/article/:id", (req, res) => {
+router.delete("/article/:id", rejectUnauthenticated, (req, res) => {
   const articleId = req.params.id;
 
   const userId = req.user.id;
@@ -109,7 +112,7 @@ router.delete("/article/:id", (req, res) => {
 });
 
 // Removes the file from the savedFile table
-router.delete("/file/:id", (req, res) => {
+router.delete("/file/:id", rejectUnauthenticated, (req, res) => {
   const fileId = req.params.id;
 
   const userId = req.user.id;

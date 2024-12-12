@@ -1,9 +1,12 @@
 const express = require("express");
 const pool = require("../modules/pool");
 const router = express.Router();
+const {
+  rejectUnauthenticated,
+} = require("../modules/authentication-middleware");
 
 // endpoint for uploading files
-router.post("/upload", async (req, res) => {
+router.post("/upload", rejectUnauthenticated, async (req, res) => {
   const { filename, data } = req.body;
   // converts a base64-encoded string into a binary buffer
   // buffer is used to manipulate blob data
@@ -33,7 +36,7 @@ router.post("/upload", async (req, res) => {
 });
 
 // endpoint for downloading files
-router.get("/download/:filename", async (req, res) => {
+router.get("/download/:filename", rejectUnauthenticated, async (req, res) => {
   const { filename } = req.params;
 
   const client = await pool.connect();
@@ -63,7 +66,7 @@ router.get("/download/:filename", async (req, res) => {
 });
 
 // Searches files and articles for filenames and titles similar to the keyword searched
-router.get("/search", async (req, res) => {
+router.get("/search", rejectUnauthenticated, async (req, res) => {
   const { keyword } = req.query;
   console.log("Searching for Keyword", keyword);
 
@@ -92,7 +95,7 @@ router.get("/search", async (req, res) => {
 });
 
 // Get all files
-router.get("/allFiles", (req, res) => {
+router.get("/allFiles", rejectUnauthenticated, (req, res) => {
   const queryText = 'SELECT * FROM files ORDER BY "filename" ASC;';
   pool
     .query(queryText)
@@ -104,7 +107,7 @@ router.get("/allFiles", (req, res) => {
 });
 
 // Get specific file
-router.get("/allFiles/:id", (req, res) => {
+router.get("/allFiles/:id", rejectUnauthenticated, (req, res) => {
   const queryText =
     'SELECT * FROM files WHERE "id" = $1 ORDER BY "filename" ASC;';
   const params = [req.params.id];
@@ -118,7 +121,7 @@ router.get("/allFiles/:id", (req, res) => {
 });
 
 // Get all filenames associated with a specific article
-router.get("/associatedFiles/:id", (req, res) => {
+router.get("/associatedFiles/:id", rejectUnauthenticated, (req, res) => {
   const queryText = `
     SELECT 
     files.filename AS filename
@@ -141,7 +144,7 @@ router.get("/associatedFiles/:id", (req, res) => {
 });
 
 // Delete a specific file
-router.delete("/:id", (req, res) => {
+router.delete("/:id", rejectUnauthenticated, (req, res) => {
   const fileId = req.params.id;
 
   pool

@@ -43,7 +43,7 @@ router.get("/allApproved", rejectUnauthenticated, (req, res) => {
 });
 
 // set approved to true for the selected user
-router.put("/:id", (req, res) => {
+router.put("/:id", rejectUnauthenticated, (req, res) => {
   const userId = req.params.id;
   console.log('req.body', req.body)
   const email = req.body.email
@@ -68,7 +68,7 @@ router.put("/:id", (req, res) => {
 });
 
 // toggles user role between user (1) and admin (2)
-router.put("/privileges/:id", (req, res) => {
+router.put("/privileges/:id", rejectUnauthenticated, (req, res) => {
   const userId = req.params.id;
 
   // SQL query for the toggle
@@ -95,7 +95,7 @@ router.put("/privileges/:id", (req, res) => {
 });
 
 // remove the selected user
-router.delete("/:id", (req, res) => {
+router.delete("/:id", rejectUnauthenticated, (req, res) => {
   const userId = req.params.id;
   const queryText = `
     DELETE FROM "user"
