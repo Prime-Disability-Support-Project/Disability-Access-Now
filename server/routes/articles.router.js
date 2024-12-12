@@ -17,10 +17,10 @@ router.get("/", (req, res) => {
     });
 });
 
-// GET article with title LIKE FAQ
+// GET article with title ILIKE FAQ
 router.get("/faq", (req, res) => {
   const queryText = `SELECT * FROM articles WHERE "title" ILIKE $1`;
-  const params = ['%FAQ%'];
+  const params = ["%FAQ%"];
 
   pool
     .query(queryText, params)
@@ -37,10 +37,10 @@ router.get("/faq", (req, res) => {
     });
 });
 
-// GET article with title LIKE Eligibility Criteria
+// GET article with title ILIKE Eligibility Criteria
 router.get("/eligible", (req, res) => {
   const queryText = `SELECT * FROM articles WHERE "title" ILIKE $1`;
-  const params = ['%Eligibility Criteria%'];
+  const params = ["%Eligibility Criteria%"];
 
   pool
     .query(queryText, params)
@@ -60,7 +60,7 @@ router.get("/eligible", (req, res) => {
 // GET article with title LIKE Forms You Should Start With
 router.get("/forms", (req, res) => {
   const queryText = `SELECT * FROM articles WHERE "title" ILIKE $1`;
-  const params = ['%Forms You Should Start With%'];
+  const params = ["%Forms You Should Start With%"];
 
   pool
     .query(queryText, params)
@@ -97,7 +97,6 @@ router.get("/:articleId", (req, res) => {
       res.sendStatus(500);
     });
 });
-
 
 // POST New Article (Also Update Junction Table if Files are Provided)
 router.post("/", (req, res) => {

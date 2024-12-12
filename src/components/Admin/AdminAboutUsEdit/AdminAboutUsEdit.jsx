@@ -1,6 +1,5 @@
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
 import { Box, Button, Typography, TextField } from "@mui/material";
 import axios from "axios";
@@ -9,7 +8,6 @@ import remarkGfm from "remark-gfm";
 
 export default function AdminAboutUsEdit() {
   const history = useHistory();
-  const dispatch = useDispatch();
 
   const [aboutUs, setAboutUs] = useState();
   const [title, setTitle] = useState();
@@ -63,7 +61,7 @@ export default function AdminAboutUsEdit() {
     };
     axios
       .put("/api/about", data)
-      .then((response) => {
+      .then(() => {
         history.push("/adminManageResources");
       })
       .catch((error) => {

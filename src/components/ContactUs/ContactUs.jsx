@@ -9,6 +9,7 @@ import "./ContactUs.css";
 function Contact() {
   const [pending, setPending] = useState();
 
+  // Fetches the contact email in the pending table to reuse
   useEffect(() => {
     axios
       .get("/api/pending")

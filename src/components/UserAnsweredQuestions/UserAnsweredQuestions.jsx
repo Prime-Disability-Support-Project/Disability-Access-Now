@@ -22,7 +22,12 @@ export default function UserAnsweredQuestions() {
 
   return (
     <Box sx={{ padding: 4 }}>
-      <Typography variant="h4" component="h1" sx={{ fontWeight: "bold" }} gutterBottom>
+      <Typography
+        variant="h4"
+        component="h1"
+        sx={{ fontWeight: "bold" }}
+        gutterBottom
+      >
         Answered Questions
       </Typography>
       {answeredQuestions.length === 0 ? (
@@ -51,7 +56,8 @@ export default function UserAnsweredQuestions() {
                     <strong>Answer:</strong> {question.answer}
                   </Typography>
                   <Typography variant="body1" sx={{ marginBottom: 1 }}>
-                    <strong>Date Submitted:</strong> {question.question_date.split("T")[0]}
+                    <strong>Date Submitted:</strong>{" "}
+                    {question.question_date.split("T")[0]}
                   </Typography>
                   <Typography variant="body1" sx={{ marginBottom: 2 }}>
                     <strong>Associated Article:</strong>{" "}

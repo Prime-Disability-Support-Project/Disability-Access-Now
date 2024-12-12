@@ -43,7 +43,7 @@ export default function Article() {
     dispatch({ type: "REMOVE_SAVED_ARTICLE", payload: articleId });
   };
 
-  const scrollToTop = (e) => {
+  const scrollToTop = () => {
     document.getElementById("content").focus();
     window.scrollTo({
       top: 0,
@@ -53,6 +53,7 @@ export default function Article() {
   };
 
   useEffect(() => {
+    // URL contains the articleId (e.g. /articlePage/3)
     const url = window.location.href;
     const articleId = url.split("/").pop();
     dispatch({
@@ -116,7 +117,7 @@ export default function Article() {
           </Button>
         )}
       </Box>
-      {/* Pop-up for asking a question */}
+      {/* Modal for asking a question */}
       {showPopup && (
         <AskQuestion articleId={specificArticle.id} close={close} />
       )}

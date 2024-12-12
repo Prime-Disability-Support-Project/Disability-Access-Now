@@ -62,28 +62,6 @@ router.get("/download/:filename", async (req, res) => {
   }
 });
 
-// router.get("/search", async (req, res) => {
-//   const { keyword } = req.query;
-//   console.log("Searching for Keyword", keyword);
-
-//   const client = await pool.connect();
-
-//   try {
-//     const result = await client.query(
-//       `SELECT id, filename FROM files WHERE filename ILIKE $1`,
-//       [`%${keyword}%`]
-//     );
-
-//     console.log(`Search Result Rows: ${JSON.stringify(result.rows)}`);
-//     res.status(200).json(result.rows);
-//   } catch (error) {
-//     console.error(error);
-//     res.sendStatus(500);
-//   } finally {
-//     client.release();
-//   }
-// });
-
 // Searches files and articles for filenames and titles similar to the keyword searched
 router.get("/search", async (req, res) => {
   const { keyword } = req.query;

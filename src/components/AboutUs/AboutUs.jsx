@@ -14,7 +14,6 @@ export default function AboutUs() {
       .get("/api/about")
       .then((response) => {
         const aboutResponse = response.data;
-        console.log(aboutResponse);
         setAboutUs(aboutResponse[0]);
       })
       .catch((error) => {
@@ -24,6 +23,7 @@ export default function AboutUs() {
       .get("/api/about/bios")
       .then((response) => {
         const bios = response.data;
+        // Splits bios by type (Rozalyn or student)
         const studentResponse = bios.filter((bio) => bio.type === 2);
         const founderResponse = bios.filter((bio) => bio.type === 1);
         setStudentBios(studentResponse);

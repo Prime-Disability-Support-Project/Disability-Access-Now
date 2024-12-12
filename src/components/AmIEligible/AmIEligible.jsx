@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Markdown from "react-markdown";
-import remarkGfm from 'remark-gfm'
+import remarkGfm from "remark-gfm";
 
-
-
+// Pulls an article with title ILIKE "Eligibility Criteria"
 const AmIEligible = () => {
   const [articleBody, setArticleBody] = useState([]);
 

@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
-import Button from '@mui/material/Button';
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import Button from "@mui/material/Button";
 
 function RegisterForm() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const errors = useSelector((store) => store.errors);
   const dispatch = useDispatch();
   const history = useHistory();
@@ -15,15 +15,15 @@ function RegisterForm() {
     event.preventDefault();
 
     dispatch({
-      type: 'REGISTER',
+      type: "REGISTER",
       payload: {
         name: name,
         email: email,
-        password: password
+        password: password,
       },
     });
-    history.push('/pending')
-  }; // end registerUser
+    history.push("/pending");
+  };
 
   return (
     <form className="formPanel" onSubmit={registerUser}>
@@ -70,8 +70,14 @@ function RegisterForm() {
         </label>
       </div>
       <div>
-      <Button variant="contained" type="submit" name="submit" value="Register">Register</Button>
-        {/* <input className="btn" type="submit" name="submit" value="Register" /> */}
+        <Button
+          variant="contained"
+          type="submit"
+          name="submit"
+          value="Register"
+        >
+          Register
+        </Button>
       </div>
     </form>
   );

@@ -6,7 +6,6 @@ import "./home.css";
 import { Container, Grid, Paper, Typography, Button } from "@mui/material";
 
 export default function Home() {
-  const [home, setHome] = useState({});
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [linkHeader, setLinkHeader] = useState("");
@@ -16,7 +15,6 @@ export default function Home() {
       .get("/api/home")
       .then((response) => {
         const homeResponse = response.data[0];
-        setHome(homeResponse);
         setTitle(homeResponse.title);
         setBody(homeResponse.body);
         setLinkHeader(homeResponse.linkHeader);
@@ -40,7 +38,12 @@ export default function Home() {
                 boxShadow: 2,
               }}
             >
-              <Typography variant="h3" component={"h1"} gutterBottom fontWeight={"bold"}>
+              <Typography
+                variant="h3"
+                component={"h1"}
+                gutterBottom
+                fontWeight={"bold"}
+              >
                 {title}
               </Typography>
               <Typography variant="body1">{body}</Typography>
@@ -56,7 +59,12 @@ export default function Home() {
                 boxShadow: 2,
               }}
             >
-              <Typography variant="h4" component={"h2"} gutterBottom fontWeight={"bold"}>
+              <Typography
+                variant="h4"
+                component={"h2"}
+                gutterBottom
+                fontWeight={"bold"}
+              >
                 {linkHeader}
               </Typography>
               <Button

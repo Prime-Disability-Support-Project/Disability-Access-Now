@@ -20,7 +20,7 @@ router.get("/", (req, res) => {
 // PUT Home Content
 router.put("/:id", (req, res) => {
   const { title, body, linkHeader } = req.body;
-  const id = req.params.id
+  const id = req.params.id;
   const queryText = `UPDATE "home" SET "title" = $1, "body" = $2, "linkHeader" = $3 WHERE "id" = $4`;
   const params = [title, body, linkHeader, id];
 
@@ -34,6 +34,5 @@ router.put("/:id", (req, res) => {
       res.sendStatus(500);
     });
 });
-
 
 module.exports = router;

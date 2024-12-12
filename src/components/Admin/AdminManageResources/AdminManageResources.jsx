@@ -12,7 +12,6 @@ import {
 import UploadPDF from "../../Blob/UploadPDF";
 import Swal from "sweetalert2";
 
-
 export default function AdminManageResources() {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -33,43 +32,34 @@ export default function AdminManageResources() {
 
   const handleDelete = (articleId) => {
     Swal.fire({
-        title: 'Are you sure?',
-        text: "Once deleted, you won't be able to recover this article!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#d33',
-        cancelButtonColor: '#3085d6',
-        confirmButtonText: 'Yes, delete it!',
+      title: "Are you sure?",
+      text: "Once deleted, you won't be able to recover this article!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
         dispatch({ type: "REMOVE_ARTICLE", payload: articleId });
-        Swal.fire(
-          'Deleted!',
-          'The article has been deleted.',
-          'success'
-        );
+        Swal.fire("Deleted!", "The article has been deleted.", "success");
       }
     });
-  }
-
+  };
 
   const handleDeleteFile = (fileId) => {
     Swal.fire({
-      title: 'Are you sure?',
+      title: "Are you sure?",
       text: "Once deleted, you won't be able to recover this file!",
-      icon: 'warning',
+      icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: '#d33',
-      cancelButtonColor: '#3085d6',
-      confirmButtonText: 'Yes, delete it!',
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
         dispatch({ type: "REMOVE_FILE", payload: fileId });
-        Swal.fire(
-          'Deleted!',
-          'The file has been deleted.',
-          'success'
-        );
+        Swal.fire("Deleted!", "The file has been deleted.", "success");
       }
     });
   };

@@ -8,6 +8,7 @@ import "../AskAQuestionPage/AskAQuestionPage.css";
 import "../AskAQuestion/AskAQuestion.css";
 
 export default function AskAQuestionPage() {
+  // Handles conditional to show unanswered or answered question component
   const [view, setView] = useState("unanswered");
   const [showPopup, setShowPopup] = useState(false);
 

@@ -16,7 +16,7 @@ export default function AdminPendingEdit() {
     window.scrollTo({
       top: 0,
       left: 0,
-      behavior: 'smooth',
+      behavior: "smooth",
     });
   }, [location.pathname]);
 
@@ -42,6 +42,7 @@ export default function AdminPendingEdit() {
     setBody(event.target.value);
   };
 
+  // Used in PendingApproval and ContactUs
   const handleEmail = (event) => {
     setEmail(event.target.value);
   };
@@ -51,7 +52,7 @@ export default function AdminPendingEdit() {
     const data = { body: body, email: email, id: pending.id };
     axios
       .put(`/api/pending/${pending.id}`, data)
-      .then((response) => {
+      .then(() => {
         history.push("/adminManageResources");
       })
       .catch((error) => {
@@ -60,7 +61,12 @@ export default function AdminPendingEdit() {
   };
 
   return (
-    <Box component={"main"} id="content" tabIndex="-1" sx={{ display: "flex", flexDirection: "column", gap: 4, p: 4 }}>
+    <Box
+      component={"main"}
+      id="content"
+      tabIndex="-1"
+      sx={{ display: "flex", flexDirection: "column", gap: 4, p: 4 }}
+    >
       <Box sx={{ display: "flex", gap: 4 }}>
         <Box sx={{ flex: 1 }}>
           <Typography variant="h4" component={"h1"} gutterBottom>
@@ -68,11 +74,7 @@ export default function AdminPendingEdit() {
           </Typography>
           <form>
             <Box sx={{ display: "flex", gap: 2, mb: 3 }}>
-              <Button
-                type="submit"
-                onClick={handleSave}
-                variant="contained"
-              >
+              <Button type="submit" onClick={handleSave} variant="contained">
                 Save Changes
               </Button>
               <Button

@@ -20,7 +20,7 @@ router.get("/", (req, res) => {
 // PUT Pending Content
 router.put("/:id", (req, res) => {
   const { body, email } = req.body;
-  const id = req.params.id
+  const id = req.params.id;
   const queryText = `UPDATE "pending" SET "body" = $1, "email" = $2 WHERE "id" = $3`;
   const params = [body, email, id];
 
@@ -34,6 +34,5 @@ router.put("/:id", (req, res) => {
       res.sendStatus(500);
     });
 });
-
 
 module.exports = router;

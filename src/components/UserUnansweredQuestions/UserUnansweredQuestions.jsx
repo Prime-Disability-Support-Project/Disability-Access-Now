@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Box, Button, Card, CardContent, Typography } from "@mui/material";
+import { Box, Card, CardContent, Typography } from "@mui/material";
 
 export default function UserUnansweredQuestions() {
   const dispatch = useDispatch();
@@ -11,14 +11,6 @@ export default function UserUnansweredQuestions() {
   useEffect(() => {
     dispatch({ type: "FETCH_USER_UNANSWERED" });
   }, [dispatch]);
-
-  const handleRead = (questionId) => {
-    const data = { questionId: questionId };
-    // Assuming a backend endpoint for marking as unread or read
-    axios.put("/api/questions/user-unread", data).then(() => {
-      dispatch({ type: "FETCH_USER_UNANSWERED" });
-    });
-  };
 
   return (
     <Box sx={{ padding: 4 }}>
@@ -52,7 +44,8 @@ export default function UserUnansweredQuestions() {
                     <strong>Question:</strong> {question.question}
                   </Typography>
                   <Typography variant="body1" sx={{ marginBottom: 1 }}>
-                    <strong>Date Submitted:</strong> {question.question_date.split("T")[0]}
+                    <strong>Date Submitted:</strong>{" "}
+                    {question.question_date.split("T")[0]}
                   </Typography>
                   <Typography variant="body1" sx={{ marginBottom: 2 }}>
                     <strong>Associated Article:</strong>{" "}

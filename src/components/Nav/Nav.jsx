@@ -19,12 +19,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import Divider from "@mui/material/Divider";
-import AccountCircle from "@mui/icons-material/AccountCircle";
 import MailIcon from "@mui/icons-material/Mail";
-import NotificationsIcon from "@mui/icons-material/Notifications";
-import MoreIcon from "@mui/icons-material/MoreVert";
-import MenuIcon from "@mui/icons-material/Menu";
-import Popover from "@mui/material/Popover";
 
 // search mui imports
 const Search = styled("div")(({ theme }) => ({
@@ -67,7 +62,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 function Nav() {
-  const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
   const [unreadAnswers, setUnreadAnswers] = useState();
   const [unreadQuestions, setUnreadQuestions] = useState();
@@ -76,7 +70,6 @@ function Nav() {
   const [dropDownMenu, setDropDownMenu] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const dropDownRef = useRef(null);
-  const location = useLocation();
 
   const handleDropdownOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -84,33 +77,6 @@ function Nav() {
 
   const handleDropdownClose = () => {
     setAnchorEl(null);
-  };
-
-  const handleKeyboard = (event) => {
-    if (event.key === "Enter" || event.key === " ") {
-      event.preventDefault();
-      setDropDownMenu(!dropDownMenu);
-    } else if (event.key === "Escape") {
-      setDropDownMenu(false);
-    }
-  };
-
-  const handleMouseEnter = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleMouseLeave = () => {
-    setAnchorEl(null);
-  };
-
-  const handleFocus = () => {
-    setDropDownMenu(true);
-  };
-
-  const handleBlur = (event) => {
-    if (!dropDownRef.current.contains(event.relatedTarget)) {
-      dropDownMenu(false);
-    }
   };
 
   useEffect(() => {
@@ -175,6 +141,7 @@ function Nav() {
       >
         Skip to main content
       </a>
+      {/* Header */}
       <AppBar
         className="header-style"
         position="static"
@@ -230,6 +197,7 @@ function Nav() {
               />
             </Search>
           )}
+          {/* If they are an admin(2) show unread questions, if user(1) show unread answers */}
           {user.id && user.role === 1 && unreadAnswers > 0 && (
             <Box sx={{ display: { xs: "none", md: "flex" } }}>
               <IconButton
