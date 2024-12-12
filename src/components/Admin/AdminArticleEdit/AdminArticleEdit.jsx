@@ -43,6 +43,7 @@ export default function AdminArticleEdit() {
   }, [location.pathname]);
 
   useEffect(() => {
+    // Use the url to get the specific articleId
     const url = window.location.href;
     const articleId = url.split("/").pop();
     dispatch({

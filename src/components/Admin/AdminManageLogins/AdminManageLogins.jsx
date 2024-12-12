@@ -1,8 +1,14 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Box, Grid, Card, CardContent, Typography, Button } from "@mui/material";
+import {
+  Box,
+  Grid,
+  Card,
+  CardContent,
+  Typography,
+  Button,
+} from "@mui/material";
 import Swal from "sweetalert2";
-
 
 export default function AdminManageLogins() {
   const dispatch = useDispatch();
@@ -22,39 +28,46 @@ export default function AdminManageLogins() {
     dispatch({ type: "APPROVE_LOGIN", payload: data });
   };
 
+  // Toggles access privileges (admin/user)
   const handleAdmin = (userId) => {
     dispatch({ type: "ADMIN_TOGGLE", payload: userId });
   };
 
   const handleRemove = (userId) => {
     Swal.fire({
-      title: 'Are you sure you want to remove this user?',
-      text: '',
-      icon: 'warning',
+      title: "Are you sure you want to remove this user?",
+      text: "",
+      icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: '#d33',
-      cancelButtonColor: '#3085d6',
-      confirmButtonText: 'Yes!',
-  }).then((result) => {
-    if (result.isConfirmed) {
-      dispatch({ type: "REMOVE_USER", payload: userId });
-      Swal.fire(
-        'Removed!',
-        'The user has been removed.',
-        'success'
-      );
-    }
-  });
-}
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch({ type: "REMOVE_USER", payload: userId });
+        Swal.fire("Removed!", "The user has been removed.", "success");
+      }
+    });
+  };
 
   return (
     <Box component={"main"} id="content" tabIndex="-1" sx={{ padding: 4 }}>
-      <Typography component="h1" variant="h4" gutterBottom sx={{ fontWeight: 'bold' }}>
+      <Typography
+        component="h1"
+        variant="h4"
+        gutterBottom
+        sx={{ fontWeight: "bold" }}
+      >
         Manage Logins
       </Typography>
       <Grid container spacing={4}>
         <Grid item xs={12} md={6}>
-          <Typography component="h2" variant="h5" gutterBottom sx={{ fontWeight: 'bold' }}>
+          <Typography
+            component="h2"
+            variant="h5"
+            gutterBottom
+            sx={{ fontWeight: "bold" }}
+          >
             Pending Logins
           </Typography>
           {allPendingUsers.map((user) => (
@@ -87,7 +100,12 @@ export default function AdminManageLogins() {
           ))}
         </Grid>
         <Grid item xs={12} md={6}>
-          <Typography component="h2" variant="h5" gutterBottom sx={{ fontWeight: 'bold' }}>
+          <Typography
+            component="h2"
+            variant="h5"
+            gutterBottom
+            sx={{ fontWeight: "bold" }}
+          >
             Approved Logins
           </Typography>
           {allApprovedUsers.map((user) => (

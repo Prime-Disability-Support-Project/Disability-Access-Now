@@ -1,4 +1,3 @@
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Divider from "@mui/material/Divider";
@@ -9,7 +8,6 @@ import Button from "@mui/material/Button";
 
 export default function FilesList() {
   const dispatch = useDispatch();
-  const history = useHistory();
   const allFiles = useSelector((store) => store.files.allFiles);
   const savedFiles = useSelector((store) => store.saved.savedFiles);
 

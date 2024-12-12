@@ -7,6 +7,8 @@ import AdminAnswerInput from "../Admin/AdminAnswerInput/AdminAnswerInput";
 
 export default function AdminQuestions() {
   const [selectedQuestion, setSelectedQuestion] = useState(null);
+  
+  // Handles conditional to show unanswered or answered question component
   const [view, setView] = useState("unanswered");
   const dispatch = useDispatch();
 
@@ -26,7 +28,7 @@ export default function AdminQuestions() {
   };
 
   const handleSubmitAnswer = () => {
-    //refresh questions after submitting
+    // Refresh questions after submitting
     setSelectedQuestion(null);
   };
 

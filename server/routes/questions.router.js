@@ -63,7 +63,6 @@ Disability Access Now Support Team`, // Plain text body
 
 // Email confirmation when they ask a question
 function sendNewUserNotification(question, email) {
-
   const mailOptions = {
     from: `"Disability Access Now Support Team" <${process.env.GMAIL_USER}>`, // Sender address
     to: email, // user email
@@ -100,12 +99,11 @@ Disability Access Now Support Team`, // Plain text body
 
 // Email notification function to user when a new answer is posted
 function sendUserNotification(question, email) {
-
-        const mailOptions = {
-          from: `"Disability Access Now Support Team" <${process.env.GMAIL_USER}>`, // Sender address
-          to: email, // user email
-          subject: "Disability Access Now - New Admin Answer", // Subject line
-          text: `Hello,
+  const mailOptions = {
+    from: `"Disability Access Now Support Team" <${process.env.GMAIL_USER}>`, // Sender address
+    to: email, // user email
+    subject: "Disability Access Now - New Admin Answer", // Subject line
+    text: `Hello,
 
 A new answer has been posted for one of your questions:
 
@@ -114,25 +112,23 @@ Answer: ${question.answer}
 
 Thank you,
 Disability Access Now Support Team`, // Plain text body
-          html: `<p>Hello,</p>
+    html: `<p>Hello,</p>
                  <p>A new response has been posted for one of your questions:</p>
                  <p><strong>Question:</strong> ${question.question}</p>
                  <p><strong>Answer:</strong> ${question.answer}</p>
                  <p>Thank you,<br>Disability Access Now Support Team</p>`, // HTML body
-        };
+  };
 
-        // Send email to the admins
-        transporter
-          .sendMail(mailOptions)
-          .then((info) => {
-            console.log("Email sent: " + info.response);
-          })
-          .catch((error) => {
-            console.error("Error sending email:", error);
-          });
+  // Send email to the admins
+  transporter
+    .sendMail(mailOptions)
+    .then((info) => {
+      console.log("Email sent: " + info.response);
+    })
+    .catch((error) => {
+      console.error("Error sending email:", error);
+    });
 }
-
-
 
 // Get all unanswered questions for the specific user - ordered by date
 router.get("/user-unanswered-questions", (req, res) => {
@@ -229,7 +225,7 @@ router.post("/new-question-without-article", async (req, res) => {
   // flagged = false
   const userId = req.user.id;
   const username = req.user.name;
-  const email = req.user.email
+  const email = req.user.email;
 
   try {
     const insertQuery = `INSERT INTO questions ("question", "answer", "answered", "unread", "associated_article_url", "question_date", "flagged", "user_id") 
@@ -246,27 +242,23 @@ router.post("/new-question-without-article", async (req, res) => {
     ];
     const result = await pool.query(insertQuery, insertParams);
 
-    const newQuestion = result.rows[0]; // This will now have the inserted question
-    console.log("New question added:", newQuestion);
-    const newQuestionText = newQuestion.question
-
     // Send email notification to admins about the new question
-    sendAdminNotification(newQuestionText, username);
-    sendNewUserNotification(newQuestionText, email)
+    sendAdminNotification(question, username);
+    sendNewUserNotification(question, email);
 
-    res.sendStatus(201); // Created
+    res.sendStatus(201); 
   } catch (error) {
     console.log(
       "Error making POST for new user question without an associated article:",
       error
     );
-    res.sendStatus(500); // Internal server error
+    res.sendStatus(500); 
   }
 });
 
 // POST a new question with an associated article
 router.post("/new-question-with-article", async (req, res) => {
-  console.log('req.body', req.body)
+  console.log("req.body", req.body);
   const question = req.body.question;
   // answer = null
   // answered = false
@@ -277,8 +269,7 @@ router.post("/new-question-with-article", async (req, res) => {
 
   const userId = req.user.id;
   const username = req.user.name;
-  const email = req.user.email
-
+  const email = req.user.email;
 
   try {
     const insertQuery = `INSERT INTO questions ("question", "answer", "answered", "unread", "associated_article_url", "question_date", "flagged", "user_id") 
@@ -295,11 +286,10 @@ router.post("/new-question-with-article", async (req, res) => {
     ];
     const result = await pool.query(insertQuery, insertParams);
 
-    const newQuestion = result.rows[0];
-
     // Send email notification to admins about the new question
     sendAdminNotification(question, username);
-    sendNewUserNotification(question, email)
+    // Send email notification to user
+    sendNewUserNotification(question, email);
 
     res.sendStatus(201); // Created
   } catch (error) {
@@ -366,7 +356,7 @@ router.put("/flag", (req, res) => {
 
   const params = [questionId];
 
-  console.log(questionId)
+  console.log(questionId);
 
   const queryText = `
     UPDATE "questions"
@@ -433,12 +423,12 @@ router.put("/admin-answer", (req, res) => {
     question: req.body.question,
     answer: req.body.answer,
     questionId: req.body.questionId,
-    email: req.body.email
+    email: req.body.email,
   };
   // answered = true
   // unread = true
 
-  const email = question.email
+  const email = question.email;
 
   const params = [question.answer, true, true, question.questionId];
 
@@ -448,6 +438,7 @@ router.put("/admin-answer", (req, res) => {
       "answer" = $1, "answered" = $2, "unread" = $3
       WHERE "id" = $4;`;
 
+  // Send email notification to user
   sendUserNotification(question, email);
 
   pool

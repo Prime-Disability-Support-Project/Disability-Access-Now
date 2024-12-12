@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { downloadFileHandler } from "../Blob/downloadFile";
 import {
@@ -12,9 +12,10 @@ import {
 import axios from "axios";
 
 
+// This, again, is a specific article named ILIKE "Forms You Should Start With"
+// This article has no body, just associated articles that are displayed here as "forms you should start with"
 export default function FormsYouShouldStartWith() {
   const dispatch = useDispatch();
-  const [article, setArticle] = useState([]);
 
   const associatedFiles = useSelector((store) => store.files.associatedFiles);
 
@@ -23,7 +24,6 @@ export default function FormsYouShouldStartWith() {
       .get("/api/articles/forms")
       .then((response) => {
         const articleData = response.data;
-        setArticle(response.data);
         dispatch({ type: "FETCH_ASSOCIATED_FILES", payload: articleData.id });
       })
       .catch((error) => {

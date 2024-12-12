@@ -31,24 +31,22 @@ export default function AdminAnsweredQuestions() {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        // Proceed with deletion if confirmed
         axios
           .delete(`/api/questions/${questionId}`)
           .then(() => {
-            // Refresh the list of answered questions after successful deletion
             dispatch({ type: "FETCH_ADMIN_ANSWERED" });
-  
-            // Show success alert
             Swal.fire("Deleted!", "The question has been deleted.", "success");
           })
           .catch((error) => {
-            // Show error alert if deletion fails
-            Swal.fire("Error!", "There was an issue deleting the question.", "error");
+            Swal.fire(
+              "Error!",
+              "There was an issue deleting the question.",
+              "error"
+            );
           });
       }
     });
   };
-  
 
   return (
     <Box sx={{ padding: 4 }}>
@@ -85,7 +83,8 @@ export default function AdminAnsweredQuestions() {
                     <strong>Answer:</strong> {question.answer}
                   </Typography>
                   <Typography variant="body1" sx={{ marginBottom: 1 }}>
-                    <strong>Date Submitted:</strong> {question.question_date.split("T")[0]}
+                    <strong>Date Submitted:</strong>{" "}
+                    {question.question_date.split("T")[0]}
                   </Typography>
                   <Typography variant="body1" sx={{ marginBottom: 2 }}>
                     <strong>Associated Article:</strong>{" "}

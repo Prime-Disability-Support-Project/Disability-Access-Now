@@ -9,8 +9,6 @@ import "./AskAQuestion.css";
 const AskQuestion = ({ articleId, close }) => {
   const [question, setQuestion] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [successMessage, setSuccessMessage] = useState("");
   const [url, setUrl] = useState();
   const dispatch = useDispatch();
 
@@ -26,10 +24,11 @@ const AskQuestion = ({ articleId, close }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setIsLoading(true);
+    // If there is an article sent through props, send the window.location.href as the associated article
     if (articleId) {
       try {
+        // 
         const associatedArticleUrl = `${url}`;
-        console.log(associatedArticleUrl);
         const response = await axios.post(
           "/api/questions/new-question-with-article",
           {
@@ -40,11 +39,9 @@ const AskQuestion = ({ articleId, close }) => {
         );
         dispatch({ type: "FETCH_USER_UNANSWERED" });
         setQuestion("");
-        setError(null);
-        setSuccessMessage("Your question has been submitted successfully!");
         close();
       } catch (err) {
-        setError("Error submitting your question. Please try again later.");
+        console.error(err)
       } finally {
         setIsLoading(false);
       }
@@ -60,11 +57,9 @@ const AskQuestion = ({ articleId, close }) => {
         );
         dispatch({ type: "FETCH_USER_UNANSWERED" });
         setQuestion("");
-        setError(null);
-        setSuccessMessage("Your question has been submitted successfully!");
         close();
       } catch (err) {
-        setError("Error submitting your question. Please try again later.");
+        console.error(err)
       } finally {
         setIsLoading(false);
       }
@@ -93,8 +88,13 @@ const AskQuestion = ({ articleId, close }) => {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box component="form" onSubmit={handleSubmit}  sx={{ ...style }}>
-          <Typography id="modal-modal-title" variant="h6" component="h1" sx={{fontWeight: "bold"}}>
+        <Box component="form" onSubmit={handleSubmit} sx={{ ...style }}>
+          <Typography
+            id="modal-modal-title"
+            variant="h6"
+            component="h1"
+            sx={{ fontWeight: "bold" }}
+          >
             Ask a Question!
           </Typography>
           <Typography
@@ -104,7 +104,7 @@ const AskQuestion = ({ articleId, close }) => {
           >
             <p>
               Ask a question to our admins and they will respond as soon as
-              possible. These questions and answers are private to you.{" "}
+              possible. These questions and answers are private to you.
             </p>
           </Typography>
           <TextField

@@ -7,7 +7,6 @@ import "./AdminAnswerInput.css";
 export default function AdminAnswerInput({
   question,
   onClose,
-  onSubmit,
   onAnswerQuestion,
 }) {
   const [answer, setAnswer] = useState("");
@@ -38,7 +37,7 @@ export default function AdminAnswerInput({
         question: question.question,
         email: user.email,
       };
-      axios.put("/api/questions/admin-answer", data).then((response) => {
+      axios.put("/api/questions/admin-answer", data).then(() => {
         dispatch({ type: "FETCH_ADMIN_UNANSWERED" });
         dispatch({ type: "FETCH_ADMIN_ANSWERED" });
         onClose();
@@ -49,7 +48,7 @@ export default function AdminAnswerInput({
   const handleFlag = () => {
     axios
       .put(`/api/questions/flag`, { questionId: question.id })
-      .then((response) => {
+      .then(() => {
         setFlagged(!flagged);
         console.log("flagged toggled");
       })
@@ -72,7 +71,6 @@ export default function AdminAnswerInput({
     maxWidth: "1200",
   };
 
-
   return (
     <div className="answer-popup">
       <Modal
@@ -94,7 +92,7 @@ export default function AdminAnswerInput({
               <strong>Name:</strong> {user?.name}
             </p>
             <p>
-              <strong>Date Submitted:</strong>{" "}
+              <strong>Date Submitted:</strong>
               {question.question_date.split("T")[0]}
             </p>
             <p>

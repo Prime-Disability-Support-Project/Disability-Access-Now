@@ -30,6 +30,8 @@ export default function AdminBiosEdit() {
       });
   }, []);
 
+  // Handles input for name, bio and link, keeps track of multiple bios
+  // Feeds the column name (name, bio, link), the bio and the value to set
   const handleInput = (id, column, value) => {
     setBios((oldBios) =>
       oldBios.map((bio) => (bio.id === id ? { ...bio, [column]: value } : bio))

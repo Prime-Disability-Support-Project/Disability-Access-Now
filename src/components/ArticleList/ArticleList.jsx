@@ -26,6 +26,7 @@ export default function ArticleList() {
   return (
     <ul aria-label="List of Articles">
       {allArticles.map((article) => {
+        {/* Don't show these two articles in the article list, they are meant for specific links */}
         if (
           article.title !== "FAQs" &&
           article.title !== "Forms You Should Start With"

@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Button from "@mui/material/Button";
-import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
@@ -50,7 +49,7 @@ export default function AdminUnansweredQuestions({ onAnswerQuestion }) {
                   backgroundColor: question.unread && "rgba(18, 87, 155, 0.08)",
                   transition: "box-shadow 0.3s ease-in-out",
                   "&:hover": {
-                    boxShadow: 3, 
+                    boxShadow: 3,
                   },
                 }}
               >
@@ -64,7 +63,8 @@ export default function AdminUnansweredQuestions({ onAnswerQuestion }) {
                     <strong>Question:</strong> {question.question}
                   </Typography>
                   <Typography variant="body1" sx={{ marginBottom: 1 }}>
-                    <strong>Date Submitted:</strong> {question.question_date.split("T")[0]}
+                    <strong>Date Submitted:</strong>{" "}
+                    {question.question_date.split("T")[0]}
                   </Typography>
                   <Typography variant="body1" sx={{ marginBottom: 2 }}>
                     <strong>Associated Article:</strong>{" "}

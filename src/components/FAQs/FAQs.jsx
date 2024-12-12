@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Markdown from "react-markdown";
 
-
+// Pulls an article with title ILIKE "FAQs"
 const FAQ = () => {
   const [faq, setFaq] = useState([]);
 

@@ -21,9 +21,7 @@ const SearchResults = () => {
   useEffect(() => {
     const fetchSearchResults = async () => {
       try {
-        const response = await fetch(
-          `/api/files/search?keyword=${query}`
-        );
+        const response = await fetch(`/api/files/search?keyword=${query}`);
         if (response.ok) {
           const results = await response.json();
           // searches both files and articles tables
@@ -86,11 +84,7 @@ const SearchResults = () => {
               >
                 <ListItemText
                   primary={
-                    <Link
-                    to={`/articlePage/${result.id}`}
-                    >
-                      {result.name}
-                    </Link>
+                    <Link to={`/articlePage/${result.id}`}>{result.name}</Link>
                   }
                 />
               </ListItem>
