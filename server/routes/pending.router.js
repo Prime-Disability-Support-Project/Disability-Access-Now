@@ -6,7 +6,7 @@ const {
 } = require("../modules/authentication-middleware");
 
 // GET text content and email for Pending Approval page
-router.get("/", rejectUnauthenticated, (req, res) => {
+router.get("/", (req, res) => {
   const queryText = `SELECT * FROM "pending"`;
 
   pool
