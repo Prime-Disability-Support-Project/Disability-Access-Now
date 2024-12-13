@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import "./home.css";
+import "./Home.css";
 
 import { Container, Grid, Paper, Typography, Button } from "@mui/material";
 
